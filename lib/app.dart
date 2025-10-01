@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/utils/theme/theme.dart';
+import 'package:ecommerce_app/features/auth/modules/onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -10,11 +11,8 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      home: const Scaffold(
-        body: Center(
-          child: Text('E-commerce App Home Page'),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      home: const OnboardingScreen(),
     );
   }
 }

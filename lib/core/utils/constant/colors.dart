@@ -35,7 +35,7 @@ class AppColors {
   static const Color cardBackgroundColor = Color(0xFFF7F5F1); // Theme Nightingale Gray 90
 
   // Button colors
-  static const Color buttonPrimary = primary;
+  static const Color buttonPrimary = dashboardAppbarBackground;
   static const Color buttonSecondary = secondary;
   static const Color buttonDisabled = disabledBackgroundLight;
 
