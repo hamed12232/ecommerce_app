@@ -8,9 +8,9 @@ import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_password_text_field.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/pages/sign_up_screen.dart';
-import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_divider_sign_in_methods.dart';
-import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_remeber_me_check_box.dart';
-import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_sign_in_methods_buttons.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_divider_sign_in_methods.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_remeber_me_check_box.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_sign_in_methods_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

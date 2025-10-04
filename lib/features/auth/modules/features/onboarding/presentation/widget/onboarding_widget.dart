@@ -1,6 +1,6 @@
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
-import 'package:ecommerce_app/features/auth/modules/onboarding/model/onboarding_model.dart';
+import 'package:ecommerce_app/features/auth/modules/features/onboarding/model/onboarding_model.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingPageWidget extends StatelessWidget {

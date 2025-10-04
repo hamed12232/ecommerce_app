@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/utils/theme/theme.dart';
-import 'package:ecommerce_app/features/auth/modules/onboarding/presentation/screen/onboarding_screen.dart';
+import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {

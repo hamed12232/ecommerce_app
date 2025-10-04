@@ -2,12 +2,14 @@ import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/style/spacing_style.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
+import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_password_text_field.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/widgets/agree_policy_checkbox.dart';
-import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_divider_sign_in_methods.dart';
-import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_sign_in_methods_buttons.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_divider_sign_in_methods.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_sign_in_methods_buttons.dart';
+import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -113,7 +115,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // Create Account button
               CustomButton(
                 text: 'Create Account',
-                onPressed: () {},
+                onPressed: () {
+                  AppHelperFunctions.navigateToScreen(context,VerifyEmailScreen(email: emailController.text));
+                },
                 fontSize: 16,
               ),
               const VerticalSpace(height: AppSizes.spaceBtwSections),

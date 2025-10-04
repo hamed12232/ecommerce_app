@@ -45,7 +45,8 @@ class AppImages {
   // -- Email Verification Images
   static const String deliveredEmailIllustration = "assets/images/animations/sammy-line-man-receives-a-mail.png";
   static String successfullyRegisterAnimation = "assets/images/animations/72462-check-register.json";
-
+  // forget password image
+  static const String forgetPasswordIllustration = "assets/images/animations/sammy-line-man-receives-a-mail.png";
   // -- Category Icons
   static const String sportIcon = "assets/icons/categories/icons8-bowling-64.png";
   static const String clothIcon = "assets/icons/categories/icons8-tailors-dummy-64.png";
