@@ -50,7 +50,10 @@ class CustomSmothPageIndicatorWithElevetedButton extends StatelessWidget {
                 );
               }
             },
-            child: Icon(Icons.arrow_forward_ios, color: AppColors.lightGrey),
+            child: const Icon(
+              Icons.arrow_forward_ios,
+              color: AppColors.lightGrey,
+            ),
           ),
         ],
       ),

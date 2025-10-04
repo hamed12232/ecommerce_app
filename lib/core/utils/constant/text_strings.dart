@@ -9,11 +9,11 @@ class AppTextStrings {
   static const String skip = "Skip";
   static const String done = "Done";
   static const String tNext = "Next";
-  static const String tLogin = "Login";
+  static const String tLogin = "Sign In";
   static const String email = "E-Mail";
   static const String submit = "Submit";
   static const String tEmail = "E-Mail";
-  static const String tSignup = "Signup";
+  static const String tSignup = "Create Account";
   static const String tLogout = "Logout";
   static const String appName = "T-Store";
   static const String ohSnap = "Oh Snap!";
@@ -24,6 +24,9 @@ class AppTextStrings {
   static const String tPassword = "Password";
   static const String tFullName = "Full Name";
   static const String tGetStarted = "Get Started";
+  static const String rememberMe = "Remember Me";
+  static const String orSignInWith = "Or Sign In with";
+
   static const String tForgetPassword = "Forget Password?";
   static const String homeAppbarSubTitle = "Coding With T";
   static const String tSignInWithGoogle = "Sign-In with Google";
@@ -62,7 +65,7 @@ class AppTextStrings {
 
   // -- Login Screen Text
   static const String tLoginTitle = "Welcome Back,";
-  static const String tLoginSubTitle = "Make it work, make it right, make it fast.";
+  static const String tLoginSubTitle = "Discover Limited Edition Products";
   static const String tRememberMe = "Remember Me?";
   static const String tDontHaveAnAccount = "Don't have an Account";
   static const String tEnterYour = "Enter your";

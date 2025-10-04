@@ -18,6 +18,11 @@ class AppImages {
   // -- SOCIAL Images
   static const String facebookLogo = "assets/logo/facebook-logo.png";
   static const String googleLogo = "assets/logo/google-logo.png";
+  
+  // -- Login Screen Images
+  static const String logoImagedark = "assets/logo/t-store-splash-logo-black.png";
+  static const String logoImageLight = "assets/logo/t-store-splash-logo-white.png";
+
 
   // -- Forget Password Images
   static const String forgetPasswordImage = "assets/images/forget_password/forget-password.png";

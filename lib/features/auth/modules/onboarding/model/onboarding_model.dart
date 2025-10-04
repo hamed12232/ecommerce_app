@@ -3,7 +3,7 @@ class OnBoardingModel {
   final String title;
   final String subTitle;
 
-  OnBoardingModel({
+  const OnBoardingModel({
     required this.image,
     required this.title,
     required this.subTitle,
