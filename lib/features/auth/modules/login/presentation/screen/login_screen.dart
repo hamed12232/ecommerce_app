@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_password_text_field.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
+import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/pages/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_divider_sign_in_methods.dart';
 import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_remeber_me_check_box.dart';
 import 'package:ecommerce_app/features/auth/modules/login/presentation/widgets/custom_sign_in_methods_buttons.dart';
@@ -73,7 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const VerticalSpace(height: AppSizes.spaceBtwSections / 2),
               CustomButton(
                 text: AppTextStrings.tSignup,
-                onPressed: () {},
+                onPressed: () {
+                  AppHelperFunctions.navigateToScreen(context, const SignUpScreen());
+                },
                 buttonColor: Colors.transparent,
                 hasBorderColor: true,
               ),

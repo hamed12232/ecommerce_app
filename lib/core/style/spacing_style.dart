@@ -7,4 +7,11 @@ class SpacingStyle {
     right: AppSizes.defaultSpace,
     bottom: AppSizes.defaultSpace,
   );
+
+  static const EdgeInsets defaultPaddingWithTop = EdgeInsets.only(
+    left: AppSizes.defaultSpace,
+    right: AppSizes.defaultSpace,
+    bottom: AppSizes.defaultSpace,
+    top: AppSizes.appBarHeight,
+  );
 }

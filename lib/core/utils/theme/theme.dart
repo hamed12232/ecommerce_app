@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/theme/custom_themes/app_bar_theme.dart';
 import 'package:ecommerce_app/core/utils/theme/custom_themes/elevated_button_theme.dart';
 import 'package:ecommerce_app/core/utils/theme/custom_themes/outlined_button_theme.dart';
@@ -9,7 +10,7 @@ class AppTheme {
   AppTheme._();
   
   static ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: AppColors.lightBackground,
     brightness: Brightness.light,
     textTheme: AppTextTheme.lightTextTheme,
     appBarTheme: AppBarThemes.lighAppBarTheme,
@@ -19,6 +20,7 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
+    scaffoldBackgroundColor: AppColors.darkBackground,
     brightness: Brightness.dark,
     textTheme: AppTextTheme.darkTextTheme,
     appBarTheme: AppBarThemes.darkAppBarTheme,
