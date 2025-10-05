@@ -25,7 +25,7 @@ class SuccessScreen extends StatelessWidget {
               // Illustration
               Center(
                 child: Image.asset(
-                  AppImages.sucessImage2,
+                  AppImages.sucessImage,
                   height: height * 0.36,
                   fit: BoxFit.contain,
                 ),

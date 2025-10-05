@@ -116,7 +116,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               CustomButton(
                 text: 'Create Account',
                 onPressed: () {
-                  AppHelperFunctions.navigateToScreen(context,VerifyEmailScreen(email: emailController.text));
+                  AppHelperFunctions.navigateToScreen(context,VerifyEmailScreen(email: emailController.text,title: AppTextStrings.confirmEmail,
+                  
+                  subtitle: AppTextStrings.confirmEmailSubTitle,
+                  buttonTitle: AppTextStrings.tContinue,
+                  ));
                 },
                 fontSize: 16,
               ),

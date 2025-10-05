@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/style/spacing_style.dart';
+import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
@@ -10,7 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key, required this.email});
+  const VerifyEmailScreen({super.key, required this.email, required this.title, required this.subtitle, required this.buttonTitle});
+  final String title;
+  final String subtitle;
+  final String buttonTitle;
 
   final String email;
 
@@ -46,7 +50,7 @@ class VerifyEmailScreen extends StatelessWidget {
 
               // Title
               Text(
-                AppTextStrings.confirmEmail,
+                title,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displayLarge,
               ),
@@ -66,21 +70,20 @@ class VerifyEmailScreen extends StatelessWidget {
                   horizontal: AppSizes.defaultSpace,
                 ),
                 child: Text(
-                  AppTextStrings.confirmEmailSubTitle,
+                  subtitle,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.darkGrey),
                 ),
               ),
 
               const VerticalSpace(height: AppSizes.lg),
-
               // Continue button
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSizes.defaultSpace,
                 ),
                 child: CustomButton(
-                  text: AppTextStrings.tContinue,
+                  text: buttonTitle,
                   onPressed: () {
                     AppHelperFunctions.navigateToScreen(
                       context,
@@ -100,7 +103,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   },
                   child: Text(
                     AppTextStrings.resendEmail,
-                    style: Theme.of(context).textTheme.bodySmall,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.borderPrimary),
                   ),
                 ),
               ),

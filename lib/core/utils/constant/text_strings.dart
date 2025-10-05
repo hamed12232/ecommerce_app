@@ -75,6 +75,7 @@ class AppTextStrings {
   static const String tFacebook = "Facebook";
   static const String tPhoneNumber = "Phone Number";
   static const String tGoogle = "Google";
+  static const String tdone = "Done";
 
   // -- Sign Up Screen Text
   static const String tSignUpTitle = "Get On Board!";
@@ -100,6 +101,10 @@ class AppTextStrings {
 
   // -- Forget Password Via E-Mail - Text
   static const String tForgetMailSubTitle = "Enter your registered E-Mail to receive OTP";
+
+  // -- Reset Password - Text
+  static const String tResetPasswordTitle = "Password Reset Email Sent!";
+  static const String tResetPasswordSubTitle = "Your Account Sercurity is Our Top Priority, Check Your Email to Reset Your Password.";
 
   // -- OTP Screen - Text
   static const String tOtpTitle = "CO\nDE";

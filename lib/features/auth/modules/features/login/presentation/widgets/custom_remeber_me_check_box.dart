@@ -1,5 +1,7 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
+import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/features/auth/modules/features/forget_password/presentation/pages/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomRemeberMeCheckBox extends StatefulWidget {
@@ -32,7 +34,9 @@ class _CustomRemeberMeCheckBoxState extends State<CustomRemeberMeCheckBox> {
         ),
         const Spacer(),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            AppHelperFunctions.navigateToScreen(context, const ForgetPasswordScreen());
+          },
           child: Text(
             AppTextStrings.tForgetPassword,
             style: Theme.of(
