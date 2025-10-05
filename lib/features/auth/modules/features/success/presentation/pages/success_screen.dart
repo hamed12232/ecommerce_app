@@ -5,59 +5,41 @@ import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
-import 'package:ecommerce_app/features/auth/modules/features/success/presentation/pages/success_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 
-class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key, required this.email});
-
-  final String email;
+class SuccessScreen extends StatelessWidget {
+  const SuccessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = AppHelperFunctions.screenHeight(context);
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: SpacingStyle.defaultPadding,
+          padding: SpacingStyle.defaultPaddingWithTop,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Close icon (top-right)
-              Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  icon: const Icon(Iconsax.close_circle, size: AppSizes.iconLg),
-                ),
-              ),
+              const VerticalSpace(height: AppSizes.lg),
 
               // Illustration
               Center(
                 child: Image.asset(
-                  AppImages.forgetPasswordIllustration,
+                  AppImages.sucessImage2,
                   height: height * 0.36,
                   fit: BoxFit.contain,
                 ),
               ),
+
               const VerticalSpace(height: AppSizes.spaceBtwSections),
 
               // Title
               Text(
-                AppTextStrings.confirmEmail,
+                AppTextStrings.yourAccountCreatedTitle,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displayLarge,
               ),
-              const VerticalSpace(height: AppSizes.sm),
 
-              // Email shown
-              Text(
-                email,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
               const VerticalSpace(height: AppSizes.sm),
 
               // Subtitle
@@ -66,7 +48,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   horizontal: AppSizes.defaultSpace,
                 ),
                 child: Text(
-                  AppTextStrings.confirmEmailSubTitle,
+                  AppTextStrings.yourAccountCreatedSubTitle,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
@@ -82,26 +64,8 @@ class VerifyEmailScreen extends StatelessWidget {
                 child: CustomButton(
                   text: AppTextStrings.tContinue,
                   onPressed: () {
-                    AppHelperFunctions.navigateToScreen(
-                      context,
-                      const SuccessScreen(),
-                    );
+                    Navigator.of(context).popUntil((route) => route.isFirst);
                   },
-                ),
-              ),
-
-              const VerticalSpace(height: AppSizes.md),
-
-              // Resend email
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    // TODO: implement resend email
-                  },
-                  child: Text(
-                    AppTextStrings.resendEmail,
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
                 ),
               ),
 

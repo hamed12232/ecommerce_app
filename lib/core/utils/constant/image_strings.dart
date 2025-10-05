@@ -26,6 +26,9 @@ class AppImages {
 
   // -- Forget Password Images
   static const String forgetPasswordImage = "assets/images/forget_password/forget-password.png";
+  //sucess email image
+  static const String sucessImage = "assets/images/forget_password/sucess_email.png";
+  static const String sucessImage2 = "assets/images/forget_password/images-removebg-preview.png";
 
   // -- Dashboard Images
   static const String userProfileImage = "assets/images/dashboard/dash-person.png";
@@ -34,7 +37,6 @@ class AppImages {
   static const String bannerImage2 = "assets/images/dashboard/dash-02.png";
   static const String topCourseImage1 = "assets/images/dashboard/dash-03.png";
   static const String topCourseImage2 = "assets/images/dashboard/dash-04.png";
-
   // -- Profile Images
   static const String tProfileImage = "assets/images/profile/profile-pic.png";
 
