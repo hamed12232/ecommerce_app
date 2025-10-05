@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -14,31 +15,29 @@ class NavigationMenu extends StatefulWidget {
 class _NavigationMenuState extends State<NavigationMenu> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    const Center(child: Text('Home')),
+    const HomeScreen(),
     const Center(child: Text('Shop')),
     const Center(child: Text('Heart')),
     const Center(child: Text('User')),
   ];
-    final items = [
-      {'icon': Iconsax.home_1, 'label': 'Home'},
-      {'icon': Iconsax.shop, 'label': 'Store'},
-      {'icon': Iconsax.heart, 'label': 'Wishlist'},
-      {'icon': Iconsax.user, 'label': 'Profile'},
-    ];
+  final items = [
+    {'icon': Iconsax.home_1, 'label': 'Home'},
+    {'icon': Iconsax.shop, 'label': 'Store'},
+    {'icon': Iconsax.heart, 'label': 'Wishlist'},
+    {'icon': Iconsax.user, 'label': 'Profile'},
+  ];
   @override
   Widget build(BuildContext context) {
-        final screenWidth = AppHelperFunctions.screenWidth(context);
-      final itemWidth = screenWidth / items.length;
+    final screenWidth = AppHelperFunctions.screenWidth(context);
+    final itemWidth = screenWidth / items.length;
 
     return Scaffold(
       body: IndexedStack(index: _selectedIndex, children: _pages),
-      bottomNavigationBar: bottomNavigatorBar(context,itemWidth),
+      bottomNavigationBar: bottomNavigatorBar(context, itemWidth),
     );
   }
 
-  Widget bottomNavigatorBar(BuildContext context,double itemWidth) {
-  
-          
+  Widget bottomNavigatorBar(BuildContext context, double itemWidth) {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -52,7 +51,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
           itemBuilder: (context, index) {
             final item = items[index];
             final isActive = index == _selectedIndex;
-      
+
             return SizedBox(
               width: itemWidth,
               child: GestureDetector(
@@ -77,11 +76,15 @@ class _NavigationMenuState extends State<NavigationMenu> {
                             : Colors.transparent,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Icon(item['icon'] as IconData, size: AppSizes.iconMd),
+                      child: Icon(
+                        item['icon'] as IconData,
+                        size: AppSizes.iconMd,
+                      ),
                     ),
                     const SizedBox(height: 6),
-                    Text(item['label'] as String,
-                    style: Theme.of(context).textTheme.titleSmall,
+                    Text(
+                      item['label'] as String,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ],
                 ),
