@@ -11,6 +11,7 @@ import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_divider_sign_in_methods.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_remeber_me_check_box.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_sign_in_methods_buttons.dart';
+import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -70,7 +71,9 @@ class _LoginScreenState extends State<LoginScreen> {
               const VerticalSpace(height: AppSizes.spaceBtwSections / 2),
               const CustomRemeberMeCheckBox(),
               const VerticalSpace(height: AppSizes.spaceBtwSections),
-              CustomButton(text: AppTextStrings.tLogin, onPressed: () {}),
+              CustomButton(text: AppTextStrings.tLogin, onPressed: () {
+                AppHelperFunctions.navigateToScreen(context, const NavigationMenu());
+              }),
               const VerticalSpace(height: AppSizes.spaceBtwSections / 2),
               CustomButton(
                 text: AppTextStrings.tSignup,

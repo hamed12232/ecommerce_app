@@ -68,6 +68,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                       title: AppTextStrings.tResetPasswordTitle,
                       subtitle: AppTextStrings.tResetPasswordSubTitle,
                       buttonTitle: AppTextStrings.tdone,
+                      isForgetPasswordScreen: true,
                     ),
                   );
                 },

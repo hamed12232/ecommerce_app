@@ -18,7 +18,7 @@ class OnBoardingPageViews extends StatelessWidget {
       padding: const EdgeInsets.only(top: 32),
       child: PageView(
         controller: pageController,
-        children: [
+        children: const [
           OnBoardingPageWidget(
             model: OnBoardingModel(
               image: AppImages.onBoardingImage1,

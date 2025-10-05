@@ -117,7 +117,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 text: 'Create Account',
                 onPressed: () {
                   AppHelperFunctions.navigateToScreen(context,VerifyEmailScreen(email: emailController.text,title: AppTextStrings.confirmEmail,
-                  
                   subtitle: AppTextStrings.confirmEmailSubTitle,
                   buttonTitle: AppTextStrings.tContinue,
                   ));
@@ -125,7 +124,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 fontSize: 16,
               ),
               const VerticalSpace(height: AppSizes.spaceBtwSections),
-
               // OR divider and social buttons
               const CustomDividerSignInMethods(),
               const VerticalSpace(height: AppSizes.spaceBtwSections),

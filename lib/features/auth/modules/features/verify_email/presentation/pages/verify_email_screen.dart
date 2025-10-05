@@ -11,11 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key, required this.email, required this.title, required this.subtitle, required this.buttonTitle});
+  const VerifyEmailScreen({super.key, required this.email, required this.title, required this.subtitle, required this.buttonTitle,  this.isForgetPasswordScreen=false});
   final String title;
   final String subtitle;
   final String buttonTitle;
-
+  final bool isForgetPasswordScreen;
   final String email;
 
   @override
@@ -85,10 +85,12 @@ class VerifyEmailScreen extends StatelessWidget {
                 child: CustomButton(
                   text: buttonTitle,
                   onPressed: () {
-                    AppHelperFunctions.navigateToScreen(
+                  if(!isForgetPasswordScreen){
+                      AppHelperFunctions.navigateToScreen(
                       context,
                       const SuccessScreen(),
                     );
+                  }
                   },
                 ),
               ),
