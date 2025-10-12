@@ -17,10 +17,8 @@ class TPrimaryHeaderContainer extends StatelessWidget {
       child: Container(
         color: AppColors.dashboardAppbarBackground,
         padding: const EdgeInsets.only(bottom: 0),
-        /// -- If [size.isFinite': is not true.in Stack] error occurred -> Read README.md file at [DESIGN ERRORS] # 1
         child: Stack(
           children: [
-            /// -- Background Custom Shapes
             Positioned(
                 top: -150, right: -250, child: TCircularContainer(backgroundColor: AppColors.textWhite.withValues(alpha: 0.1))),
             Positioned(

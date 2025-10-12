@@ -26,7 +26,7 @@ class TRoundedContainer extends StatelessWidget {
     this.padding = const EdgeInsets.all(AppSizes.md),
     this.borderColor = AppColors.borderPrimary,
     this.radius = AppSizes.cardRadiusLg,
-    this.backgroundColor = AppColors.white,
+    this.backgroundColor = Colors.transparent,
   });
 
   final double? width;
