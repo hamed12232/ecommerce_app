@@ -16,7 +16,7 @@ class HeaderCategories extends StatelessWidget {
       children: [
         /// -- Heading
         const SectionHeading(
-          title: AppTextStrings.popularProducts,
+          title: AppTextStrings.popularCategories,
           textColor: Colors.white,
           showActionButton: false,
         ),

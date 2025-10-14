@@ -175,5 +175,7 @@ class AppTextStrings {
 
   // -- Dashboard 1
   static const String popularProducts = "Popular Products";
+  static const String popularCategories = "Popular Categories";
+
   static const String homeAppbarTitle = "Good day for shopping";
 }

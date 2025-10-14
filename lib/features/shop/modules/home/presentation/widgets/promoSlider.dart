@@ -38,9 +38,9 @@ class _PromosliderState extends State<PromoSlider> {
               enlargeCenterPage: true,
             ),
             items: const [
-              TRoundedImage(imageUrl: AppImages.promoBanner1),
-              TRoundedImage(imageUrl: AppImages.promoBanner2),
-              TRoundedImage(imageUrl: AppImages.promoBanner3),
+              RoundedImage(imageUrl: AppImages.promoBanner1),
+              RoundedImage(imageUrl: AppImages.promoBanner2),
+              RoundedImage(imageUrl: AppImages.promoBanner3),
             ],
           ),
         ),

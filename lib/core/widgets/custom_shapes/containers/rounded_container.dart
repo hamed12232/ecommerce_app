@@ -3,7 +3,7 @@ import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:flutter/material.dart';
 
 /// A container widget with rounded corners and customizable properties.
-class TRoundedContainer extends StatelessWidget {
+class RoundedContainer extends StatelessWidget {
   /// Create a rounded container with customizable properties.
   ///
   /// Parameters:
@@ -16,7 +16,7 @@ class TRoundedContainer extends StatelessWidget {
   ///   - backgroundColor: The background color of the container.
   ///   - borderColor: The color of the container's border.
   ///   - showBorder: A flag to determine if the container should have a border.
-  const TRoundedContainer({
+  const RoundedContainer({
     super.key,
     this.child,
     this.width,

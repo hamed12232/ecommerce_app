@@ -1,8 +1,8 @@
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:flutter/material.dart';
 
-class TRoundedImage extends StatelessWidget {
-  const TRoundedImage({
+class RoundedImage extends StatelessWidget {
+  const RoundedImage({
     super.key,
     this.border,
     this.padding,

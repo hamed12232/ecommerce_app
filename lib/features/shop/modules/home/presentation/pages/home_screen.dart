@@ -1,12 +1,15 @@
+import 'package:ecommerce_app/core/layout/grid_layout.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/header_categories.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/home_app_bar.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/promoSlider.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -28,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             TPrimaryHeaderContainer(
-              child: TRoundedContainer(
+              child: RoundedContainer(
                 child: Container(
                   width: double.infinity,
                   height: AppHelperFunctions.screenHeight(context) * 0.4,
@@ -54,6 +57,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const PromoSlider(),
+            const VerticalSpace(height: AppSizes.spaceBtwSections),
+            const Padding(
+              padding: EdgeInsets.all(AppSizes.defaultSpace),
+              child: SectionHeading(
+                title: AppTextStrings.popularProducts,
+                showActionButton: true,
+              ),
+            ),
+            const VerticalSpace(height: AppSizes.spaceBtwItems),
+          Padding(
+            padding: const EdgeInsets.all(AppSizes.defaultSpace),
+            child: GridLayout(
+              itemCount: 10,
+              
+              itemBuilder: (context, index) {
+                return const ProductCardVertical();
+              },
+            ),
+          ),
           ],
         ),
       ),

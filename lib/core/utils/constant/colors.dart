@@ -8,6 +8,7 @@ class AppColors {
   static const Color primaryBackground = Color(0xFFCCFBF1); // Primary Color Background
   static const Color secondaryBackground = Color(0xFFFFE4E6); // Secondary Color Background
   static const Color accent = Color(0xFF001BFF);
+  static const Color salePercentageColor = Color(0xFFFFE400);
 
   // Dashboard Specific Colors
   static const Color dashboardAppbarBackground = Color(0xFF4b68ff);
