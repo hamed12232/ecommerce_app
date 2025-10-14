@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_cont
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/header_categories.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/home_app_bar.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/promoSlider.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -18,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double currentIndex = 0;
   TextEditingController? searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            const PromoSlider(),
           ],
         ),
       ),
