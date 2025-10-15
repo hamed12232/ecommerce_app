@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CartMenuIcon extends StatelessWidget {
-  const CartMenuIcon({super.key});
-
+  const CartMenuIcon({super.key,this.colorIcon = AppColors.white});
+final Color colorIcon ;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -13,7 +13,7 @@ class CartMenuIcon extends StatelessWidget {
         // IconButton for navigating to the CartScreen
         IconButton(
           onPressed: () {},
-          icon: const Icon(Iconsax.shopping_bag, color: AppColors.white),
+          icon:  Icon(Iconsax.shopping_bag, color: colorIcon),
         ),
         Positioned(
           right: 0,

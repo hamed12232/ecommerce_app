@@ -178,4 +178,9 @@ class AppTextStrings {
   static const String popularCategories = "Popular Categories";
 
   static const String homeAppbarTitle = "Good day for shopping";
+  //store
+    static const String homeAppbarstore = "Store";
+    //brands
+    static const String storeScreenFeaturedBrands = "Featured Brands";
+
 }

@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/store/presentation/screen/store_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -16,7 +17,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     const HomeScreen(),
-    const Center(child: Text('Shop')),
+    const StoreScreen(),
     const Center(child: Text('Heart')),
     const Center(child: Text('User')),
   ];
