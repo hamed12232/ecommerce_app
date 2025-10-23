@@ -41,7 +41,8 @@ class AppTextStrings {
   static const String tOhSnap = "Oh Snap";
   static const String tEmailSent = "Hurray!!! Email is on its way.";
   static const String tCongratulations = "Congratulations";
-  static const String tEmailLinkToResetPassword = "Email Link To Reset Password";
+  static const String tEmailLinkToResetPassword =
+      "Email Link To Reset Password";
   static const String tAccountCreateVerifyEmail = "Account Create Verify Email";
 
   // -- Splash Screen Text
@@ -52,16 +53,20 @@ class AppTextStrings {
   static const String tOnBoardingTitle1 = "Build Awesome Apps";
   static const String tOnBoardingTitle2 = "Learn from YouTube";
   static const String tOnBoardingTitle3 = "Get Code & Resources";
-  static const String tOnBoardingSubTitle1 = "Let's start your journey with us on this amazing and easy platform.";
-  static const String tOnBoardingSubTitle2 = "Get Video Tutorials of each topic to learn things easily.";
-  static const String tOnBoardingSubTitle3 = "Save time by just copy pasting complete apps you learned from videos.";
+  static const String tOnBoardingSubTitle1 =
+      "Let's start your journey with us on this amazing and easy platform.";
+  static const String tOnBoardingSubTitle2 =
+      "Get Video Tutorials of each topic to learn things easily.";
+  static const String tOnBoardingSubTitle3 =
+      "Save time by just copy pasting complete apps you learned from videos.";
   static const String tOnBoardingCounter1 = "1/3";
   static const String tOnBoardingCounter2 = "2/3";
   static const String tOnBoardingCounter3 = "3/3";
 
   // -- Welcome Screen Text
   static const String tWelcomeTitle = "Build Awesome Apps";
-  static const String tWelcomeSubTitle = "Let's put your creativity on the development highway.";
+  static const String tWelcomeSubTitle =
+      "Let's put your creativity on the development highway.";
 
   // -- Login Screen Text
   static const String tLoginTitle = "Welcome Back,";
@@ -79,37 +84,45 @@ class AppTextStrings {
 
   // -- Sign Up Screen Text
   static const String tSignUpTitle = "Get On Board!";
-  static const String tSignUpSubTitle = "Create your profile to start your Journey.";
+  static const String tSignUpSubTitle =
+      "Create your profile to start your Journey.";
   static const String tAlreadyHaveAnAccount = "Already have an Account";
 
   // -- Verify Email Screen Text
   static const String confirmEmail = "Verify your email address!";
-  static const String confirmEmailSubTitle = "Congratulations! Your Account Awaits: Verify Your Email to Start Shopping and Experience a World of Unrivaled Deals and Personalized Offers.";
+  static const String confirmEmailSubTitle =
+      "Congratulations! Your Account Awaits: Verify Your Email to Start Shopping and Experience a World of Unrivaled Deals and Personalized Offers.";
   static const String resendEmail = "Resend Email";
-  static const String yourAccountCreatedTitle = "Your account successfully created!";
-  static const String yourAccountCreatedSubTitle = "Welcome to Your Application: Your Account is Created, Unleash the Joy of Seamless Online Experience!";
-
+  static const String yourAccountCreatedTitle =
+      "Your account successfully created!";
+  static const String yourAccountCreatedSubTitle =
+      "Welcome to Your Application: Your Account is Created, Unleash the Joy of Seamless Online Experience!";
 
   // -- Forget Password Text
   static const String tForgetPasswordTitle = "Make Selection!";
-  static const String tForgetPasswordSubTitle = "Select one of the options given below to reset your password.";
+  static const String tForgetPasswordSubTitle =
+      "Select one of the options given below to reset your password.";
   static const String tResetViaEMail = "Reset via Mail Verification";
   static const String tResetViaPhone = "Reset via Phone Verification";
 
   // -- Forget Password Via Phone - Text
-  static const String tForgetPhoneSubTitle = "Enter your registered Phone No to receive OTP";
+  static const String tForgetPhoneSubTitle =
+      "Enter your registered Phone No to receive OTP";
 
   // -- Forget Password Via E-Mail - Text
-  static const String tForgetMailSubTitle = "Enter your registered E-Mail to receive OTP";
+  static const String tForgetMailSubTitle =
+      "Enter your registered E-Mail to receive OTP";
 
   // -- Reset Password - Text
   static const String tResetPasswordTitle = "Password Reset Email Sent!";
-  static const String tResetPasswordSubTitle = "Your Account Sercurity is Our Top Priority, Check Your Email to Reset Your Password.";
+  static const String tResetPasswordSubTitle =
+      "Your Account Sercurity is Our Top Priority, Check Your Email to Reset Your Password.";
 
   // -- OTP Screen - Text
   static const String tOtpTitle = "CO\nDE";
   static const String tOtpSubTitle = "Verification";
-  static const String tOtpMessage = "Enter the verification code sent on your Phone Number ";
+  static const String tOtpMessage =
+      "Enter the verification code sent on your Phone Number ";
 
   // -- Phone Number Authentication - Text
   static const String phoneNo = '745-628-5429';
@@ -121,14 +134,18 @@ class AppTextStrings {
   static const String selectCountryCode = "Select Country Code";
   static const String sendingOTP = "Sending OTP...";
   static const String phoneVerifiedTitle = "Phone Verified";
-  static const String phoneVerifiedMessage = "Your phone number has been verified.";
+  static const String phoneVerifiedMessage =
+      "Your phone number has been verified.";
   static const String noInternet = "No Internet";
-  static const String checkInternetConnection = "Please check your internet connection and try again.";
+  static const String checkInternetConnection =
+      "Please check your internet connection and try again.";
   static const String unableToSendOTP = "Unable to send OTP";
   static const String otpSendTitle = "OTP Send";
-  static const String otpSendMessage = "OTP Send to your phone number successfully.";
+  static const String otpSendMessage =
+      "OTP Send to your phone number successfully.";
   static const String otpFooter = "Didn’t receive OTP?";
-  static const String otpSubTitle = "Please enter the six digit OTP code that we’ve send to your phone number";
+  static const String otpSubTitle =
+      "Please enter the six digit OTP code that we’ve send to your phone number";
   static const String enter6digitOTPCode = "Enter 6 digit OTP Code";
   static const String inText = "in";
   static const String resendOTP = "Re-Send OTP";
@@ -179,8 +196,15 @@ class AppTextStrings {
 
   static const String homeAppbarTitle = "Good day for shopping";
   //store
-    static const String homeAppbarstore = "Store";
-    //brands
-    static const String storeScreenFeaturedBrands = "Featured Brands";
-
+  static const String homeAppbarstore = "Store";
+  static const String storeScreenYouMightLike = "You might like";
+  //brands
+  static const String storeScreenFeaturedBrands = "Featured Brands";
+  //categories
+  static const String sports = "Sports";
+  static const String electronics = "Electronics";
+  static const String jewelery = "Jewelery";
+  static const String menClothing ="Men's Clothing";
+  static const String womenClothing ="Women's Clothing";
+  static const String allCategories = "All Categories";
 }
