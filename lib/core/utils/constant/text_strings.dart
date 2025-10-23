@@ -207,4 +207,7 @@ class AppTextStrings {
   static const String menClothing ="Men's Clothing";
   static const String womenClothing ="Women's Clothing";
   static const String allCategories = "All Categories";
+  //Wishlist
+    static const String wishlistAppBar = "WishList";
+
 }
