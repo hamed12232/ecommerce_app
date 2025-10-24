@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/features/personlization/presentation/pages/profile_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/screen/store_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/wishlist/presentation/pages/wishlist_screen.dart';
@@ -20,7 +21,7 @@ class _NavigationMenuState extends State<NavigationMenu> {
     const HomeScreen(),
     const StoreScreen(),
     const WishlistScreen(),
-    const Center(child: Text('User')),
+    const ProfileScreen(),
   ];
   final items = [
     {'icon': Iconsax.home_1, 'label': 'Home'},

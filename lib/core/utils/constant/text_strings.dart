@@ -171,9 +171,52 @@ class AppTextStrings {
   // -- Profile Screen - Text
   static const String tProfile = "Profile";
   static const String tEditProfile = "Edit Profile";
-  static const String tLogoutDialogHeading = "Logout";
+  static const String account = "Account";
+
+  static const String tLogoutDialogHeading = "Are you sure you want to logout?";
   static const String tProfileHeading = "Coding with T";
   static const String tProfileSubHeading = "superAdmin@codingwitht.com";
+
+  // -- Profile Screen Subtitles
+  static const String tMyAddressesSubtitle = "Set shopping delivery address";
+  static const String tMyCartSubtitle =
+      "Add, remove products and move to checkout";
+  static const String tMyOrdersSubtitle = "In-progress and Completed Orders";
+  static const String tBankAccountSubtitle =
+      "Withdraw balance to registered bank account";
+  static const String tMyCouponsSubtitle = "List of all the discounted coupons";
+  static const String tNotificationsSubtitle =
+      "Set any kind of notification message";
+  static const String tAccountPrivacySubtitle =
+      "Manage data usage and connected accounts";
+
+  // -- App Settings Subtitles
+  static const String tLoadDataSubtitle = "Upload Data to your Cloud Firebase";
+  static const String tGeolocationSubtitle =
+      "Set recommendation based on location";
+  static const String tSafeModeSubtitle = "Search result is safe for all ages";
+  static const String tHdImageQualitySubtitle = "Set image quality to be seen";
+
+  // -- Profile Screen Titles
+  static const String tAccountSettings = 'Account Settings';
+  static const String tAppSettings = 'App Settings';
+
+  static const String tMyAddresses = 'My Addresses';
+  static const String tMyCart = 'My Cart';
+  static const String tMyOrders = 'My Orders';
+  static const String tBankAccount = 'Bank Account';
+  static const String tMyCoupons = 'My Coupons';
+  static const String tNotifications = 'Notifications';
+  static const String tAccountPrivacy = 'Account Privacy';
+
+  // -- App Settings Titles
+  static const String tSettings = 'Settings';
+  static const String tAbout = 'About';
+
+  static const String tLoadData = 'Load Data';
+  static const String tGeolocation = 'Geolocation';
+  static const String tSafeMode = 'Safe Mode';
+  static const String tHdImageQuality = 'HD Image Quality';
 
   // -- Menu
   static const String tMenu5 = tLogout;
@@ -204,10 +247,9 @@ class AppTextStrings {
   static const String sports = "Sports";
   static const String electronics = "Electronics";
   static const String jewelery = "Jewelery";
-  static const String menClothing ="Men's Clothing";
-  static const String womenClothing ="Women's Clothing";
+  static const String menClothing = "Men's Clothing";
+  static const String womenClothing = "Women's Clothing";
   static const String allCategories = "All Categories";
   //Wishlist
-    static const String wishlistAppBar = "WishList";
-
+  static const String wishlistAppBar = "WishList";
 }

@@ -53,7 +53,7 @@ class MyTextFormField extends StatelessWidget {
           prefixIconColor: AppColors.iconSecondaryDark,
           filled: true,
           fillColor: AppHelperFunctions.isDarkMode(context) 
-              ? AppColors.darkBackground
+              ? AppColors.dark
               : AppColors.lightBackground,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppSizes.borderRadiusLg),

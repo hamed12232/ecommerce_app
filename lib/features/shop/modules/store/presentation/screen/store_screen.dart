@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/layout/grid_layout.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/appBar/tab_bar.dart';
+import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
@@ -33,7 +34,7 @@ class _StoreScreenState extends State<StoreScreen> {
             return [
               SliverAppBar(
                 backgroundColor: AppHelperFunctions.isDarkMode(context)
-                    ? Colors.black
+                    ? AppColors.dark
                     : Colors.white,
                 automaticallyImplyLeading: false,
                 pinned: true,

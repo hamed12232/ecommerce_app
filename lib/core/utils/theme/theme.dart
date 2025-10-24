@@ -20,7 +20,7 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: AppColors.darkBackground,
+    scaffoldBackgroundColor: AppColors.dark,
     brightness: Brightness.dark,
     textTheme: AppTextTheme.darkTextTheme,
     appBarTheme: AppBarThemes.darkAppBarTheme,
