@@ -218,6 +218,22 @@ class AppTextStrings {
   static const String tSafeMode = 'Safe Mode';
   static const String tHdImageQuality = 'HD Image Quality';
 
+  // -- Profile Info Screen Texts
+  static const String tChangeProfilePicture = 'Change Profile Picture';
+  static const String tProfileInformation = 'Profile Information';
+  static const String tPersonalInformation = 'Personal Information';
+
+  // Labels
+  static const String lblName = 'Name';
+  static const String lblUsername = 'Username';
+  static const String lblUserId = 'User ID';
+  static const String lblEmail = 'E-mail';
+  static const String lblPhoneNumber = 'Phone Number';
+  static const String lblGender = 'Gender';
+  static const String lblDateOfBirth = 'Date of Birth';
+
+  static const String tCloseAccount = 'Close Account';
+
   // -- Menu
   static const String tMenu5 = tLogout;
   static const String tMenu1 = "Settings";
