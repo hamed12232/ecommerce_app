@@ -29,19 +29,35 @@ class _ColorsSelectionWidgetState extends State<ColorsSelectionWidget> {
               onTap: () => setState(() => _selectedColor = i),
               child: Padding(
                 padding: const EdgeInsets.only(right: AppSizes.sm),
-                child: Container(
-                  width: 28,
-                  height: 28,
-                  decoration: BoxDecoration(
-                    color: colors[i],
-                    shape: BoxShape.circle,
-                    border: sel
-                        ? Border.all(
-                            color: AppColors.dashboardAppbarBackground,
-                            width: 2,
-                          )
-                        : null,
-                  ),
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: colors[i],
+                        shape: BoxShape.circle,
+                        border: sel
+                            ? Border.all(
+                                color: AppColors.dashboardAppbarBackground,
+                                width: 2,
+                              )
+                            : null,
+                      ),
+                    ),
+                    if (sel)
+                      const Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: Icon(
+                          Icons.check,
+                          size: AppSizes.iconMd,
+                          color: AppColors.white,
+                        ),
+                      ),
+                  ],
                 ),
               ),
             );

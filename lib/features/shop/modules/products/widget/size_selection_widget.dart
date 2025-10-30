@@ -36,22 +36,35 @@ class _SizeSelectionWidgetState extends State<SizeSelectionWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(right: AppSizes.sm),
                 child: RoundedContainer(
-                  width: 60,
-                  height: 60,
+                  width: 90,
+                  height: 50,
+                  showBorder: !sel,
+                  borderColor: AppColors.darkGrey,
                   radius: AppSizes.cardRadiusMd,
                   backgroundColor: sel
                       ? AppColors.dashboardAppbarBackground
                       : (widget.dark
-                            ? AppColors.darkContainer
+                            ? AppColors.dark
                             : AppColors.white),
-                  child: Center(
-                    child: Text(
-                      sizes[i],
-                      style: widget.theme.textTheme.headlineMedium?.copyWith(
-                        color: sel ? AppColors.white : null,
-                        fontSize: 10,
+                  child: Row(
+                    mainAxisAlignment:sel? MainAxisAlignment.spaceBetween: MainAxisAlignment.center,
+                    children: [
+                      if (sel)
+                        const Icon(
+                          Icons.check,
+                          size: AppSizes.iconSm,
+                          color: AppColors.white,
+                        ),
+                      Center(
+                        child: Text(
+                          sizes[i],
+                          style: widget.theme.textTheme.labelLarge?.copyWith(
+                            color: sel ? AppColors.white : null,
+                            fontSize: 12,
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
               ),

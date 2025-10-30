@@ -21,6 +21,7 @@ class ProductDescriptionDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const ProductPriceText(price: '122.6 - 334.0', isLarge: true),
         const VerticalSpace(height: AppSizes.sm),

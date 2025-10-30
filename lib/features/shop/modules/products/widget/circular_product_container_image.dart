@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/utils/constant/categories.dart';
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/core/utils/icons/circular_icons.dart';
 import 'package:ecommerce_app/core/utils/images/rounded_images.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
@@ -39,15 +40,21 @@ class _CircularProductContainerImageState
         ),
         Positioned(
           left: 0,
+          
           child: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Iconsax.arrow_left),
           ),
         ),
 
-        Positioned(
-          right: 0,
-          child: IconButton(onPressed: () {}, icon: const Icon(Iconsax.heart5)),
+        const Positioned(
+          right: 5,
+          top: 8,
+          child: CircularIcon(
+            icon: Iconsax.heart5,
+            size: AppSizes.iconMd,
+            color: AppColors.red,
+          ),
         ),
         Positioned(
           top: 300,
@@ -67,7 +74,7 @@ class _CircularProductContainerImageState
                     showBorder: selected,
                     borderColor: AppColors.dashboardAppbarBackground,
                     backgroundColor: widget.dark
-                        ? AppColors.darkContainer
+                        ? AppColors.dark
                         : AppColors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
