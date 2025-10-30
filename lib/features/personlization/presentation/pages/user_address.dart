@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
+import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/add_new_address.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/single_address_widget.dart';
@@ -23,14 +24,12 @@ class _UserAddressState extends State<UserAddress> {
         ),
         centerTitle: false,
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(AppSizes.defaultSpace),
-        child: Column(
-          children: [
-            SingleAddress(address: "123, Main Street, New York, NY 10001, USA"),
-            SingleAddress(address: "123, Main Street, New York, NY 10001, USA"),
-            SingleAddress(address: "123, Main Street, New York, NY 10001, USA"),
-          ],
+      body: Padding(
+        padding: const EdgeInsets.all(AppSizes.defaultSpace),
+        child: ListView.builder(
+          itemCount: 2,
+          itemBuilder: (context, index) =>
+              SingleAddress(address: TDummyData.addresses[index]),
         ),
       ),
       floatingActionButton: FloatingActionButton(

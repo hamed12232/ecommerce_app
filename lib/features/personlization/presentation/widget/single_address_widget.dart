@@ -2,13 +2,14 @@ import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:ecommerce_app/features/personlization/model/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SingleAddress extends StatefulWidget {
   const SingleAddress({super.key, required this.address});
 
-  final String address;
+  final AddressModel address;
 
   @override
   State<SingleAddress> createState() => _SingleAddressState();
@@ -58,19 +59,19 @@ class _SingleAddressState extends State<SingleAddress> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.address,
+                  widget.address.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: AppSizes.sm / 2),
                 Text(
-                  widget.address,
+                  widget.address.phoneNumber,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: AppSizes.sm / 2),
-                Text(widget.address.toString(), softWrap: true),
+                Text(widget.address.street.toString(), softWrap: true),
               ],
             ),
           ],

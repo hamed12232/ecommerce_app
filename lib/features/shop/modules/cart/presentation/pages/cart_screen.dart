@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/widget/cart_items.dart';
+import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/checkout_screen.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatelessWidget {
@@ -35,7 +36,9 @@ class CartScreen extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
-            onPressed: () {},
+            onPressed: () {
+              AppHelperFunctions.navigateToScreen(context, const CheckoutScreen());
+            },
             child: Text(
               'Checkout ',
               style: Theme.of(context).textTheme.headlineMedium,
