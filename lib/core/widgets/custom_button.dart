@@ -1,6 +1,7 @@
 
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
+import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
@@ -33,7 +34,7 @@ class CustomButton extends StatelessWidget {
         ),
       child: Text(
         text,
-      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: fontSize,color: AppColors.white),
+      style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: fontSize,color: AppHelperFunctions.isDarkMode(context) ? AppColors.textWhite : AppColors.darkBackground),
       ),
     );
   }

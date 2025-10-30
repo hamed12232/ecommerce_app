@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -12,7 +13,9 @@ final Color colorIcon ;
       children: [
         // IconButton for navigating to the CartScreen
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const CartScreen()));
+          },
           icon:  Icon(Iconsax.shopping_bag, color: colorIcon),
         ),
         Positioned(

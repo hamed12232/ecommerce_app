@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/style/spacing/horizental_space.dart';
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
+import 'package:ecommerce_app/core/widgets/product_quantity_with_add_remove_button.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -15,7 +16,6 @@ class BottomCardWidget extends StatefulWidget {
 }
 
 class _BottomCardWidgetState extends State<BottomCardWidget> {
-  int _quantity = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,50 +29,7 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Quantity controls
-          RoundedContainer(
-            width: 160,
-            height: 73,
-            radius: AppSizes.cardRadiusMd,
-            backgroundColor: 
-                 Colors.transparent,
-                
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                
-                  decoration: const BoxDecoration(
-                    color: AppColors.darkGrey,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () => setState(() => _quantity = (_quantity - 1).clamp(0, 999)),
-                      icon: const Icon(Iconsax.minus,size: AppSizes.iconMd,
-                      color: AppColors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                Text('$_quantity', style: widget.theme.textTheme.titleLarge),
-                  Container(
-                
-                  decoration: const BoxDecoration(
-                    color: AppColors.darkBackground,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: IconButton(
-                      onPressed: () => setState(() => _quantity = (_quantity + 1).clamp(0, 999)),
-                      icon: const Icon(Iconsax.add,size: AppSizes.iconMd,
-                      color: AppColors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+        ProductQuantityWithAddRemoveButton(theme: widget.theme),
           const HorizentalSpace(width: AppSizes.sm),
 
           // Add to Bag
