@@ -1,13 +1,16 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
+import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/helper/pricing_calcalutions.dart';
+import 'package:ecommerce_app/core/utils/success_screen/success_screen.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/widget/cart_items.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/widget/billing_address_section.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/widget/billing_amount_section.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/widget/billing_payment_section.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -79,6 +82,20 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
         child: CustomButton(
+          onPressed: () => {
+            AppHelperFunctions.navigateToScreen(
+              context,
+              SuccessScreenLottie(
+                image: AppImages.successfulPaymentIcon,
+                title: 'Success',
+                subTitle: 'Your order has been placed successfully',
+                onPressed: () => AppHelperFunctions.navigateToScreen(
+                  context,
+                  const HomeScreen(),
+                ),
+              ),
+            ),
+          },
           text: 'Checkout \$${PricingCalculator.calculateTotalPrice(20, 'US')}',
         ),
       ),

@@ -35,7 +35,9 @@ class CartScreen extends StatelessWidget {
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary),
+            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary,
+              side: const BorderSide(color: AppColors.primary),
+            ),
             onPressed: () {
               AppHelperFunctions.navigateToScreen(context, const CheckoutScreen());
             },
