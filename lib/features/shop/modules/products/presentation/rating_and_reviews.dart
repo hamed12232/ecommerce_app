@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/core/widgets/top_title_bar.dart';
 import 'package:ecommerce_app/features/shop/modules/products/widget/rating_progress_row.dart';
 import 'package:ecommerce_app/features/shop/modules/products/widget/review_card.dart';
 import 'package:flutter/material.dart';
@@ -25,37 +26,16 @@ class RatingAndReviews extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Iconsax.arrow_left,
-                      color: dark
-                          ? AppColors.textDarkPrimary
-                          : AppColors.textPrimary,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                  const HorizentalSpace(width: AppSizes.lg),
-                  Text(
-                    'Reviews & Ratings',
-                    style: theme.textTheme.headlineMedium,
-                  ),
-                ],
-              ),
-        
+              TopTitleBar(dark: dark, theme: theme, title:   'Reviews & Ratings',),
+
               const VerticalSpace(height: AppSizes.md),
               Text(
                 'Ratings and reviews are verified and are from people who use the same type of device that you use.',
                 style: theme.textTheme.bodySmall,
               ),
-        
+
               const VerticalSpace(height: AppSizes.lg),
               // reviews list
-            
-        
-              // top rating + bars
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,9 +72,9 @@ class RatingAndReviews extends StatelessWidget {
                       Text(' 12,611', style: theme.textTheme.bodySmall),
                     ],
                   ),
-        
+
                   const HorizentalSpace(width: AppSizes.lg),
-        
+
                   // bars
                   Expanded(
                     child: Column(
@@ -109,9 +89,9 @@ class RatingAndReviews extends StatelessWidget {
                   ),
                 ],
               ),
-        
+
               const VerticalSpace(height: AppSizes.spaceBtwSections),
-                Expanded(
+              Expanded(
                 child: ListView.separated(
                   padding: EdgeInsets.zero,
                   itemCount: 3,

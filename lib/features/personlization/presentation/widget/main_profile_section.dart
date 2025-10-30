@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/dialog/show_dialog.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
+import 'package:ecommerce_app/features/personlization/presentation/pages/user_address.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/account_menu_item.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/account_setting_toggle.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,10 @@ class MainProfileSection extends StatelessWidget {
 
         AccountMenuItem(
           icon: Iconsax.location,
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const UserAddress()),
+          ),
           title: AppTextStrings.tMyAddresses,
           subtitle: AppTextStrings.tMyAddressesSubtitle,
           isDark: isDark,

@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:readmore/readmore.dart';
 
 class ReviewCard extends StatelessWidget {
   const ReviewCard({super.key});
@@ -34,14 +35,11 @@ class ReviewCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Icon(
-                Icons.more_vert,
-              
-              ),
+              const Icon(Icons.more_vert),
             ],
           ),
           const SizedBox(height: 8),
-      
+
           Row(
             children: [
               RatingBar.builder(
@@ -57,14 +55,11 @@ class ReviewCard extends StatelessWidget {
                 onRatingUpdate: (_) {},
               ),
               const SizedBox(width: 10),
-              Text(
-                "01-Nov-2023",
-                style: theme.textTheme.bodySmall
-              ),
+              Text("01-Nov-2023", style: theme.textTheme.bodyMedium),
             ],
           ),
           const SizedBox(height: 8),
-      
+
           /// --- User Review Text ---
           Text(
             "The user interface of the app is quite intuitive. "
@@ -72,13 +67,13 @@ class ReviewCard extends StatelessWidget {
             style: theme.textTheme.bodyMedium,
           ),
           const SizedBox(height: 12),
-      
+
           /// --- Store Reply ---
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.grey.withOpacity(0.2),
+              color: dark?AppColors.grey.withOpacity(0.2):AppColors.grey,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Column(
@@ -90,35 +85,32 @@ class ReviewCard extends StatelessWidget {
                   children: [
                     Text(
                       "T Store",
-                      style: theme.textTheme.labelLarge?.copyWith(
+                      style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Text(
-                      "01-Nov-2023",
-                      style: theme.textTheme.bodySmall
-                    ),
+                    Text("01-Nov-2023", style: theme.textTheme.bodyMedium),
                   ],
                 ),
                 const SizedBox(height: 6),
-      
-                /// --- Reply text ---
-                Text.rich(
-                  TextSpan(
-                    text:
-                        "Thank you for your kind words, John! We are delighted to hear about your smooth experience with...",
-                    style: theme.textTheme.labelMedium,
-                    children: const [
-                      TextSpan(
-                        text: " read more",
-                        style: TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+                const ReadMoreText(
+                  'The user interface of the app is quite intuitive. I was able to navigate and make purchases seamlessly. Great job!',
+                  trimLines: 2,
+                  trimMode: TrimMode.Line,
+                  trimCollapsedText: ' show more',
+                  trimExpandedText: ' show less',
+                  moreStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                  ),
+                  lessStyle: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
                   ),
                 ),
+
               ],
             ),
           ),
