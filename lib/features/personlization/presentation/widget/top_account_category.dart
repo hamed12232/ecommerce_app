@@ -5,6 +5,7 @@ import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
+import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/images/circular_image.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_info_screen.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,7 @@ class TopAccountProfileScetion extends StatelessWidget {
             // Edit icon
             IconButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfileInfoScreen()));
+                AppHelperFunctions.navigateToScreen(context, const ProfileInfoScreen());
               },
               icon: const Icon(Iconsax.edit, color: Colors.white),
             ),

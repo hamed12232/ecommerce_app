@@ -10,7 +10,7 @@ import 'package:ecommerce_app/features/shop/modules/cart/presentation/widget/car
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/widget/billing_address_section.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/widget/billing_amount_section.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/widget/billing_payment_section.dart';
-import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
+import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:flutter/material.dart';
 
 class CheckoutScreen extends StatelessWidget {
@@ -91,7 +91,7 @@ class CheckoutScreen extends StatelessWidget {
                 subTitle: 'Your order has been placed successfully',
                 onPressed: () => AppHelperFunctions.navigateToScreen(
                   context,
-                  const HomeScreen(),
+                  const NavigationMenu(),
                 ),
               ),
             ),
