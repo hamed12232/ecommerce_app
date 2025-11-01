@@ -268,4 +268,11 @@ class AppTextStrings {
   static const String allCategories = "All Categories";
   //Wishlist
   static const String wishlistAppBar = "WishList";
+  //subCategories
+  static const String subCategories = "SubCategories";
+    static const String sportsShoes = "Sports Shoes";
+    static const String trackSuit = "Track Suit";
+    static const String sportsEquipment = "Sports Equipment";
+
+
 }

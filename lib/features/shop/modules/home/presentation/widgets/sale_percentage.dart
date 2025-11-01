@@ -22,9 +22,9 @@ class SalePercentage extends StatelessWidget {
       ),
       child: Text(
         '50%',
-        style: Theme.of(
-          context,
-        ).textTheme.labelLarge!.apply(color: AppColors.black),
+        style: (Theme.of(context).textTheme.labelLarge ??
+                const TextStyle(color: AppColors.black))
+            .apply(color: AppColors.black),
       ),
     );
   }

@@ -2,8 +2,10 @@ import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/categories.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
+import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/image_text/image_text_vertical.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
+import 'package:ecommerce_app/features/shop/modules/subCategory/presentation/page/sub_category.dart';
 import 'package:flutter/material.dart';
 
 class HeaderCategories extends StatelessWidget {
@@ -36,7 +38,9 @@ class HeaderCategories extends StatelessWidget {
               return VerticalImageAndText(
                 image: categoryImages[index],
                 title: categoryTitles[index],
-                onTap: () {},
+                onTap: () {
+                  AppHelperFunctions.navigateToScreen(context, const SubCategory());
+                },
               );
             },
           ),
