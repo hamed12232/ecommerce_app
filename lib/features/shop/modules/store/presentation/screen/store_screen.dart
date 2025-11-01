@@ -7,7 +7,8 @@ import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
-import 'package:ecommerce_app/features/shop/modules/all_brands/presentation/page/all_brands.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/presentation/page/all_brands.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/presentation/page/brand_product.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/category_tab_bar.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/feature_brand.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/store_app_bar.dart';
@@ -69,9 +70,15 @@ class _StoreScreenState extends State<StoreScreen> {
                         itemCount: 4,
                         mainAxisExtent: 80,
                         itemBuilder: (context, index) {
-                          return FeaturedBrand(
-                            isDark: isDark,
-                            showBorder: true,
+                          return GestureDetector(
+                            onTap: () => AppHelperFunctions.navigateToScreen(
+                              context,
+                              const BrandProduct(),
+                            ),
+                            child: FeaturedBrand(
+                              isDark: isDark,
+                              showBorder: true,
+                            ),
                           );
                         },
                       ),
