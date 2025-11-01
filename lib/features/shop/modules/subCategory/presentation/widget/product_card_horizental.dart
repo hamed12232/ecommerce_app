@@ -29,7 +29,6 @@ class ProductCardHorizontal extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const ProductDetails()),
       ),
       child: Container(
-        width: 310,
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppSizes.productImageRadius),
@@ -47,8 +46,7 @@ class ProductCardHorizontal extends StatelessWidget {
                     width: 120,
 
                     child: RoundedImage(
-                      imageUrl:
-                          AppImages.productImage1, 
+                      imageUrl: AppImages.productImage1,
                       applyImageRadius: true,
                     ),
                   ),
@@ -74,11 +72,12 @@ class ProductCardHorizontal extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   top: AppSizes.sm,
                   left: AppSizes.sm,
-                  bottom: AppSizes.sm,
+
+                  //bottom: AppSizes.sm,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  
+
                   children: [
                     /// Top Details (Title, Brand)
                     const Column(
@@ -97,13 +96,11 @@ class ProductCardHorizontal extends StatelessWidget {
                       ],
                     ),
 
-                    const Spacer(),// for error render add height to list vieww
-
+                    const Spacer(), // for error render add height to list vieww
                     /// Bottom Row (Price, Add Button)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      
                         const Padding(
                           padding: EdgeInsets.only(left: AppSizes.sm),
                           child: ProductPriceText(price: "120.00"),

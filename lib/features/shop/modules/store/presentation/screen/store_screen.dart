@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
+import 'package:ecommerce_app/features/shop/modules/all_brands/presentation/page/all_brands.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/category_tab_bar.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/feature_brand.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/store_app_bar.dart';
@@ -56,15 +57,22 @@ class _StoreScreenState extends State<StoreScreen> {
                         prefixIcon: const Icon(Iconsax.search_normal),
                       ),
                       const VerticalSpace(height: AppSizes.spaceBtwSections),
-                      const SectionHeading(
+                      SectionHeading(
                         title: AppTextStrings.storeScreenFeaturedBrands,
+                        onPressed: () => AppHelperFunctions.navigateToScreen(
+                          context,
+                          const AllBrands(),
+                        ),
                       ),
                       const VerticalSpace(height: AppSizes.spaceBtwItems / 1.5),
                       GridLayout(
                         itemCount: 4,
                         mainAxisExtent: 80,
                         itemBuilder: (context, index) {
-                          return FeaturedBrand(isDark: isDark,showBorder: true,);
+                          return FeaturedBrand(
+                            isDark: isDark,
+                            showBorder: true,
+                          );
                         },
                       ),
                       const VerticalSpace(height: AppSizes.spaceBtwSections),

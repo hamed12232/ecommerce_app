@@ -259,6 +259,8 @@ class AppTextStrings {
   static const String storeScreenYouMightLike = "You might like";
   //brands
   static const String storeScreenFeaturedBrands = "Featured Brands";
+  static const String brands = "Brands";
+
   //categories
   static const String sports = "Sports";
   static const String electronics = "Electronics";

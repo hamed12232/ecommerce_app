@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/primary_header_container.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/header_categories.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/home_app_bar.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
@@ -58,24 +59,28 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const PromoSlider(),
             const VerticalSpace(height: AppSizes.spaceBtwSections),
-            const Padding(
-              padding: EdgeInsets.all(AppSizes.defaultSpace),
+            Padding(
+              padding: const EdgeInsets.all(AppSizes.defaultSpace),
               child: SectionHeading(
                 title: AppTextStrings.popularProducts,
                 showActionButton: true,
+                onPressed: () => AppHelperFunctions.navigateToScreen(
+                  context,
+                  const AllProductScreen(),
+                ),
               ),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
-          Padding(
-            padding: const EdgeInsets.all(AppSizes.defaultSpace),
-            child: GridLayout(
-              itemCount: 10,
-              
-              itemBuilder: (context, index) {
-                return const ProductCardVertical();
-              },
+            Padding(
+              padding: const EdgeInsets.all(AppSizes.defaultSpace),
+              child: GridLayout(
+                itemCount: 10,
+
+                itemBuilder: (context, index) {
+                  return const ProductCardVertical();
+                },
+              ),
             ),
-          ),
           ],
         ),
       ),
