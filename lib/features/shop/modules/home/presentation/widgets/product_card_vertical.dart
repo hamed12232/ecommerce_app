@@ -85,14 +85,10 @@ class ProductCardVertical extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                /// Pricing
                 const Flexible(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      /// Actual Price if sale price not null
-
-                      /// Price, Show sale price as main price if sale exist.
                       Padding(
                         padding: EdgeInsets.only(left: AppSizes.sm),
                         child: ProductPriceText(price: "120.00"),
@@ -100,8 +96,6 @@ class ProductCardVertical extends StatelessWidget {
                     ],
                   ),
                 ),
-
-                /// Add to cart
                 GestureDetector(
                   onTap: () {},
                   child: AnimatedContainer(
