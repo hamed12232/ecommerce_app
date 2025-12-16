@@ -1,4 +1,6 @@
+import 'package:ecommerce_app/core/utils/services/shared_pref.dart';
 import 'package:ecommerce_app/core/utils/theme/theme.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,9 @@ class App extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const OnboardingScreen(),
+      home: SharedPrefServices.isFirstTime()
+          ? const OnboardingScreen()
+          : const LoginScreen(),
     );
   }
 }

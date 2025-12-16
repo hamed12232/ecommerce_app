@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/core/utils/services/shared_pref.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -39,6 +40,7 @@ class CustomSmothPageIndicatorWithElevetedButton extends StatelessWidget {
             ),
             onPressed: () {
               if (pageController.page == 2) {
+                SharedPrefServices.setSeen();
                 AppHelperFunctions.navigateToScreen(
                   context,
                   const LoginScreen(),

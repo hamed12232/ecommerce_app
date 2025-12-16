@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/core/utils/services/shared_pref.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/widget/custom_smoth_page_indicator_with_eleveted_button.dart';
 import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/widget/on_boarding_page_view.dart';
@@ -23,6 +24,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         actions: [
           TextButton(
             onPressed: () {
+              SharedPrefServices.setSeen();
               AppHelperFunctions.navigateToScreen(context, const LoginScreen());
             },
             child: Text(
