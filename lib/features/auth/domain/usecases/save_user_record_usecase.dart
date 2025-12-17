@@ -1,0 +1,14 @@
+import 'package:dartz/dartz.dart';
+import 'package:ecommerce_app/core/utils/exceptions/exceptions.dart';
+import 'package:ecommerce_app/features/auth/data/models/user_model.dart';
+import 'package:ecommerce_app/features/auth/domain/repositories/base_user_repository.dart';
+
+class SaveUserRecordUseCase {
+  final BaseUserRepository repository;
+
+  SaveUserRecordUseCase({required this.repository});
+
+  Future<Either<Exceptions, void>> call(UserModel userModel) async {
+    return await repository.saveUserRecord(userModel);
+  }
+}
