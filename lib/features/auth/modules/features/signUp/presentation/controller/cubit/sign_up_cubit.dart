@@ -22,6 +22,10 @@ class SignUpCubit extends Cubit<SignUpState> {
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  void toggleAgreePolicy(bool value) {
+    emit(state.copyWith(agreePolicy: value));
+  }
+
   Future<void> signUp() async {
     try {
       emit(state.copyWith(status: SignUpStatus.loading));
@@ -44,6 +48,18 @@ class SignUpCubit extends Cubit<SignUpState> {
         );
         return;
       }
+
+      // Validate privacy policy agreement
+      if (!state.agreePolicy) {
+        emit(
+          state.copyWith(
+            status: SignUpStatus.error,
+            error: 'Please agree to Privacy Policy and Terms of use',
+          ),
+        );
+        return;
+      }
+
       final signUpResult = await signUpUseCase.call(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),

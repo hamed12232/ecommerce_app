@@ -86,10 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomButton(
                 text: AppTextStrings.tSignup,
                 onPressed: () {
-                  AppHelperFunctions.navigateToScreen(
-                    context,
-                    const SignUpScreen(),
-                  );
+                Navigator.pushNamed(context, SignUpScreen.routeName);
                 },
                 buttonColor: Colors.transparent,
                 hasBorderColor: true,

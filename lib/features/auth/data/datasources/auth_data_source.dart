@@ -28,4 +28,19 @@ class AuthDataSource implements BaseAuthDataSource {
       throw Exception('Unexpected error: ${e.toString()}');
     }
   }
+
+  @override
+  Future<void> sendEmailVerification() async {
+    try {
+      await _firebaseAuth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
+      throw AppFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
+    }
+  }
 }

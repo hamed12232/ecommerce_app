@@ -31,4 +31,20 @@ class AuthRepository implements BaseAuthRepository {
       return Left(Exceptions(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Exceptions, void>> sendEmailVerification() async {
+    try {
+      await baseAuthDataSource.sendEmailVerification();
+      return const Right(null);
+    } on AppFirebaseAuthException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
+    } catch (e) {
+      return Left(Exceptions(e.toString()));
+    }
+  }
 }

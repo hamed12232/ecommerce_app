@@ -40,6 +40,7 @@ class MyTextFormField extends StatelessWidget {
         controller: controller,
         maxLines: maxLines,
         
+        
 
         autofocus: false,
         onTap: onTap,
@@ -47,6 +48,7 @@ class MyTextFormField extends StatelessWidget {
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         decoration: InputDecoration(
           hintText: hintText,
+          isDense: true,
           hintStyle: Theme.of(context).textTheme.bodyLarge,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,

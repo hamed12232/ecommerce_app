@@ -1,10 +1,8 @@
-import 'package:ecommerce_app/core/di/service_locator.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/style/spacing_style.dart';
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
-import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/popups/full_screen_loader.dart';
 import 'package:ecommerce_app/core/utils/popups/loaders.dart';
 import 'package:ecommerce_app/core/utils/validators/validation.dart';
@@ -27,21 +25,9 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<SignUpCubit>(),
-      child: const SignUpView(),
-    );
-  }
-}
-
-class SignUpView extends StatelessWidget {
-  const SignUpView({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     final cubit = context.read<SignUpCubit>();
-
     return BlocListener<SignUpCubit, SignUpState>(
+      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         if (state.status == SignUpStatus.loading) {
           AppFullScreenLoader.openLoadingDialog(
@@ -51,24 +37,28 @@ class SignUpView extends StatelessWidget {
           );
         } else if (state.status == SignUpStatus.success) {
           AppFullScreenLoader.stopLoading(context);
-          AppLoaders.customToast(
+          AppLoaders.successSnackBar(
             message: 'Account created successfully!',
             context: context,
+            title: 'Success',
           );
-          AppHelperFunctions.navigateToScreen(
+          Navigator.pushNamed(
             context,
-            VerifyEmailScreen(
-              email: cubit.emailController.text,
-              title: AppTextStrings.confirmEmail,
-              subtitle: AppTextStrings.confirmEmailSubTitle,
-              buttonTitle: AppTextStrings.tContinue,
-            ),
+            VerifyEmailScreen.routeName,
+            arguments: {
+              'email': cubit.emailController.text.trim(),
+              'title': 'Verify your email',
+              'subtitle': 'Please check your email for the verification message.',
+              'buttonTitle': 'Verify',
+              'isForgetPasswordScreen': false,
+            },
           );
         } else if (state.status == SignUpStatus.error) {
           AppFullScreenLoader.stopLoading(context);
-          AppLoaders.customToast(
+          AppLoaders.errorSnackBar(
             message: state.error ?? 'Something went wrong',
             context: context,
+            title: 'Error',
           );
         }
       },
@@ -93,8 +83,6 @@ class SignUpView extends StatelessWidget {
                     style: Theme.of(context).textTheme.displayLarge,
                   ),
                   const VerticalSpace(height: AppSizes.spaceBtwSections),
-
-                  // First & Last name side-by-side
                   Row(
                     children: [
                       Flexible(
@@ -146,8 +134,7 @@ class SignUpView extends StatelessWidget {
                   MyTextFormField(
                     hintText: AppTextStrings.tPhoneNo,
                     isObsecure: false,
-                    validator: (value) =>
-                        Validator.validateEmptyText('Phone', value),
+                    validator: (value) => Validator.validatePhoneNumber(value),
                     controller: cubit.phoneController,
                     prefixIcon: const Icon(Iconsax.call, size: 18),
                   ),
@@ -160,11 +147,9 @@ class SignUpView extends StatelessWidget {
                     prefixIcon: const Icon(Iconsax.password_check, size: 18),
                   ),
                   const VerticalSpace(height: AppSizes.spaceBtwSections / 2),
-
                   // Agree to privacy policy
                   const AgreePolicyCheckbox(),
                   const VerticalSpace(height: AppSizes.spaceBtwSections),
-
                   // Create Account button
                   CustomButton(
                     text: 'Create Account',

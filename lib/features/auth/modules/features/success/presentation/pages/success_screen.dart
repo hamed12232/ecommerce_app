@@ -5,22 +5,17 @@ import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({
-    super.key,
-    this.image,
-    this.title,
-    this.subTitle,
-    this.onPressed,
-  });
+  const SuccessScreen({super.key, this.image, this.onPressed});
 
   static const String routeName = '/success';
 
   final String? image;
-  final String? title;
-  final String? subTitle;
+
   final VoidCallback? onPressed;
 
   @override
@@ -37,8 +32,8 @@ class SuccessScreen extends StatelessWidget {
 
               // Illustration
               Center(
-                child: Image.asset(
-                  AppImages.sucessImage,
+                child: Lottie.asset(
+                  image ?? AppImages.successfullyRegisterAnimation,
                   height: height * 0.36,
                   fit: BoxFit.contain,
                 ),
@@ -76,8 +71,12 @@ class SuccessScreen extends StatelessWidget {
                 ),
                 child: CustomButton(
                   text: AppTextStrings.tContinue,
-                  onPressed: () {
-                    Navigator.of(context).popUntil((route) => route.isFirst);
+                  onPressed: onPressed ?? () {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      LoginScreen.routeName,
+                      (route) => false,
+                    );
                   },
                 ),
               ),

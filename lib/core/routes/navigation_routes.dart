@@ -1,8 +1,11 @@
+import 'package:ecommerce_app/core/di/service_locator.dart';
 import 'package:ecommerce_app/features/auth/modules/features/forget_password/presentation/pages/forget_password_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/screen/onboarding_screen.dart';
+import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/controller/cubit/sign_up_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/pages/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/success/presentation/pages/success_screen.dart';
+import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/controller/cubit/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_info_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_screen.dart';
@@ -14,6 +17,7 @@ import 'package:ecommerce_app/features/shop/modules/store/presentation/screen/st
 import 'package:ecommerce_app/features/shop/modules/wishlist/presentation/pages/wishlist_screen.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NavigationRoutes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -28,7 +32,12 @@ class NavigationRoutes {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
 
       case SignUpScreen.routeName:
-        return MaterialPageRoute(builder: (context) => const SignUpScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<SignUpCubit>(),
+            child: const SignUpScreen(),
+          ),
+        );
 
       case ForgetPasswordScreen.routeName:
         return MaterialPageRoute(
@@ -38,11 +47,17 @@ class NavigationRoutes {
       case VerifyEmailScreen.routeName:
         final args = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute(
-          builder: (context) => VerifyEmailScreen(
-            email: args?['email'] ?? '',
-            title: args?['title'] ?? '',
-            subtitle: args?['subtitle'] ?? '',
-            buttonTitle: args?['buttonTitle'] ?? '',
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<VerifyEmailCubit>()
+              ..sendEmailVerification()
+              ..setTimerForAutoRedirect(),
+            child: VerifyEmailScreen(
+              email: args?['email'] ?? '',
+              title: args?['title'] ?? '',
+              subtitle: args?['subtitle'] ?? '',
+              buttonTitle: args?['buttonTitle'] ?? '',
+              isForgetPasswordScreen: args?['isForgetPasswordScreen'] ?? false,
+            ),
           ),
         );
 
@@ -51,8 +66,6 @@ class NavigationRoutes {
         return MaterialPageRoute(
           builder: (context) => SuccessScreen(
             image: args?['image'] ?? '',
-            title: args?['title'] ?? '',
-            subTitle: args?['subTitle'] ?? '',
             onPressed: args?['onPressed'] ?? () {},
           ),
         );

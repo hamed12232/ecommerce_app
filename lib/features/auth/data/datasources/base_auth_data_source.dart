@@ -5,4 +5,6 @@ abstract class BaseAuthDataSource {
     required String email,
     required String password,
   });
+
+  Future<void> sendEmailVerification();
 }
