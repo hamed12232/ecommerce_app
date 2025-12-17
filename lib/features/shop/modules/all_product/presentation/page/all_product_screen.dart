@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 class AllProductScreen extends StatelessWidget {
   const AllProductScreen({super.key});
 
+  static const String routeName = '/all-products';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

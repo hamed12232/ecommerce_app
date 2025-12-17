@@ -8,7 +8,20 @@ import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key});
+  const SuccessScreen({
+    super.key,
+    this.image,
+    this.title,
+    this.subTitle,
+    this.onPressed,
+  });
+
+  static const String routeName = '/success';
+
+  final String? image;
+  final String? title;
+  final String? subTitle;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {

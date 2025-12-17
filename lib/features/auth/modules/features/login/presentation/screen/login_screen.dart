@@ -7,16 +7,18 @@ import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_password_text_field.dart';
 import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
-import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/pages/sign_up_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_divider_sign_in_methods.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_remeber_me_check_box.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/widgets/custom_sign_in_methods_buttons.dart';
+import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/pages/sign_up_screen.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  static const String routeName = '/login';
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -71,14 +73,23 @@ class _LoginScreenState extends State<LoginScreen> {
               const VerticalSpace(height: AppSizes.spaceBtwSections / 2),
               const CustomRemeberMeCheckBox(),
               const VerticalSpace(height: AppSizes.spaceBtwSections),
-              CustomButton(text: AppTextStrings.tLogin, onPressed: () {
-                AppHelperFunctions.navigateToScreen(context, const NavigationMenu());
-              }),
+              CustomButton(
+                text: AppTextStrings.tLogin,
+                onPressed: () {
+                  AppHelperFunctions.navigateToScreen(
+                    context,
+                    const NavigationMenu(),
+                  );
+                },
+              ),
               const VerticalSpace(height: AppSizes.spaceBtwSections / 2),
               CustomButton(
                 text: AppTextStrings.tSignup,
                 onPressed: () {
-                  AppHelperFunctions.navigateToScreen(context, const SignUpScreen());
+                  AppHelperFunctions.navigateToScreen(
+                    context,
+                    const SignUpScreen(),
+                  );
                 },
                 buttonColor: Colors.transparent,
                 hasBorderColor: true,

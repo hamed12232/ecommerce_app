@@ -1,6 +1,15 @@
 part of 'sign_up_cubit.dart';
 
-sealed class SignUpState {}
+enum SignUpStatus { initial, loading, success, error }
 
-final class SignUpInitial extends SignUpState {}
+class SignUpState {
+  final SignUpStatus status;
+  final String? error;
 
+  SignUpState({this.status = SignUpStatus.initial, this.error});
+
+  SignUpState copyWith({SignUpStatus? status, String? error}) {
+    return SignUpState(status: status ?? this.status, error: error ?? this.error);
+  }
+  
+}

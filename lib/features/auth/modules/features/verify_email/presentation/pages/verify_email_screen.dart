@@ -11,7 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key, required this.email, required this.title, required this.subtitle, required this.buttonTitle,  this.isForgetPasswordScreen=false});
+  const VerifyEmailScreen({
+    super.key,
+    required this.email,
+    required this.title,
+    required this.subtitle,
+    required this.buttonTitle,
+    this.isForgetPasswordScreen = false,
+  });
+
+  static const String routeName = '/verify-email';
+
   final String title;
   final String subtitle;
   final String buttonTitle;
@@ -72,7 +82,9 @@ class VerifyEmailScreen extends StatelessWidget {
                 child: Text(
                   subtitle,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.darkGrey),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodySmall?.copyWith(color: AppColors.darkGrey),
                 ),
               ),
 
@@ -85,12 +97,12 @@ class VerifyEmailScreen extends StatelessWidget {
                 child: CustomButton(
                   text: buttonTitle,
                   onPressed: () {
-                  if(!isForgetPasswordScreen){
+                    if (!isForgetPasswordScreen) {
                       AppHelperFunctions.navigateToScreen(
-                      context,
-                      const SuccessScreen(),
-                    );
-                  }
+                        context,
+                        const SuccessScreen(),
+                      );
+                    }
                   },
                 ),
               ),
@@ -105,7 +117,9 @@ class VerifyEmailScreen extends StatelessWidget {
                   },
                   child: Text(
                     AppTextStrings.resendEmail,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.borderPrimary),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      color: AppColors.borderPrimary,
+                    ),
                   ),
                 ),
               ),

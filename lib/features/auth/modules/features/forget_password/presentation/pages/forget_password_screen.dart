@@ -12,6 +12,8 @@ import 'package:iconsax/iconsax.dart';
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
 
+  static const String routeName = '/forget-password';
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController emailController = TextEditingController();

@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
+  static const String routeName = '/onboarding';
+
   @override
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }

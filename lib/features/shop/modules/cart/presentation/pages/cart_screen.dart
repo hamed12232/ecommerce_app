@@ -8,18 +8,20 @@ import 'package:flutter/material.dart';
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
+  static const String routeName = '/cart';
+
   @override
   Widget build(BuildContext context) {
-    final dark= AppHelperFunctions.isDarkMode(context);
+    final dark = AppHelperFunctions.isDarkMode(context);
     return Scaffold(
       /// -- AppBar
       appBar: AppBar(
         title: Text(" Cart", style: Theme.of(context).textTheme.headlineMedium),
         centerTitle: false,
         elevation: 0,
-        backgroundColor: dark? AppColors.dark : AppColors.white,
+        backgroundColor: dark ? AppColors.dark : AppColors.white,
       ),
-        backgroundColor: dark? AppColors.dark : AppColors.white,
+      backgroundColor: dark ? AppColors.dark : AppColors.white,
       body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(AppSizes.defaultSpace),
@@ -35,11 +37,15 @@ class CartScreen extends StatelessWidget {
         child: SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.primary,
               side: const BorderSide(color: AppColors.primary),
             ),
             onPressed: () {
-              AppHelperFunctions.navigateToScreen(context, const CheckoutScreen());
+              AppHelperFunctions.navigateToScreen(
+                context,
+                const CheckoutScreen(),
+              );
             },
             child: Text(
               'Checkout ',

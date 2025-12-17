@@ -11,6 +11,8 @@ import 'package:iconsax/iconsax.dart';
 class NavigationMenu extends StatefulWidget {
   const NavigationMenu({super.key});
 
+  static const String routeName = '/home';
+
   @override
   State<NavigationMenu> createState() => _NavigationMenuState();
 }

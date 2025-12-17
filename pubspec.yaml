@@ -40,6 +40,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_getit: ^3.0.1
   flutter_native_splash: ^2.4.6
   flutter_rating_bar: ^4.0.1
   flutter_svg: ^2.2.1

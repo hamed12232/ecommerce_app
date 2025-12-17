@@ -11,7 +11,8 @@ import 'package:flutter/material.dart';
 class ProfileInfoScreen extends StatelessWidget {
   const ProfileInfoScreen({super.key});
 
-  @override
+  static const String routeName = '/profile-info';
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);

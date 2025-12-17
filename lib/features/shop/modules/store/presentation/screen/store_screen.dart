@@ -18,6 +18,8 @@ import 'package:iconsax/iconsax.dart';
 class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
 
+  static const String routeName = '/store';
+
   @override
   State<StoreScreen> createState() => _StoreScreenState();
 }
