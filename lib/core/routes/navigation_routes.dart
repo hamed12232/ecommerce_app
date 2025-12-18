@@ -1,5 +1,7 @@
 import 'package:ecommerce_app/core/di/service_locator.dart';
+import 'package:ecommerce_app/features/auth/modules/features/forget_password/presentation/controller/cubit/forget_password_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/forget_password/presentation/pages/forget_password_screen.dart';
+import 'package:ecommerce_app/features/auth/modules/features/forget_password/presentation/pages/reset_password_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/controller/cubit/login_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/screen/onboarding_screen.dart';
@@ -49,7 +51,19 @@ class NavigationRoutes {
 
       case ForgetPasswordScreen.routeName:
         return MaterialPageRoute(
-          builder: (context) => const ForgetPasswordScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<ForgetPasswordCubit>(),
+            child: const ForgetPasswordScreen(),
+          ),
+        );
+
+      case ResetPasswordScreen.routeName:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<ForgetPasswordCubit>(),
+            child: ResetPasswordScreen(email: args?['email'] ?? ''),
+          ),
         );
 
       case VerifyEmailScreen.routeName:
@@ -64,7 +78,6 @@ class NavigationRoutes {
               title: args?['title'] ?? '',
               subtitle: args?['subtitle'] ?? '',
               buttonTitle: args?['buttonTitle'] ?? '',
-              isForgetPasswordScreen: args?['isForgetPasswordScreen'] ?? false,
             ),
           ),
         );

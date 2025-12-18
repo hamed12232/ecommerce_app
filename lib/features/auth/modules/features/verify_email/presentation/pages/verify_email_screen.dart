@@ -21,7 +21,6 @@ class VerifyEmailScreen extends StatelessWidget {
     required this.title,
     required this.subtitle,
     required this.buttonTitle,
-    this.isForgetPasswordScreen = false,
   });
 
   static const String routeName = '/verify-email';
@@ -29,7 +28,6 @@ class VerifyEmailScreen extends StatelessWidget {
   final String title;
   final String subtitle;
   final String buttonTitle;
-  final bool isForgetPasswordScreen;
   final String email;
 
   @override
@@ -38,22 +36,20 @@ class VerifyEmailScreen extends StatelessWidget {
     return BlocListener<VerifyEmailCubit, VerifyEmailState>(
       listener: (context, state) {
         if (state.status == VerifyEmailStatus.verified) {
-          if (!isForgetPasswordScreen) {
-            Navigator.pushNamed(
-              context,
-              SuccessScreen.routeName,
-              arguments: {
-                'image': AppImages.successfullyRegisterAnimation,
-                'title': AppTextStrings.yourAccountCreatedTitle,
-                'subTitle': AppTextStrings.yourAccountCreatedSubTitle,
-                'onPressed': () => Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  LoginScreen.routeName,
-                  (route) => false,
-                ),
-              },
-            );
-          }
+          Navigator.pushNamed(
+            context,
+            SuccessScreen.routeName,
+            arguments: {
+              'image': AppImages.successfullyRegisterAnimation,
+              'title': AppTextStrings.yourAccountCreatedTitle,
+              'subTitle': AppTextStrings.yourAccountCreatedSubTitle,
+              'onPressed': () => Navigator.pushNamedAndRemoveUntil(
+                context,
+                LoginScreen.routeName,
+                (route) => false,
+              ),
+            },
+          );
         } else if (state.status == VerifyEmailStatus.emailSent) {
           AppLoaders.successSnackBar(
             title: 'Email Sent',

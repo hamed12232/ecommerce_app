@@ -48,9 +48,9 @@ class SignUpScreen extends StatelessWidget {
             arguments: {
               'email': cubit.emailController.text.trim(),
               'title': 'Verify your email',
-              'subtitle': 'Please check your email for the verification message.',
+              'subtitle':
+                  'Please check your email for the verification message.',
               'buttonTitle': 'Verify',
-              'isForgetPasswordScreen': false,
             },
           );
         } else if (state.status == SignUpStatus.error) {

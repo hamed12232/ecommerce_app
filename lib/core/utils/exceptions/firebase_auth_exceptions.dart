@@ -93,6 +93,8 @@ class AppFirebaseAuthException implements Exception {
         return 'An internal authentication error occurred. Please try again later.';
       case 'INVALID_LOGIN_CREDENTIALS':
         return 'Invalid login credentials.';
+      case 'network-request-failed':
+        return 'No internet connection. Please check your network and try again.';
       default:
         return 'An unexpected authentication error occurred. Please try again.';
     }

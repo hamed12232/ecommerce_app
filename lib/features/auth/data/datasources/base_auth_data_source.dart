@@ -13,5 +13,9 @@ abstract class BaseAuthDataSource {
 
   Future<void> logout();
 
+  Future<UserCredential> loginWithGoogle();
+
+  Future<void> sendPasswordResetEmail(String email);
+
   Future<void> sendEmailVerification();
 }

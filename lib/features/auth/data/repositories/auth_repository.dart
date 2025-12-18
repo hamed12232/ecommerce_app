@@ -85,4 +85,36 @@ class AuthRepository implements BaseAuthRepository {
       return Left(Exceptions(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Exceptions, UserCredential>> loginWithGoogle() async {
+    try {
+      final userCredential = await baseAuthDataSource.loginWithGoogle();
+      return Right(userCredential);
+    } on AppFirebaseAuthException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
+    } catch (e) {
+      return Left(Exceptions(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Exceptions, void>> sendPasswordResetEmail(String email) async {
+    try {
+      await baseAuthDataSource.sendPasswordResetEmail(email);
+      return const Right(null);
+    } on AppFirebaseAuthException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
+    } catch (e) {
+      return Left(Exceptions(e.toString()));
+    }
+  }
 }

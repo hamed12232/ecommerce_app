@@ -12,5 +12,8 @@ abstract class BaseAuthRepository {
     String password,
   );
   Future<Either<Exceptions, void>> logout();
+  Future<Either<Exceptions, UserCredential>> loginWithGoogle();
+
+  Future<Either<Exceptions, void>> sendPasswordResetEmail(String email);
   Future<Either<Exceptions, void>> sendEmailVerification();
 }
