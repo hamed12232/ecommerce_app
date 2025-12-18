@@ -10,10 +10,12 @@ import 'package:ecommerce_app/features/auth/modules/features/verify_email/presen
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_info_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_screen.dart';
+import 'package:ecommerce_app/features/personlization/presentation/pages/user_address.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/checkout_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/order/presentation/page/my_order_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/screen/store_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/wishlist/presentation/pages/wishlist_screen.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
@@ -109,6 +111,12 @@ class NavigationRoutes {
         return MaterialPageRoute(
           builder: (context) => const ProfileInfoScreen(),
         );
+
+      case MyOrdersScreen.routeName:
+        return MaterialPageRoute(builder: (context) => const MyOrdersScreen());
+
+      case UserAddress.routeName:
+        return MaterialPageRoute(builder: (context) => const UserAddress());
 
       // ========== Default Route ==========
       default:

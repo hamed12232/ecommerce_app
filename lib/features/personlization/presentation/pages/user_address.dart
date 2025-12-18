@@ -9,6 +9,8 @@ import 'package:iconsax/iconsax.dart';
 class UserAddress extends StatefulWidget {
   const UserAddress({super.key});
 
+  static const String routeName = '/user_address';
+
   @override
   State<UserAddress> createState() => _UserAddressState();
 }

@@ -2,15 +2,16 @@ import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/dialog/show_dialog.dart';
-import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/user_address.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/account_menu_item.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/account_setting_toggle.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/order/presentation/page/my_order_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MainProfileSection extends StatelessWidget {
@@ -31,23 +32,21 @@ class MainProfileSection extends StatelessWidget {
 
         AccountMenuItem(
           icon: Iconsax.location,
-          onTap: () =>
-              AppHelperFunctions.navigateToScreen(context, const UserAddress()),
+          onTap: () => Navigator.pushNamed(context, UserAddress.routeName),
           title: AppTextStrings.tMyAddresses,
           subtitle: AppTextStrings.tMyAddressesSubtitle,
           isDark: isDark,
         ),
         AccountMenuItem(
           icon: Iconsax.card,
-          onTap: () =>
-              AppHelperFunctions.navigateToScreen(context, const CartScreen()),
+          onTap: () => Navigator.pushNamed(context, CartScreen.routeName),
           title: AppTextStrings.tMyCart,
           subtitle: AppTextStrings.tMyCartSubtitle,
           isDark: isDark,
         ),
         AccountMenuItem(
           icon: Iconsax.box,
-          onTap: () => AppHelperFunctions.navigateToScreen(context, const MyOrdersScreen()),
+          onTap: () => Navigator.pushNamed(context, MyOrdersScreen.routeName),
           title: AppTextStrings.tMyOrders,
           subtitle: AppTextStrings.tMyOrdersSubtitle,
           isDark: isDark,
@@ -119,7 +118,11 @@ class MainProfileSection extends StatelessWidget {
         // Logout button
         CustomButton(
           text: AppTextStrings.tLogout,
-          onPressed: () => ShowDialog.showLogoutModal(context),
+          onPressed: () {
+            ShowDialog.showLogoutModal(context, () {
+              context.read<SettingsCubit>().logout();
+            });
+          },
         ),
 
         const SizedBox(height: 40),

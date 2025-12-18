@@ -8,6 +8,8 @@ import 'package:ecommerce_app/features/auth/modules/features/login/presentation/
 import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/controller/cubit/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
+import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,13 +19,16 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: NavigationRoutes.generateRoute,
-      home: _screenRedirect(FirebaseAuth.instance.currentUser),
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => getIt<SettingsCubit>())],
+      child: MaterialApp(
+        themeMode: ThemeMode.system,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: NavigationRoutes.generateRoute,
+        home: _screenRedirect(FirebaseAuth.instance.currentUser),
+      ),
     );
   }
 
@@ -31,10 +36,7 @@ class App extends StatelessWidget {
     if (user != null) {
       if (user.emailVerified) {
         print("Email Verified");
-        return BlocProvider(
-          create: (context) => getIt<LoginCubit>(),
-          child: const LoginScreen(),
-        );
+        return const NavigationMenu();
       } else {
         return BlocProvider(
           create: (context) => getIt<VerifyEmailCubit>()

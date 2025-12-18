@@ -11,5 +11,6 @@ abstract class BaseAuthRepository {
     String email,
     String password,
   );
+  Future<Either<Exceptions, void>> logout();
   Future<Either<Exceptions, void>> sendEmailVerification();
 }

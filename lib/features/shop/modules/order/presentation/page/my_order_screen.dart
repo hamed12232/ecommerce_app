@@ -6,6 +6,8 @@ import 'package:iconsax/iconsax.dart';
 class MyOrdersScreen extends StatelessWidget {
   const MyOrdersScreen({super.key});
 
+  static const String routeName = '/my_orders';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
