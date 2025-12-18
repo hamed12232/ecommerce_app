@@ -6,5 +6,10 @@ abstract class BaseAuthDataSource {
     required String password,
   });
 
+  Future<UserCredential> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  });
+
   Future<void> sendEmailVerification();
 }

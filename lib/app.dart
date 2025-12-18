@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/routes/navigation_routes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/services/shared_pref.dart';
 import 'package:ecommerce_app/core/utils/theme/theme.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/controller/cubit/login_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/onboarding/presentation/screen/onboarding_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/controller/cubit/verify_email_cubit.dart';
@@ -30,7 +31,10 @@ class App extends StatelessWidget {
     if (user != null) {
       if (user.emailVerified) {
         print("Email Verified");
-        return const LoginScreen();
+        return BlocProvider(
+          create: (context) => getIt<LoginCubit>(),
+          child: const LoginScreen(),
+        );
       } else {
         return BlocProvider(
           create: (context) => getIt<VerifyEmailCubit>()
@@ -48,7 +52,10 @@ class App extends StatelessWidget {
       if (SharedPrefServices.isFirstTime()) {
         return const OnboardingScreen();
       } else {
-        return const LoginScreen();
+        return BlocProvider(
+          create: (context) => getIt<LoginCubit>(),
+          child: const LoginScreen(),
+        );
       }
     }
   }

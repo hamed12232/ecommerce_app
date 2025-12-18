@@ -7,5 +7,9 @@ abstract class BaseAuthRepository {
     String email,
     String password,
   );
+  Future<Either<Exceptions, UserCredential>> loginWithEmailAndPassword(
+    String email,
+    String password,
+  );
   Future<Either<Exceptions, void>> sendEmailVerification();
 }

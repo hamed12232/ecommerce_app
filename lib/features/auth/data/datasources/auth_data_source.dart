@@ -30,6 +30,27 @@ class AuthDataSource implements BaseAuthDataSource {
   }
 
   @override
+  Future<UserCredential> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      return await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw AppFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
+    }
+  }
+
+  @override
   Future<void> sendEmailVerification() async {
     try {
       await _firebaseAuth.currentUser?.sendEmailVerification();

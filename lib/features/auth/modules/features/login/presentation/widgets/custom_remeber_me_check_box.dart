@@ -1,50 +1,48 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
-import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/features/auth/modules/features/forget_password/presentation/pages/forget_password_screen.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/controller/cubit/login_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CustomRemeberMeCheckBox extends StatefulWidget {
+class CustomRemeberMeCheckBox extends StatelessWidget {
   const CustomRemeberMeCheckBox({super.key});
 
   @override
-  State<CustomRemeberMeCheckBox> createState() => _CustomRemeberMeCheckBoxState();
-}
-
-class _CustomRemeberMeCheckBoxState extends State<CustomRemeberMeCheckBox> {
-    bool isRememberMe = false;
-
-  @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Checkbox(
-          value: isRememberMe,
-          onChanged: (value) {
-            setState(() {
-              isRememberMe = value!;
-            });
-          },
-          activeColor: AppColors.borderPrimary,
-          checkColor: AppColors.lightBackground,
-        ),
-        Text(
-          AppTextStrings.rememberMe,
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-        const Spacer(),
-        TextButton(
-          onPressed: () {
-            AppHelperFunctions.navigateToScreen(context, const ForgetPasswordScreen());
-          },
-          child: Text(
-            AppTextStrings.tForgetPassword,
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium!.copyWith(color: AppColors.borderPrimary),
-          ),
-        ),
-      ],
+    return BlocBuilder<LoginCubit, LoginState>(
+      buildWhen: (previous, current) =>
+          previous.isRememberMe != current.isRememberMe,
+      builder: (context, state) {
+        return Row(
+          children: [
+            Checkbox(
+              value: state.isRememberMe,
+              onChanged: (value) {
+                context.read<LoginCubit>().toggleRememberMe();
+              },
+              activeColor: AppColors.borderPrimary,
+              checkColor: AppColors.lightBackground,
+            ),
+            Text(
+              AppTextStrings.rememberMe,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const Spacer(),
+            TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
+              },
+              child: Text(
+                AppTextStrings.tForgetPassword,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  color: AppColors.borderPrimary,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
