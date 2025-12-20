@@ -12,6 +12,7 @@ class HomeAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserCubit, UserModelState>(
+      buildWhen: (previous, current) => current.user != previous.user,
       builder: (context, state) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,7 +27,7 @@ class HomeAppBar extends StatelessWidget {
                   ).textTheme.bodyMedium!.apply(color: AppColors.grey),
                 ),
                 Text(
-                  state.user.username,
+                  "${state.user.firstName} ${state.user.lastName}",
                   style: Theme.of(
                     context,
                   ).textTheme.headlineMedium!.apply(color: AppColors.white),

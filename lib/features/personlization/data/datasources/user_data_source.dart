@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/core/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce_app/core/utils/exceptions/platform_exceptions.dart';
@@ -5,6 +7,7 @@ import 'package:ecommerce_app/features/personlization/data/datasources/base_user
 import 'package:ecommerce_app/features/personlization/data/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserDataSource implements BaseUserDataSource {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -91,6 +94,27 @@ class UserDataSource implements BaseUserDataSource {
       throw AppFirebaseException(e.code);
     } on PlatformException catch (e) {
       throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<String?> uploadImage(String path, dynamic imageFile) async {
+    try {
+      final bucket = Supabase.instance.client.storage.from('images');
+      final response = await bucket.upload(
+        path,
+        imageFile as File,
+        fileOptions: const FileOptions(upsert: true),
+      );
+
+      if (response.isEmpty) throw Exception("Upload failed");
+
+      final publicUrl = bucket.getPublicUrl(path);
+      return publicUrl;
+    } on StorageException catch (e) {
+      throw Exception(e.message);
     } catch (e) {
       throw Exception('Unexpected error: ${e.toString()}');
     }

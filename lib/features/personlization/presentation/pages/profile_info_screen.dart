@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
@@ -11,6 +13,7 @@ import 'package:ecommerce_app/features/auth/modules/features/login/presentation/
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_model_state.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/re_auth_login_form.dart';
+import 'package:ecommerce_app/features/personlization/presentation/pages/update_name_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/info_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,6 +86,7 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
           }
           if (state.error.isNotEmpty) {
             AppLoaders.warningSnackBar(title: state.error, context: context);
+            log(state.error);
             context.read<UserCubit>().clearError();
           }
           if (state.successMessage != null &&
@@ -108,17 +112,28 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                   child: Column(
                     children: [
                       CircularImage(
+                        width: 100,
+                        height: 100,
                         isNetworkImage: user.profileImage.isNotEmpty,
                         image: user.profileImage.isNotEmpty
                             ? user.profileImage
                             : AppImages.userProfileImage,
                         backgroundColor: AppColors.grey,
+                        padding: 0,
+                        fit: BoxFit.cover,
                       ),
-                      const VerticalSpace(height: AppSizes.lg),
-                      Text(
-                        AppTextStrings.tChangeProfilePicture,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.primary,
+                      const VerticalSpace(height: AppSizes.sm),
+                      TextButton(
+                        onPressed: state.profileLoading
+                            ? null
+                            : () => context
+                                  .read<UserCubit>()
+                                  .uploadUserProfileImage(),
+                        child: Text(
+                          AppTextStrings.tChangeProfilePicture,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.primary,
+                          ),
                         ),
                       ),
                     ],
@@ -139,7 +154,10 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                   value: user.firstName.isNotEmpty
                       ? "${user.firstName} ${user.lastName}"
                       : 'N/A',
-                  onTap: () {},
+                  onTap: () {
+                    context.read<UserCubit>().initializeNames();
+                    Navigator.of(context).pushNamed(UpdateNameScreen.routeName);
+                  },
                 ),
                 InfoRow(
                   label: AppTextStrings.lblUsername,

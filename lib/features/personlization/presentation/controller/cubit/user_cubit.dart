@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ecommerce_app/features/auth/domain/usecases/delete_account_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/login_with_google_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/re_authenticate_usecase.dart';
@@ -7,9 +9,12 @@ import 'package:ecommerce_app/features/personlization/domain/usecases/remove_use
 import 'package:ecommerce_app/features/personlization/domain/usecases/save_user_record_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/update_single_field_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/update_user_details_usecase.dart';
+import 'package:ecommerce_app/features/personlization/domain/usecases/upload_image_usecase.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_model_state.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserCubit extends Cubit<UserModelState> {
   final SaveUserRecordUseCase saveUserRecordUseCase;
@@ -20,6 +25,15 @@ class UserCubit extends Cubit<UserModelState> {
   final DeleteAccountUseCase deleteAccountUseCase;
   final ReAuthenticateUseCase reAuthenticateUseCase;
   final LoginWithGoogleUseCase loginWithGoogleUseCase;
+  final UploadImageUseCase uploadImageUseCase;
+
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final updateNameFormKey = GlobalKey<FormState>();
+
+  final reAuthEmailController = TextEditingController();
+  final reAuthPasswordController = TextEditingController();
+  final reAuthFormKey = GlobalKey<FormState>();
 
   UserCubit({
     required this.saveUserRecordUseCase,
@@ -30,6 +44,7 @@ class UserCubit extends Cubit<UserModelState> {
     required this.deleteAccountUseCase,
     required this.reAuthenticateUseCase,
     required this.loginWithGoogleUseCase,
+    required this.uploadImageUseCase,
   }) : super(const UserModelState());
 
   /// Save user Record from any Registration provider
@@ -235,6 +250,63 @@ class UserCubit extends Cubit<UserModelState> {
     }
   }
 
+  /// Initialize Name controllers
+  void initializeNames() {
+    firstNameController.text = state.user.firstName;
+    lastNameController.text = state.user.lastName;
+  }
+
+  /// Toggle Hide Password
+  void toggleHidePassword() {
+    emit(state.copyWith(hidePassword: !state.hidePassword));
+  }
+
+  /// Clear re-auth controllers
+  void clearReAuthControllers() {
+    reAuthEmailController.clear();
+    reAuthPasswordController.clear();
+  }
+
+  /// Upload User Profile Image
+  Future<void> uploadUserProfileImage() async {
+    try {
+      final imagePicker = ImagePicker();
+      final XFile? image = await imagePicker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+        maxHeight: 512,
+        maxWidth: 512,
+      );
+
+      if (image != null) {
+        emit(state.copyWith(profileLoading: true));
+        final path =
+            'Users/Images/Profile/${DateTime.now().millisecondsSinceEpoch}.png';
+        final result = await uploadImageUseCase(path, File(image.path));
+
+        result.fold(
+          (failure) {
+            emit(state.copyWith(profileLoading: false, error: failure.message));
+          },
+          (url) async {
+            // Update Firestore with new image URL
+            await updateSingleFieldUseCase({'profileImage': url});
+            // Update local state
+            emit(
+              state.copyWith(
+                profileLoading: false,
+                user: state.user.copyWith(profileImage: url),
+                successMessage: "Profile image updated successfully!",
+              ),
+            );
+          },
+        );
+      }
+    } catch (e) {
+      emit(state.copyWith(profileLoading: false, error: e.toString()));
+    }
+  }
+
   /// Finalize account deletion
   Future<void> deleteAccount() async {
     try {
@@ -274,5 +346,19 @@ class UserCubit extends Cubit<UserModelState> {
   /// Clear success message
   void clearSuccess() {
     emit(state.copyWith(successMessage: ''));
+  }
+
+  /// Clear user data
+  void clearUserData() {
+    emit(const UserModelState());
+  }
+
+  @override
+  Future<void> close() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    reAuthEmailController.dispose();
+    reAuthPasswordController.dispose();
+    return super.close();
   }
 }

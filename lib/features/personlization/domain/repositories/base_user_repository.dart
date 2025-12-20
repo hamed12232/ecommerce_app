@@ -8,4 +8,8 @@ abstract class BaseUserRepository {
   Future<Either<Exceptions, void>> updateUserDetails(UserModel userModel);
   Future<Either<Exceptions, void>> updateSingleField(Map<String, dynamic> json);
   Future<Either<Exceptions, void>> removeUserRecord(String userId);
+  Future<Either<Exceptions, String>> uploadImage(
+    String path,
+    dynamic imageFile,
+  );
 }

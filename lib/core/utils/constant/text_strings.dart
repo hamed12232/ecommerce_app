@@ -22,6 +22,8 @@ class AppTextStrings {
   static const String password = "Password";
   static const String tContinue = "Continue";
   static const String tPassword = "Password";
+  static const String firstName = "First Name";
+  static const String lastName = "Last Name";
   static const String tFullName = "Full Name";
   static const String tGetStarted = "Get Started";
   static const String rememberMe = "Remember Me";
@@ -272,9 +274,7 @@ class AppTextStrings {
   static const String wishlistAppBar = "WishList";
   //subCategories
   static const String subCategories = "SubCategories";
-    static const String sportsShoes = "Sports Shoes";
-    static const String trackSuit = "Track Suit";
-    static const String sportsEquipment = "Sports Equipment";
-
-
+  static const String sportsShoes = "Sports Shoes";
+  static const String trackSuit = "Track Suit";
+  static const String sportsEquipment = "Sports Equipment";
 }

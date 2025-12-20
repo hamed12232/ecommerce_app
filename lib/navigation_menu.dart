@@ -1,11 +1,13 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/screen/store_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/wishlist/presentation/pages/wishlist_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
 class NavigationMenu extends StatefulWidget {
@@ -31,6 +33,13 @@ class _NavigationMenuState extends State<NavigationMenu> {
     {'icon': Iconsax.heart, 'label': 'Wishlist'},
     {'icon': Iconsax.user, 'label': 'Profile'},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<UserCubit>().fetchUserRecord();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = AppHelperFunctions.screenWidth(context);

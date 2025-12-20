@@ -83,4 +83,20 @@ class UserRepository implements BaseUserRepository {
       return Left(Exceptions(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Exceptions, String>> uploadImage(
+    String path,
+    dynamic imageFile,
+  ) async {
+    try {
+      final url = await baseUserDataSource.uploadImage(path, imageFile);
+      if (url == null) {
+        return const Left(Exceptions('Upload failed: URL is null'));
+      }
+      return Right(url);
+    } catch (e) {
+      return Left(Exceptions(e.toString()));
+    }
+  }
 }

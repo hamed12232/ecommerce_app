@@ -1,8 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/core/widgets/shimmers/shimmer.dart';
 import 'package:flutter/material.dart';
-
 
 class CircularImage extends StatelessWidget {
   const CircularImage({
@@ -31,16 +32,33 @@ class CircularImage extends StatelessWidget {
       height: height,
       padding: EdgeInsets.all(padding),
       decoration: BoxDecoration(
-        // If image background color is null then switch it to light and dark mode color design.
-        color: backgroundColor ?? (AppHelperFunctions.isDarkMode(context) ? AppColors.black : AppColors.white),
+        color:
+            backgroundColor ??
+            (AppHelperFunctions.isDarkMode(context)
+                ? AppColors.black
+                : AppColors.white),
         borderRadius: BorderRadius.circular(100),
       ),
-      child: Center(
-        child: Image(
-          fit: fit,
-          image: isNetworkImage ? NetworkImage(image) : AssetImage(image) as ImageProvider,
-          color: overlayColor,
-        ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+        child: isNetworkImage
+            ? CachedNetworkImage(
+                fit: fit,
+                width: width,
+                height: height,
+                color: overlayColor,
+                imageUrl: image,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    ShimmerEffect(width: width, height: height, radius: 100),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              )
+            : Image(
+                fit: fit,
+                width: width,
+                height: height,
+                image: AssetImage(image),
+                color: overlayColor,
+              ),
       ),
     );
   }

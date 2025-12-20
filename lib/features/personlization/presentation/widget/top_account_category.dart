@@ -40,6 +40,7 @@ class TopAccountProfileScetion extends StatelessWidget {
                       ? user.profileImage
                       : AppImages.userProfileImage,
                   fit: BoxFit.cover,
+                  padding: 0,
                 ),
                 const HorizentalSpace(width: 12),
                 Expanded(

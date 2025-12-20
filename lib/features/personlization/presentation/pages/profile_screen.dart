@@ -6,6 +6,7 @@ import 'package:ecommerce_app/core/widgets/custom_shapes/containers/primary_head
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/main_profile_section.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/top_account_category.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class ProfileScreen extends StatelessWidget {
     return BlocListener<SettingsCubit, SettingsState>(
       listener: (context, state) {
         if (state.status == SettingsStatus.success) {
+          context.read<UserCubit>().clearUserData();
           Navigator.pushNamedAndRemoveUntil(
             context,
             LoginScreen.routeName,

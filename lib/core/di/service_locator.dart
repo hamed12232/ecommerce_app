@@ -23,6 +23,7 @@ import 'package:ecommerce_app/features/personlization/domain/usecases/remove_use
 import 'package:ecommerce_app/features/personlization/domain/usecases/save_user_record_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/update_single_field_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/update_user_details_usecase.dart';
+import 'package:ecommerce_app/features/personlization/domain/usecases/upload_image_usecase.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -98,6 +99,9 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<RemoveUserRecordUseCase>(
     () => RemoveUserRecordUseCase(repository: getIt<BaseUserRepository>()),
   );
+  getIt.registerLazySingleton<UploadImageUseCase>(
+    () => UploadImageUseCase(baseUserRepository: getIt<BaseUserRepository>()),
+  );
 
   // ========== Blocs/Cubits ==========
   getIt.registerFactory<SignUpCubit>(
@@ -134,6 +138,7 @@ Future<void> setupServiceLocator() async {
       deleteAccountUseCase: getIt<DeleteAccountUseCase>(),
       reAuthenticateUseCase: getIt<ReAuthenticateUseCase>(),
       loginWithGoogleUseCase: getIt<LoginWithGoogleUseCase>(),
+      uploadImageUseCase: getIt<UploadImageUseCase>(),
     ),
   );
 }

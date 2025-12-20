@@ -9,6 +9,7 @@ class UserModelState extends Equatable {
   final String? successMessage;
   final bool reAuthenticate;
   final bool accountDeleted;
+  final bool hidePassword;
 
   const UserModelState({
     this.user = const UserModel(
@@ -27,6 +28,7 @@ class UserModelState extends Equatable {
     this.successMessage,
     this.reAuthenticate = false,
     this.accountDeleted = false,
+    this.hidePassword = true,
   });
 
   UserModelState copyWith({
@@ -37,6 +39,7 @@ class UserModelState extends Equatable {
     String? successMessage,
     bool? reAuthenticate,
     bool? accountDeleted,
+    bool? hidePassword,
   }) {
     return UserModelState(
       user: user ?? this.user,
@@ -46,6 +49,7 @@ class UserModelState extends Equatable {
       successMessage: successMessage ?? this.successMessage,
       reAuthenticate: reAuthenticate ?? this.reAuthenticate,
       accountDeleted: accountDeleted ?? this.accountDeleted,
+      hidePassword: hidePassword ?? this.hidePassword,
     );
   }
 
@@ -58,5 +62,6 @@ class UserModelState extends Equatable {
     successMessage,
     reAuthenticate,
     accountDeleted,
+    hidePassword,
   ];
 }

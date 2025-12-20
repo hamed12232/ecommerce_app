@@ -6,4 +6,5 @@ abstract class BaseUserDataSource {
   Future<void> updateUserDetails(UserModel userModel);
   Future<void> updateSingleField(Map<String, dynamic> json);
   Future<void> removeUserRecord(String userId);
+  Future<String?> uploadImage(String path, dynamic imageFile);
 }
