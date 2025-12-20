@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/utils/helper/network_manager.dart';
-import 'package:ecommerce_app/features/auth/data/models/user_model.dart';
-import 'package:ecommerce_app/features/auth/domain/usecases/save_user_record_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/sign_up_usecase.dart';
+import 'package:ecommerce_app/features/personlization/data/models/user_model.dart';
+import 'package:ecommerce_app/features/personlization/domain/usecases/save_user_record_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

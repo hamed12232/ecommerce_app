@@ -50,6 +50,17 @@ class UserModel extends Equatable {
     profileImage: json["profileImage"],
   );
 
+  factory UserModel.empty() => const UserModel(
+    id: "",
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    phone: "",
+    profileImage: "",
+  );
+
   Map<String, dynamic> toJson() => {
     "id": id,
     "firstName": firstName,

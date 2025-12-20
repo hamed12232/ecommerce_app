@@ -5,8 +5,11 @@ import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/images/circular_image.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_model_state.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/info_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileInfoScreen extends StatelessWidget {
   const ProfileInfoScreen({super.key});
@@ -30,106 +33,120 @@ class ProfileInfoScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: theme.scaffoldBackgroundColor,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const VerticalSpace(height: 12),
-            Center(
-              child: Column(
-                children: [
-                  const CircularImage(
-                    image: AppImages.userProfileImage,
-                    backgroundColor: AppColors.grey,
-                  ),
-                  const VerticalSpace(height: AppSizes.lg),
-                  Text(
-                    AppTextStrings.tChangeProfilePicture,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.primary,
-                    ),
-                  ),
-                ],
-              ),
+      body: BlocBuilder<UserCubit, UserModelState>(
+        builder: (context, state) {
+          final user = state.user;
+          return Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.defaultSpace,
             ),
-
-            const VerticalSpace(height: 18),
-            const Divider(),
-            const VerticalSpace(height: 12),
-
-            const SectionHeading(
-              title: AppTextStrings.tProfileInformation,
-              showActionButton: false,
-            ),
-            const VerticalSpace(height: AppSizes.sm),
-            InfoRow(
-              label: AppTextStrings.lblName,
-              value: 'Taimoor Sikander',
-              onTap: () {},
-            ),
-            InfoRow(
-              label: AppTextStrings.lblUsername,
-              value: 'taimoor_sikander',
-              onTap: () {},
-            ),
-
-            const VerticalSpace(height: 12),
-            const Divider(),
-            const VerticalSpace(height: 12),
-
-            const SectionHeading(
-              title: AppTextStrings.tPersonalInformation,
-              showActionButton: false,
-            ),
-            const VerticalSpace(height: AppSizes.sm),
-            InfoRow(
-              label: AppTextStrings.lblUserId,
-              value: '45689',
-              trailing: IconButton(
-                icon: const Icon(Icons.copy),
-                onPressed: () {},
-              ),
-            ),
-            InfoRow(
-              label: AppTextStrings.lblEmail,
-              value: 't***@example.com',
-              onTap: () {},
-            ),
-            InfoRow(
-              label: AppTextStrings.lblPhoneNumber,
-              value: '+1 234 567 890',
-              onTap: () {},
-            ),
-            InfoRow(
-              label: AppTextStrings.lblGender,
-              value: 'Male',
-              onTap: () {},
-            ),
-            InfoRow(
-              label: AppTextStrings.lblDateOfBirth,
-              value: '10 Oct, 1994',
-              onTap: () {},
-            ),
-
-            const VerticalSpace(height: 18),
-            const Divider(),
-            const VerticalSpace(height: 24),
-
-            Center(
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  AppTextStrings.tCloseAccount,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.red,
-                    fontWeight: FontWeight.w600,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const VerticalSpace(height: 12),
+                Center(
+                  child: Column(
+                    children: [
+                      CircularImage(
+                        isNetworkImage: user.profileImage.isNotEmpty,
+                        image: user.profileImage.isNotEmpty
+                            ? user.profileImage
+                            : AppImages.userProfileImage,
+                        backgroundColor: AppColors.grey,
+                      ),
+                      const VerticalSpace(height: AppSizes.lg),
+                      Text(
+                        AppTextStrings.tChangeProfilePicture,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.colorScheme.primary,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
+
+                const VerticalSpace(height: 18),
+                const Divider(),
+                const VerticalSpace(height: 12),
+
+                const SectionHeading(
+                  title: AppTextStrings.tProfileInformation,
+                  showActionButton: false,
+                ),
+                const VerticalSpace(height: AppSizes.sm),
+                InfoRow(
+                  label: AppTextStrings.lblName,
+                  value: user.firstName.isNotEmpty
+                      ? "${user.firstName} ${user.lastName}"
+                      : 'N/A',
+                  onTap: () {},
+                ),
+                InfoRow(
+                  label: AppTextStrings.lblUsername,
+                  value: user.username.isNotEmpty ? user.username : 'N/A',
+                  onTap: () {},
+                ),
+
+                const VerticalSpace(height: 12),
+                const Divider(),
+                const VerticalSpace(height: 12),
+
+                const SectionHeading(
+                  title: AppTextStrings.tPersonalInformation,
+                  showActionButton: false,
+                ),
+                const VerticalSpace(height: AppSizes.sm),
+                InfoRow(
+                  label: AppTextStrings.lblUserId,
+                  value: user.id.isNotEmpty ? user.id : 'N/A',
+                  trailing: IconButton(
+                    icon: const Icon(Icons.copy),
+                    onPressed: () {},
+                  ),
+                ),
+                InfoRow(
+                  label: AppTextStrings.lblEmail,
+                  value: user.email.isNotEmpty ? user.email : 'N/A',
+                  onTap: () {},
+                ),
+                InfoRow(
+                  label: AppTextStrings.lblPhoneNumber,
+                  value: user.phone.isNotEmpty ? user.phone : 'N/A',
+                  onTap: () {},
+                ),
+                InfoRow(
+                  label: AppTextStrings.lblGender,
+                  value: 'Male', // TODO: Add gender to UserModel if needed
+                  onTap: () {},
+                ),
+                InfoRow(
+                  label: AppTextStrings.lblDateOfBirth,
+                  value: '10 Oct, 1994', // TODO: Add DOB to UserModel if needed
+                  onTap: () {},
+                ),
+
+                const VerticalSpace(height: 18),
+                const Divider(),
+                const VerticalSpace(height: 24),
+
+                Center(
+                  child: TextButton(
+                    onPressed: () {
+                      // TODO: Implement Close Account navigation or dialog
+                    },
+                    child: Text(
+                      AppTextStrings.tCloseAccount,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: Colors.red,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:ecommerce_app/features/personlization/model/address_model.dart';
+import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 

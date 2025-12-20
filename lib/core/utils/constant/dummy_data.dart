@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
-import 'package:ecommerce_app/features/personlization/model/address_model.dart';
+import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/product_attribute_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/product_model.dart';

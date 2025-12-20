@@ -27,9 +27,9 @@ class InfoRow extends StatelessWidget {
               flex: 3,
               child: Text(
                 label,
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.darkGrey,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodySmall?.copyWith(color: AppColors.darkGrey),
               ),
             ),
             const HorizentalSpace(width: 8),
@@ -42,12 +42,8 @@ class InfoRow extends StatelessWidget {
                 ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ),
-            if (trailing != null) ...[
-              const HorizentalSpace(width: 8),
-              ?trailing,
-            ] else
-              const HorizentalSpace(width: 8),
-            const Icon(Icons.arrow_forward_ios, size: 16),
+            const HorizentalSpace(width: 8),
+            trailing ?? const Icon(Icons.arrow_forward_ios, size: 16),
           ],
         ),
       ),

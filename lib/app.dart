@@ -9,6 +9,7 @@ import 'package:ecommerce_app/features/auth/modules/features/onboarding/presenta
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/controller/cubit/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => getIt<SettingsCubit>())],
+      providers: [
+        BlocProvider(create: (context) => getIt<SettingsCubit>()),
+        BlocProvider(
+          create: (context) => getIt<UserCubit>()..fetchUserRecord(),
+        ),
+      ],
       child: MaterialApp(
         themeMode: ThemeMode.system,
         theme: AppTheme.lightTheme,
@@ -35,7 +41,6 @@ class App extends StatelessWidget {
   Widget _screenRedirect(User? user) {
     if (user != null) {
       if (user.emailVerified) {
-        print("Email Verified");
         return const NavigationMenu();
       } else {
         return BlocProvider(
