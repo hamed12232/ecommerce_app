@@ -12,6 +12,7 @@ import 'package:ecommerce_app/features/auth/modules/features/verify_email/presen
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_info_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_screen.dart';
+import 'package:ecommerce_app/features/personlization/presentation/pages/re_auth_login_form.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/user_address.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
@@ -130,6 +131,9 @@ class NavigationRoutes {
 
       case UserAddress.routeName:
         return MaterialPageRoute(builder: (context) => const UserAddress());
+
+      case ReAuthLoginForm.routeName:
+        return MaterialPageRoute(builder: (context) => const ReAuthLoginForm());
 
       // ========== Default Route ==========
       default:

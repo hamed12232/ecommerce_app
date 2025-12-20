@@ -16,4 +16,9 @@ abstract class BaseAuthRepository {
 
   Future<Either<Exceptions, void>> sendPasswordResetEmail(String email);
   Future<Either<Exceptions, void>> sendEmailVerification();
+  Future<Either<Exceptions, void>> deleteAccount();
+  Future<Either<Exceptions, void>> reAuthenticateWithEmailAndPassword(
+    String email,
+    String password,
+  );
 }

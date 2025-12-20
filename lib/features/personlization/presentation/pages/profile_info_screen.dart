@@ -4,17 +4,35 @@ import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/images/circular_image.dart';
+import 'package:ecommerce_app/core/utils/popups/full_screen_loader.dart';
+import 'package:ecommerce_app/core/utils/popups/loaders.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
+import 'package:ecommerce_app/features/auth/modules/features/login/presentation/screen/login_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_model_state.dart';
+import 'package:ecommerce_app/features/personlization/presentation/pages/re_auth_login_form.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/info_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileInfoScreen extends StatelessWidget {
+class ProfileInfoScreen extends StatefulWidget {
   const ProfileInfoScreen({super.key});
 
   static const String routeName = '/profile-info';
+
+  @override
+  State<ProfileInfoScreen> createState() => _ProfileInfoScreenState();
+}
+
+class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
+  bool _isLoaderOpen = false;
+
+  void _stopLoading() {
+    if (_isLoaderOpen) {
+      AppFullScreenLoader.stopLoading(context);
+      _isLoaderOpen = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +51,49 @@ class ProfileInfoScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: theme.scaffoldBackgroundColor,
       ),
-      body: BlocBuilder<UserCubit, UserModelState>(
+      body: BlocConsumer<UserCubit, UserModelState>(
+        listenWhen: (previous, current) =>
+            previous.loading != current.loading ||
+            previous.reAuthenticate != current.reAuthenticate ||
+            previous.accountDeleted != current.accountDeleted ||
+            previous.error != current.error ||
+            previous.successMessage != current.successMessage,
+        listener: (context, state) {
+          if (state.loading) {
+            _isLoaderOpen = true;
+            AppFullScreenLoader.openLoadingDialog(
+              'Loading...',
+              AppImages.docerAnimation,
+              context,
+            );
+          } else {
+            _stopLoading();
+          }
+
+          if (state.reAuthenticate) {
+            context.read<UserCubit>().resetDeletionFlags();
+            Navigator.of(context).pushNamed(ReAuthLoginForm.routeName);
+          }
+          if (state.accountDeleted) {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              LoginScreen.routeName,
+              (route) => false,
+            );
+          }
+          if (state.error.isNotEmpty) {
+            AppLoaders.warningSnackBar(title: state.error, context: context);
+            context.read<UserCubit>().clearError();
+          }
+          if (state.successMessage != null &&
+              state.successMessage!.isNotEmpty) {
+            AppLoaders.successSnackBar(
+              title: state.successMessage!,
+              context: context,
+            );
+            context.read<UserCubit>().clearSuccess();
+          }
+        },
         builder: (context, state) {
           final user = state.user;
           return Padding(
@@ -131,9 +191,13 @@ class ProfileInfoScreen extends StatelessWidget {
 
                 Center(
                   child: TextButton(
-                    onPressed: () {
-                      // TODO: Implement Close Account navigation or dialog
-                    },
+                    onPressed: () =>
+                        AppFullScreenLoader.deleteAccountWarningPopup(
+                          context,
+                          () {
+                            context.read<UserCubit>().deleteUserAccount();
+                          },
+                        ),
                     child: Text(
                       AppTextStrings.tCloseAccount,
                       style: theme.textTheme.bodyMedium?.copyWith(

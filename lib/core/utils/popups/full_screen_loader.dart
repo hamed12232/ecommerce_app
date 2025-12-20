@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
+import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/widgets/loaders/animation_loader.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,36 @@ class AppFullScreenLoader {
           ),
         ),
       ),
+    );
+  }
+  static  void deleteAccountWarningPopup(BuildContext context, Function() onConfirm) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Delete Account'),
+          content: const Text(
+            'Are you sure you want to delete your account permanently? This action is not reversible and all of your data will be removed permanently.',
+          ),
+          actions: [
+            OutlinedButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: onConfirm ,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                side: const BorderSide(color: Colors.red),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.lg),
+                child: Text('Delete'),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 

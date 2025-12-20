@@ -6,7 +6,9 @@ class UserModelState extends Equatable {
   final bool loading;
   final bool profileLoading;
   final String error;
-  final String successMessage;
+  final String? successMessage;
+  final bool reAuthenticate;
+  final bool accountDeleted;
 
   const UserModelState({
     this.user = const UserModel(
@@ -22,7 +24,9 @@ class UserModelState extends Equatable {
     this.loading = false,
     this.profileLoading = false,
     this.error = '',
-    this.successMessage = '',
+    this.successMessage,
+    this.reAuthenticate = false,
+    this.accountDeleted = false,
   });
 
   UserModelState copyWith({
@@ -31,6 +35,8 @@ class UserModelState extends Equatable {
     bool? profileLoading,
     String? error,
     String? successMessage,
+    bool? reAuthenticate,
+    bool? accountDeleted,
   }) {
     return UserModelState(
       user: user ?? this.user,
@@ -38,6 +44,8 @@ class UserModelState extends Equatable {
       profileLoading: profileLoading ?? this.profileLoading,
       error: error ?? this.error,
       successMessage: successMessage ?? this.successMessage,
+      reAuthenticate: reAuthenticate ?? this.reAuthenticate,
+      accountDeleted: accountDeleted ?? this.accountDeleted,
     );
   }
 
@@ -48,5 +56,7 @@ class UserModelState extends Equatable {
     profileLoading,
     error,
     successMessage,
+    reAuthenticate,
+    accountDeleted,
   ];
 }

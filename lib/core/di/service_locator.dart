@@ -2,9 +2,11 @@ import 'package:ecommerce_app/features/auth/data/datasources/auth_data_source.da
 import 'package:ecommerce_app/features/auth/data/datasources/base_auth_data_source.dart';
 import 'package:ecommerce_app/features/auth/data/repositories/auth_repository.dart';
 import 'package:ecommerce_app/features/auth/domain/repositories/base_auth_repository.dart';
+import 'package:ecommerce_app/features/auth/domain/usecases/delete_account_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/login_with_google_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/logout_usecase.dart';
+import 'package:ecommerce_app/features/auth/domain/usecases/re_authenticate_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/send_email_verification_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/send_password_reset_email_usecase.dart';
 import 'package:ecommerce_app/features/auth/domain/usecases/sign_up_usecase.dart';
@@ -73,6 +75,14 @@ Future<void> setupServiceLocator() async {
     () => SendPasswordResetEmailUseCase(getIt<BaseAuthRepository>()),
   );
 
+  getIt.registerLazySingleton<DeleteAccountUseCase>(
+    () => DeleteAccountUseCase(repository: getIt<BaseAuthRepository>()),
+  );
+
+  getIt.registerLazySingleton<ReAuthenticateUseCase>(
+    () => ReAuthenticateUseCase(repository: getIt<BaseAuthRepository>()),
+  );
+
   getIt.registerLazySingleton<FetchUserDetailsUseCase>(
     () => FetchUserDetailsUseCase(repository: getIt<BaseUserRepository>()),
   );
@@ -121,6 +131,9 @@ Future<void> setupServiceLocator() async {
       updateUserDetailsUseCase: getIt<UpdateUserDetailsUseCase>(),
       updateSingleFieldUseCase: getIt<UpdateSingleFieldUseCase>(),
       removeUserRecordUseCase: getIt<RemoveUserRecordUseCase>(),
+      deleteAccountUseCase: getIt<DeleteAccountUseCase>(),
+      reAuthenticateUseCase: getIt<ReAuthenticateUseCase>(),
+      loginWithGoogleUseCase: getIt<LoginWithGoogleUseCase>(),
     ),
   );
 }

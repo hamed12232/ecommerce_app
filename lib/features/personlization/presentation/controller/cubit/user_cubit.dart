@@ -1,3 +1,6 @@
+import 'package:ecommerce_app/features/auth/domain/usecases/delete_account_usecase.dart';
+import 'package:ecommerce_app/features/auth/domain/usecases/login_with_google_usecase.dart';
+import 'package:ecommerce_app/features/auth/domain/usecases/re_authenticate_usecase.dart';
 import 'package:ecommerce_app/features/personlization/data/models/user_model.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/fetch_user_details_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/remove_user_record_usecase.dart';
@@ -14,6 +17,9 @@ class UserCubit extends Cubit<UserModelState> {
   final UpdateUserDetailsUseCase updateUserDetailsUseCase;
   final UpdateSingleFieldUseCase updateSingleFieldUseCase;
   final RemoveUserRecordUseCase removeUserRecordUseCase;
+  final DeleteAccountUseCase deleteAccountUseCase;
+  final ReAuthenticateUseCase reAuthenticateUseCase;
+  final LoginWithGoogleUseCase loginWithGoogleUseCase;
 
   UserCubit({
     required this.saveUserRecordUseCase,
@@ -21,6 +27,9 @@ class UserCubit extends Cubit<UserModelState> {
     required this.updateUserDetailsUseCase,
     required this.updateSingleFieldUseCase,
     required this.removeUserRecordUseCase,
+    required this.deleteAccountUseCase,
+    required this.reAuthenticateUseCase,
+    required this.loginWithGoogleUseCase,
   }) : super(const UserModelState());
 
   /// Save user Record from any Registration provider
@@ -168,12 +177,7 @@ class UserCubit extends Cubit<UserModelState> {
           );
         },
         (_) {
-          emit(
-            state.copyWith(
-              profileLoading: false,
-              successMessage: 'Your account has been deleted!',
-            ),
-          );
+          emit(state.copyWith(profileLoading: false));
         },
       );
     } catch (e) {
@@ -184,5 +188,91 @@ class UserCubit extends Cubit<UserModelState> {
         ),
       );
     }
+  }
+
+  /// Function to delete user account - orchestrates the deletion process.
+  Future<void> deleteUserAccount() async {
+    try {
+      final auth = FirebaseAuth.instance;
+      final provider = auth.currentUser!.providerData
+          .map((e) => e.providerId)
+          .first;
+
+      if (provider.isNotEmpty) {
+        if (provider == 'google.com') {
+          emit(state.copyWith(loading: true));
+          final result = await loginWithGoogleUseCase();
+          await result.fold(
+            (failure) async =>
+                emit(state.copyWith(loading: false, error: failure.message)),
+            (_) async => await deleteAccount(),
+          );
+        } else if (provider == 'password') {
+          emit(state.copyWith(reAuthenticate: true));
+        }
+      }
+    } catch (e) {
+      emit(state.copyWith(loading: false, error: 'Oh Snap!: $e'));
+    }
+  }
+
+  Future<void> reAuthenticateEmailAndPasswordUser(
+    String email,
+    String password,
+  ) async {
+    emit(state.copyWith(loading: true));
+    try {
+      final result = await reAuthenticateUseCase(email, password);
+      await result.fold(
+        (failure) async =>
+            emit(state.copyWith(loading: false, error: failure.message)),
+        (_) async {
+          await deleteAccount();
+        },
+      );
+    } catch (e) {
+      emit(state.copyWith(loading: false, error: e.toString()));
+    }
+  }
+
+  /// Finalize account deletion
+  Future<void> deleteAccount() async {
+    try {
+      final userId = FirebaseAuth.instance.currentUser!.uid;
+      final result = await deleteAccountUseCase();
+      await result.fold(
+        (failure) async =>
+            emit(state.copyWith(loading: false, error: failure.message)),
+        (_) async {
+          await removeUserRecord(userId);
+          emit(
+            state.copyWith(
+              loading: false,
+              accountDeleted: true,
+              successMessage: 'Your account has been deleted!',
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      emit(state.copyWith(loading: false, error: e.toString()));
+    }
+  }
+
+  /// Reset deletion flags
+  void resetDeletionFlags() {
+    emit(
+      state.copyWith(reAuthenticate: false, accountDeleted: false, error: ''),
+    );
+  }
+
+  /// Clear any error message
+  void clearError() {
+    emit(state.copyWith(error: ''));
+  }
+
+  /// Clear success message
+  void clearSuccess() {
+    emit(state.copyWith(successMessage: ''));
   }
 }

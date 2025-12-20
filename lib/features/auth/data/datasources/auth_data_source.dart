@@ -58,7 +58,7 @@ class AuthDataSource implements BaseAuthDataSource {
         serverClientId:
             "381982050670-me8ncn9iiv5cnb2gfnaa2lfhtc2juhvi.apps.googleusercontent.com",
       );
-    //if user null add null check
+      //if user null add null check
       final GoogleSignInAccount userAccount = await GoogleSignIn.instance
           .authenticate();
       final GoogleSignInAuthentication googleAuth = userAccount.authentication;
@@ -107,12 +107,48 @@ class AuthDataSource implements BaseAuthDataSource {
       throw Exception('Unexpected error: ${e.toString()}');
     }
   }
-  
 
   @override
   Future<void> sendPasswordResetEmail(String email) async {
     try {
       await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw AppFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    try {
+      await _firebaseAuth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      throw AppFirebaseAuthException(e.code);
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<void> reAuthenticateWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+      await _firebaseAuth.currentUser?.reauthenticateWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       throw AppFirebaseAuthException(e.code);
     } on FirebaseException catch (e) {

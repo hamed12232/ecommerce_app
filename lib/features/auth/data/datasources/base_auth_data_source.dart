@@ -18,4 +18,9 @@ abstract class BaseAuthDataSource {
   Future<void> sendPasswordResetEmail(String email);
 
   Future<void> sendEmailVerification();
+  Future<void> deleteAccount();
+  Future<void> reAuthenticateWithEmailAndPassword(
+    String email,
+    String password,
+  );
 }
