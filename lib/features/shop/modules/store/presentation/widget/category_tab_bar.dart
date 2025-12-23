@@ -5,12 +5,14 @@ import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/entities/category_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/brand_show_case.dart';
 import 'package:flutter/material.dart';
 
 class CategoryTabBar extends StatelessWidget {
-  const CategoryTabBar({super.key});
+  const CategoryTabBar({super.key, required this.category});
+  final CategoryEntity category;
 
   @override
   Widget build(BuildContext context) {

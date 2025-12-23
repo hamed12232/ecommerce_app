@@ -26,6 +26,12 @@ import 'package:ecommerce_app/features/personlization/domain/usecases/update_use
 import 'package:ecommerce_app/features/personlization/domain/usecases/upload_image_usecase.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_category_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/datasources/category_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/repositories/category_repository_impl.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/repositories/base_category_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_categories_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -36,6 +42,10 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<BaseUserDataSource>(() => UserDataSource());
 
+  getIt.registerLazySingleton<BaseCategoryDataSource>(
+    () => CategoryDataSource(),
+  );
+
   // ========== Repositories ==========
   getIt.registerLazySingleton<BaseAuthRepository>(
     () => AuthRepository(baseAuthDataSource: getIt<BaseAuthDataSource>()),
@@ -43,6 +53,12 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerLazySingleton<BaseUserRepository>(
     () => UserRepository(baseUserDataSource: getIt<BaseUserDataSource>()),
+  );
+
+  getIt.registerLazySingleton<BaseCategoryRepository>(
+    () => CategoryRepositoryImpl(
+      baseCategoryDataSource: getIt<BaseCategoryDataSource>(),
+    ),
   );
 
   // ========== Use Cases ==========
@@ -103,6 +119,10 @@ Future<void> setupServiceLocator() async {
     () => UploadImageUseCase(baseUserRepository: getIt<BaseUserRepository>()),
   );
 
+  getIt.registerLazySingleton<GetCategoriesUseCase>(
+    () => GetCategoriesUseCase(getIt<BaseCategoryRepository>()),
+  );
+
   // ========== Blocs/Cubits ==========
   getIt.registerFactory<SignUpCubit>(
     () => SignUpCubit(getIt<SignUpUseCase>(), getIt<SaveUserRecordUseCase>()),
@@ -140,5 +160,9 @@ Future<void> setupServiceLocator() async {
       loginWithGoogleUseCase: getIt<LoginWithGoogleUseCase>(),
       uploadImageUseCase: getIt<UploadImageUseCase>(),
     ),
+  );
+
+  getIt.registerFactory<CategoryCubit>(
+    () => CategoryCubit(getIt<GetCategoriesUseCase>()),
   );
 }

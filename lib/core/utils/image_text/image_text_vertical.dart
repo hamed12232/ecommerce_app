@@ -36,6 +36,7 @@ class VerticalImageAndText extends StatelessWidget {
               fit: BoxFit.fitWidth,
               padding: AppSizes.sm * 1.4,
               backgroundColor: backgroundColor,
+              isNetworkImage: true,
               overlayColor: dark ? AppColors.white : AppColors.dark,
             ),
             const SizedBox(height: AppSizes.spaceBtwItems / 2),

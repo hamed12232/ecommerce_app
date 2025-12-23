@@ -54,7 +54,6 @@ class ProfileScreen extends StatelessWidget {
                   child: const TopAccountProfileScetion(),
                 ),
               ),
-
               // Main content container (rounded top)
               Padding(
                 padding: const EdgeInsets.symmetric(

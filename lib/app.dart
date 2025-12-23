@@ -10,6 +10,7 @@ import 'package:ecommerce_app/features/auth/modules/features/verify_email/presen
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,9 @@ class App extends StatelessWidget {
         BlocProvider(create: (context) => getIt<SettingsCubit>()),
         BlocProvider(
           create: (context) => getIt<UserCubit>()..fetchUserRecord(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<CategoryCubit>()..fetchCategories(),
         ),
       ],
       child: MaterialApp(
