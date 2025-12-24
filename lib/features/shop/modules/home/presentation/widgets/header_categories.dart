@@ -1,8 +1,6 @@
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
-import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
-import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/image_text/image_text_vertical.dart';
 import 'package:ecommerce_app/core/utils/popups/loaders.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
@@ -37,19 +35,19 @@ class HeaderCategories extends StatelessWidget {
         if (state.status == CategoryStatus.loading) {
           return const CategoryShimmer();
         }
-      
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// -- Heading
-            SectionHeading(
+            const SectionHeading(
               title: AppTextStrings.popularCategories,
               textColor: Colors.white,
-              showActionButton: true,
-              buttonTitle: 'Upload',
-              onPressed: () => context.read<CategoryCubit>().uploadDummyData(
-                TDummyData.categoriesList,
-              ),
+              // showActionButton: true,
+              // buttonTitle: 'Upload',
+              // onPressed: () => context.read<CategoryCubit>().uploadDummyData(
+              //   TDummyData.categoriesList,
+              // ),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
 
@@ -67,10 +65,7 @@ class HeaderCategories extends StatelessWidget {
                     title: category.name,
 
                     onTap: () {
-                      AppHelperFunctions.navigateToScreen(
-                        context,
-                        const SubCategory(),
-                      );
+                      Navigator.pushNamed(context, SubCategory.routeName);
                     },
                   );
                 },

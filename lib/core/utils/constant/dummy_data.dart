@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/models/banner_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/product_attribute_model.dart';
@@ -149,6 +150,27 @@ class TDummyData {
       image: AppImages.toyIcon,
       parentId: '',
       isFeatured: true,
+    ),
+  ];
+
+  static final List<BannerModel> banners = [
+    BannerModel(
+      id: '1',
+      imageUrl: AppImages.promoBanner1,
+      targetScreen: '/search',
+      active: true,
+    ),
+    BannerModel(
+      id: '2',
+      imageUrl: AppImages.promoBanner2,
+      targetScreen: '/search',
+      active: true,
+    ),
+    BannerModel(
+      id: '3',
+      imageUrl: AppImages.promoBanner3,
+      targetScreen: '/search',
+      active: true,
     ),
   ];
 

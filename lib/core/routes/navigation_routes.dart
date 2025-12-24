@@ -21,6 +21,7 @@ import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/order/presentation/page/my_order_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/screen/store_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/subCategory/presentation/page/sub_category.dart';
 import 'package:ecommerce_app/features/shop/modules/wishlist/presentation/pages/wishlist_screen.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:flutter/material.dart';
@@ -112,6 +113,9 @@ class NavigationRoutes {
 
       case CheckoutScreen.routeName:
         return MaterialPageRoute(builder: (context) => const CheckoutScreen());
+
+      case SubCategory.routeName:
+        return MaterialPageRoute(builder: (context) => const SubCategory());
 
       case AllProductScreen.routeName:
         return MaterialPageRoute(

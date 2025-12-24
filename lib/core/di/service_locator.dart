@@ -26,13 +26,21 @@ import 'package:ecommerce_app/features/personlization/domain/usecases/update_use
 import 'package:ecommerce_app/features/personlization/domain/usecases/upload_image_usecase.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/datasources/banner_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_banner_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_category_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/category_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/repositories/banner_repository_impl.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/repositories/category_repository_impl.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/repositories/base_banner_repository.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/repositories/base_category_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_banners_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_categories_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_banner_image_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_banners_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_categories_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_category_image_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/banner_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -47,6 +55,7 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<BaseCategoryDataSource>(
     () => CategoryDataSource(),
   );
+  getIt.registerLazySingleton<BaseBannerDataSource>(() => BannerDataSource());
 
   // ========== Repositories ==========
   getIt.registerLazySingleton<BaseAuthRepository>(
@@ -60,6 +69,11 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<BaseCategoryRepository>(
     () => CategoryRepositoryImpl(
       baseCategoryDataSource: getIt<BaseCategoryDataSource>(),
+    ),
+  );
+  getIt.registerLazySingleton<BaseBannerRepository>(
+    () => BannerRepositoryImpl(
+      baseBannerDataSource: getIt<BaseBannerDataSource>(),
     ),
   );
 
@@ -134,6 +148,18 @@ Future<void> setupServiceLocator() async {
         UploadCategoryImageUseCase(repository: getIt<BaseCategoryRepository>()),
   );
 
+  getIt.registerLazySingleton<GetBannersUseCase>(
+    () => GetBannersUseCase(repository: getIt<BaseBannerRepository>()),
+  );
+
+  getIt.registerLazySingleton<UploadBannersUseCase>(
+    () => UploadBannersUseCase(repository: getIt<BaseBannerRepository>()),
+  );
+
+  getIt.registerLazySingleton<UploadBannerImageUseCase>(
+    () => UploadBannerImageUseCase(repository: getIt<BaseBannerRepository>()),
+  );
+
   // ========== Blocs/Cubits ==========
   getIt.registerFactory<SignUpCubit>(
     () => SignUpCubit(getIt<SignUpUseCase>(), getIt<SaveUserRecordUseCase>()),
@@ -178,6 +204,14 @@ Future<void> setupServiceLocator() async {
       getIt<GetCategoriesUseCase>(),
       getIt<UploadCategoriesUseCase>(),
       getIt<UploadCategoryImageUseCase>(),
+    ),
+  );
+
+  getIt.registerFactory<BannerCubit>(
+    () => BannerCubit(
+      getIt<GetBannersUseCase>(),
+      getIt<UploadBannersUseCase>(),
+      getIt<UploadBannerImageUseCase>(),
     ),
   );
 }

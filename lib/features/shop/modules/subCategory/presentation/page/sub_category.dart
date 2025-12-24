@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 class SubCategory extends StatelessWidget {
   const SubCategory({super.key});
+  static const String routeName = '/subCategory';
 
   @override
   Widget build(BuildContext context) {
