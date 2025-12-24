@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
+import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
@@ -36,18 +37,19 @@ class HeaderCategories extends StatelessWidget {
         if (state.status == CategoryStatus.loading) {
           return const CategoryShimmer();
         }
-        if (state.status == CategoryStatus.error ||
-            state.featuredCategories.isEmpty) {
-          return const SizedBox.shrink();
-        }
+      
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// -- Heading
-            const SectionHeading(
+            SectionHeading(
               title: AppTextStrings.popularCategories,
               textColor: Colors.white,
-              showActionButton: false,
+              showActionButton: true,
+              buttonTitle: 'Upload',
+              onPressed: () => context.read<CategoryCubit>().uploadDummyData(
+                TDummyData.categoriesList,
+              ),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
 

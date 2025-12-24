@@ -31,6 +31,8 @@ import 'package:ecommerce_app/features/shop/modules/home/data/datasources/catego
 import 'package:ecommerce_app/features/shop/modules/home/data/repositories/category_repository_impl.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/repositories/base_category_repository.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_categories_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_categories_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_category_image_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -123,6 +125,15 @@ Future<void> setupServiceLocator() async {
     () => GetCategoriesUseCase(getIt<BaseCategoryRepository>()),
   );
 
+  getIt.registerLazySingleton<UploadCategoriesUseCase>(
+    () => UploadCategoriesUseCase(repository: getIt<BaseCategoryRepository>()),
+  );
+
+  getIt.registerLazySingleton<UploadCategoryImageUseCase>(
+    () =>
+        UploadCategoryImageUseCase(repository: getIt<BaseCategoryRepository>()),
+  );
+
   // ========== Blocs/Cubits ==========
   getIt.registerFactory<SignUpCubit>(
     () => SignUpCubit(getIt<SignUpUseCase>(), getIt<SaveUserRecordUseCase>()),
@@ -163,6 +174,10 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerFactory<CategoryCubit>(
-    () => CategoryCubit(getIt<GetCategoriesUseCase>()),
+    () => CategoryCubit(
+      getIt<GetCategoriesUseCase>(),
+      getIt<UploadCategoriesUseCase>(),
+      getIt<UploadCategoryImageUseCase>(),
+    ),
   );
 }

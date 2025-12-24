@@ -18,17 +18,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
-class StoreScreen extends StatefulWidget {
+class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
 
   static const String routeName = '/store';
-
-  @override
-  State<StoreScreen> createState() => _StoreScreenState();
-}
-
-class _StoreScreenState extends State<StoreScreen> {
-  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +38,7 @@ class _StoreScreenState extends State<StoreScreen> {
         }
       },
       builder: (context, state) {
+        
         return DefaultTabController(
           length: state.categories.length,
           child: Scaffold(
@@ -74,7 +68,7 @@ class _StoreScreenState extends State<StoreScreen> {
                           MyTextFormField(
                             hintText: AppTextStrings.tDashboardSearch,
                             isObsecure: false,
-                            controller: searchController,
+                            controller: TextEditingController(),
                             prefixIcon: const Icon(Iconsax.search_normal),
                           ),
                           const VerticalSpace(

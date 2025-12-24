@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
+import 'package:ecommerce_app/features/shop/modules/home/data/models/category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/product_attribute_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/model/product_model.dart';
@@ -85,6 +86,71 @@ class TDummyData {
   /// -- Cart
 
   /// -- List of all Categories
+  static final List<CategoryModel> categoriesList = [
+    CategoryModel(
+      id: '1',
+      name: 'Shoes',
+      image: AppImages.shoeIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '2',
+      name: 'Jewelery',
+      image: AppImages.jeweleryIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '3',
+      name: 'Electronics',
+      image: AppImages.electronicsIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '4',
+      name: 'Sports',
+      image: AppImages.sportIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '5',
+      name: 'Clothes',
+      image: AppImages.clothIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '6',
+      name: 'Furniture',
+      image: AppImages.furnitureIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '7',
+      name: 'Pets',
+      image: AppImages.animalIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '8',
+      name: 'Cosmetics',
+      image: AppImages.cosmeticsIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '9',
+      name: 'Toys',
+      image: AppImages.toyIcon,
+      parentId: '',
+      isFeatured: true,
+    ),
+  ];
 
   /// -- List of all Products
   static final List<ProductModel> products = [
