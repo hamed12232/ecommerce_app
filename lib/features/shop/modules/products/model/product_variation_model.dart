@@ -1,4 +1,3 @@
-
 class ProductVariationModel {
   final String id;
   String sku;
@@ -21,10 +20,43 @@ class ProductVariationModel {
   });
 
   /// Create Empty func for clean code
-  static ProductVariationModel empty() => ProductVariationModel(id: '', attributeValues: {});
+  static ProductVariationModel empty() => ProductVariationModel(
+    id: '',
+    sku: '',
+    image: '',
+    description: '',
+    price: 0.0,
+    salePrice: 0.0,
+    stock: 0,
+    attributeValues: {},
+  );
 
   /// Map Json oriented document snapshot from Firebase to Model
   factory ProductVariationModel.fromJson(Map<String, dynamic> document) {
-    return ProductVariationModel.empty();
+    if (document.isEmpty) return ProductVariationModel.empty();
+    return ProductVariationModel(
+      id: document['id'],
+      sku: document['sku'],
+      image: document['image'],
+      description: document['description'],
+      price: document['price'],
+      salePrice: document['salePrice'],
+      stock: document['stock'],
+      attributeValues: document['attributeValues'],
+    );
+  }
+
+  /// Map Model to Json oriented document snapshot for Firebase
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'sku': sku,
+      'image': image,
+      'description': description,
+      'price': price,
+      'salePrice': salePrice,
+      'stock': stock,
+      'attributeValues': attributeValues,
+    };
   }
 }

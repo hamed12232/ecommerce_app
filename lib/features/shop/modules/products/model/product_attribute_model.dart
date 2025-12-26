@@ -4,8 +4,22 @@ class ProductAttributeModel {
 
   ProductAttributeModel({this.name, this.values});
 
+  static ProductAttributeModel empty() => ProductAttributeModel(name: '', values: []);
+
   /// Map Json oriented document snapshot from Firebase to Model
   factory ProductAttributeModel.fromJson(Map<String, dynamic> document) {
-    return ProductAttributeModel();
+    if (document.isEmpty) return ProductAttributeModel.empty();
+    return ProductAttributeModel(
+      name: document['name'],
+      values: document['values'],
+    );
+  }
+
+  /// Map Model to Json oriented document snapshot for Firebase
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'values': values,
+    };
   }
 }

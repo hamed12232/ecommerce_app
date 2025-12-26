@@ -16,6 +16,7 @@ import 'package:iconsax/iconsax.dart';
 
 class ProductDetails extends StatefulWidget {
   const ProductDetails({super.key});
+  static const String routeName = '/product-details';
 
   @override
   State<ProductDetails> createState() => _ProductDetailsState();

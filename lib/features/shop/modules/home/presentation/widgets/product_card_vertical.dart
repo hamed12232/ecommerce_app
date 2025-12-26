@@ -24,10 +24,7 @@ class ProductCardVertical extends StatelessWidget {
     final dark = AppHelperFunctions.isDarkMode(context);
 
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProductDetails()),
-      ),
+      onTap: () => Navigator.pushNamed(context, ProductDetails.routeName),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),

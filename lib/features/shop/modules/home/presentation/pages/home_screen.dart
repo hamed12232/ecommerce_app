@@ -25,7 +25,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double currentIndex = 0;
   TextEditingController? searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -66,10 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SectionHeading(
                 title: AppTextStrings.popularProducts,
                 showActionButton: true,
-                onPressed: () => AppHelperFunctions.navigateToScreen(
-                  context,
-                  const AllProductScreen(),
-                ),
+                onPressed: () => Navigator.pushNamed(context, AllProductScreen.routeName),
               ),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
@@ -77,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(AppSizes.defaultSpace),
               child: GridLayout(
                 itemCount: 10,
-
                 itemBuilder: (context, index) {
                   return const ProductCardVertical();
                 },

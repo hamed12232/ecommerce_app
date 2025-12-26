@@ -1,5 +1,8 @@
-class BannerEntity {
+import 'package:ecommerce_app/core/utils/services/dummy_data_uploader.dart';
+
+class BannerEntity implements UploadableEntity {
   final String id;
+  @override
   final String imageUrl;
   final String targetScreen;
   final bool active;
@@ -10,4 +13,17 @@ class BannerEntity {
     required this.targetScreen,
     required this.active,
   });
+
+  @override
+  String get entityId => id;
+
+  @override
+  BannerEntity copyWithImageUrl(String newImageUrl) {
+    return BannerEntity(
+      id: id,
+      imageUrl: newImageUrl,
+      targetScreen: targetScreen,
+      active: active,
+    );
+  }
 }

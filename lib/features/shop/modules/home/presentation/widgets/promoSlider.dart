@@ -83,6 +83,7 @@ class _PromosliderState extends State<PromoSlider> {
                   items: banners
                       .map(
                         (banner) => RoundedImage(
+                          onPressed: () => Navigator.pushNamed(context, banner.targetScreen),
                           imageUrl: banner.imageUrl,
                           isNetworkImage: true,
                         ),

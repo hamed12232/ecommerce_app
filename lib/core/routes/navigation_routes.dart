@@ -20,6 +20,7 @@ import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/checkout_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/order/presentation/page/my_order_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/product_details.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/screen/store_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/subCategory/presentation/page/sub_category.dart';
 import 'package:ecommerce_app/features/shop/modules/wishlist/presentation/pages/wishlist_screen.dart';
@@ -121,6 +122,9 @@ class NavigationRoutes {
         return MaterialPageRoute(
           builder: (context) => const AllProductScreen(),
         );
+
+      case ProductDetails.routeName:
+        return MaterialPageRoute(builder: (context) => const ProductDetails());
 
       // ========== Personalization Routes ==========
       case ProfileScreen.routeName:

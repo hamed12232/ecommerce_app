@@ -1,4 +1,6 @@
-class CategoryEntity {
+import 'package:ecommerce_app/core/utils/services/dummy_data_uploader.dart';
+
+class CategoryEntity implements UploadableEntity {
   final String id;
   final String name;
   final String image;
@@ -12,4 +14,21 @@ class CategoryEntity {
     required this.parentId,
     required this.isFeatured,
   });
+
+  @override
+  String get imageUrl => image;
+
+  @override
+  String get entityId => name.toLowerCase().replaceAll(' ', '_');
+
+  @override
+  CategoryEntity copyWithImageUrl(String newImageUrl) {
+    return CategoryEntity(
+      id: id,
+      name: name,
+      image: newImageUrl,
+      parentId: parentId,
+      isFeatured: isFeatured,
+    );
+  }
 }

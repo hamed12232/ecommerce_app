@@ -80,11 +80,7 @@ class TDummyData {
       country: 'United Kingdom',
     ),
   ];
-  //   id: '',
-  //   isEmailVerified: true, isProfileActive: true,
-  // );
-
-  /// -- Cart
+  
 
   /// -- List of all Categories
   static final List<CategoryModel> categoriesList = [
