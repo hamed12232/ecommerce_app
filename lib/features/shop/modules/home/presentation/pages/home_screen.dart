@@ -1,5 +1,5 @@
-import 'package:ecommerce_app/core/layout/grid_layout.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
+import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
@@ -10,9 +10,11 @@ import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/header_categories.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/home_app_bar.dart';
-import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/popular_products.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/promoSlider.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/controller/cubit/product_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -65,17 +67,25 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SectionHeading(
                 title: AppTextStrings.popularProducts,
                 showActionButton: true,
-                onPressed: () => Navigator.pushNamed(context, AllProductScreen.routeName),
+                onPressed: () =>
+                    Navigator.pushNamed(context, AllProductScreen.routeName),
               ),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
             Padding(
               padding: const EdgeInsets.all(AppSizes.defaultSpace),
-              child: GridLayout(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return const ProductCardVertical();
-                },
+              child: Column(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      context.read<ProductCubit>().uploadDummyData(
+                        TDummyData.products,
+                      );
+                    },
+                    child: const Text('Upload Dummy Data'),
+                  ),
+                  const PopularProducts(),
+                ],
               ),
             ),
           ],

@@ -5,6 +5,8 @@
 
 enum ChatMessageStatus { sending, sent, delivered, read, failed }
 
+enum ProductType { single, variable }
+
 enum VerificationStatus { unknown, pending, submitted, underReview, approved, rejected }
 
 enum TextSizes { small, medium, large }

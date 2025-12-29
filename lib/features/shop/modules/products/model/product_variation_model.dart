@@ -42,7 +42,7 @@ class ProductVariationModel {
       price: document['price'],
       salePrice: document['salePrice'],
       stock: document['stock'],
-      attributeValues: document['attributeValues'],
+      attributeValues: Map<String, String>.from(document['attributeValues']),
     );
   }
 

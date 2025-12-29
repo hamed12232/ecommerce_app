@@ -42,6 +42,13 @@ import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_category_image_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/banner_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/data_sources/product_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/repositories/product_repo_impl.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/repositories/product_repo.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/usecases/fetch_featured_products_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/usecases/upload_product_image_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/usecases/upload_products_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/controller/cubit/product_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
@@ -214,4 +221,20 @@ Future<void> setupServiceLocator() async {
       getIt<UploadBannerImageUseCase>(),
     ),
   );
+
+  // Product
+  getIt.registerLazySingleton<BaseProductDataSource>(() => ProductDataSource());
+  getIt.registerLazySingleton<ProductRepository>(
+    () => ProductRepositoryImpl(dataSource: getIt()),
+  );
+
+  getIt.registerLazySingleton(
+    () => FetchFeaturedProductsUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton(() => UploadProductsUseCase(repository: getIt()));
+  getIt.registerLazySingleton(
+    () => UploadProductImageUseCase(repository: getIt()),
+  );
+
+  getIt.registerFactory(() => ProductCubit(getIt(), getIt(), getIt()));
 }

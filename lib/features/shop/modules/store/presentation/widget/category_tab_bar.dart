@@ -7,6 +7,7 @@ import 'package:ecommerce_app/core/utils/text/section_heading.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/entities/category_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/brand_show_case.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class CategoryTabBar extends StatelessWidget {
                 itemCount: 4,
 
                 itemBuilder: (context, index) {
-                  return const ProductCardVertical();
+                  return ProductCardVertical(product: ProductEntity.empty());
                 },
               ),
             ],

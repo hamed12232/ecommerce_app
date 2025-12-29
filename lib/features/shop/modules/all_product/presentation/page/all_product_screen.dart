@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/widget/sort_drop_down.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class AllProductScreen extends StatelessWidget {
@@ -35,7 +36,7 @@ class AllProductScreen extends StatelessWidget {
                 itemCount: 10,
 
                 itemBuilder: (context, index) {
-                  return const ProductCardVertical();
+                  return ProductCardVertical(product: ProductEntity.empty());
                 },
               ),
             ),

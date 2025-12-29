@@ -4,6 +4,7 @@ import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/widget/sort_drop_down.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/feature_brand.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +40,7 @@ class BrandProduct extends StatelessWidget {
                 itemCount: 10,
 
                 itemBuilder: (context, index) {
-                  return const ProductCardVertical();
+                  return ProductCardVertical(product: ProductEntity.empty());
                 },
               ),
             ),

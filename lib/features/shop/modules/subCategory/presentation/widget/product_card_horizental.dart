@@ -50,7 +50,7 @@ class ProductCardHorizontal extends StatelessWidget {
                       applyImageRadius: true,
                     ),
                   ),
-                  Positioned(top: 12, child: SalePercentage()),
+                  Positioned(top: 12, child: SalePercentage(percentage: '25%')),
                   Positioned(
                     top: 0,
                     right: 0,

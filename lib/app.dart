@@ -12,6 +12,7 @@ import 'package:ecommerce_app/features/personlization/presentation/controller/cu
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/banner_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/controller/cubit/product_cubit.dart';
 import 'package:ecommerce_app/navigation_menu.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,9 @@ class App extends StatelessWidget {
           create: (context) => getIt<CategoryCubit>()..fetchCategories(),
         ),
         BlocProvider(create: (context) => getIt<BannerCubit>()),
+        BlocProvider(
+          create: (context) => getIt<ProductCubit>()..fetchFeaturedProducts(),
+        ),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,
