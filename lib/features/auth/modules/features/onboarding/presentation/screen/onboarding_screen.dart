@@ -27,7 +27,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           TextButton(
             onPressed: () {
               SharedPrefServices.setSeen();
-              AppHelperFunctions.navigateToScreen(context, const LoginScreen());
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                LoginScreen.routeName,
+                (route) => false,
+              );
             },
             child: Text(
               AppTextStrings.skip,

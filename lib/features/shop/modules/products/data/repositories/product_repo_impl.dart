@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_app/core/utils/exceptions/exceptions.dart';
+import 'package:ecommerce_app/core/utils/exceptions/firebase_exceptions.dart';
+import 'package:ecommerce_app/core/utils/exceptions/platform_exceptions.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/data_sources/product_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/products/domain/repositories/product_repo.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
   final BaseProductDataSource dataSource;
@@ -17,6 +19,10 @@ class ProductRepositoryImpl implements ProductRepository {
     try {
       final products = await dataSource.getFeaturedProducts();
       return Right(products);
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
     } catch (e) {
       return Left(Exceptions(e.toString()));
     }
@@ -32,6 +38,10 @@ class ProductRepositoryImpl implements ProductRepository {
           .toList();
       await dataSource.uploadDummyData(productModels);
       return const Right(null);
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
     } catch (e) {
       return Left(Exceptions(e.toString()));
     }

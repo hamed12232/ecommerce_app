@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/brand_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_attribute_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_variation_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/brand_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_attribute_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_variation_model.dart';
 
 class ProductModel extends ProductEntity {
   ProductModel({

@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
-import 'package:ecommerce_app/core/utils/helper/pricing_calcalutions.dart';
+import 'package:ecommerce_app/core/utils/helper/pricing_calculator.dart';
 import 'package:flutter/material.dart';
 
 class BillingAmountSection extends StatelessWidget {

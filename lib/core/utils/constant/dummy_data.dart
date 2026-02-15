@@ -2,10 +2,10 @@ import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/banner_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/category_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/brand_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_attribute_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_variation_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/brand_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_attribute_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_variation_model.dart';
 
 class TDummyData {
   /// -- User

@@ -18,7 +18,7 @@ class SalePercentage extends StatelessWidget {
         vertical: AppSizes.xs,
       ),
       child: Text(
-        percentage ?? '',
+        "$percentage%",
         style:
             (Theme.of(context).textTheme.labelLarge ??
                     const TextStyle(color: AppColors.black))

@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/utils/services/dummy_data_uploader.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/brand_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_attribute_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_variation_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/brand_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_attribute_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_variation_model.dart';
 
 class ProductEntity implements UploadableEntity {
   String id;
@@ -57,6 +57,31 @@ class ProductEntity implements UploadableEntity {
   String get imageUrl => thumbnail;
 
   @override
+  List<String>? get additionalImages => images;
+
+  @override
+  Map<String, String> get nestedImagePaths {
+    final Map<String, String> paths = {};
+
+    // Brand image
+    if (brand != null && brand!.image.isNotEmpty) {
+      paths['brand_image'] = brand!.image;
+    }
+
+    // Variation images
+    if (productVariations != null) {
+      for (int i = 0; i < productVariations!.length; i++) {
+        final variation = productVariations![i];
+        if (variation.image.isNotEmpty) {
+          paths['variation_${i}_image'] = variation.image;
+        }
+      }
+    }
+
+    return paths;
+  }
+
+  @override
   ProductEntity copyWithImageUrl(String newImageUrl) {
     return ProductEntity(
       id: id,
@@ -75,6 +100,84 @@ class ProductEntity implements UploadableEntity {
       description: description,
       productAttributes: productAttributes,
       productVariations: productVariations,
+    );
+  }
+
+  @override
+  ProductEntity copyWithAdditionalImages(List<String> newImages) {
+    return ProductEntity(
+      id: id,
+      title: title,
+      stock: stock,
+      price: price,
+      thumbnail: thumbnail,
+      productType: productType,
+      sku: sku,
+      brand: brand,
+      date: date,
+      images: newImages,
+      salePrice: salePrice,
+      isFeatured: isFeatured,
+      categoryId: categoryId,
+      description: description,
+      productAttributes: productAttributes,
+      productVariations: productVariations,
+    );
+  }
+
+  @override
+  ProductEntity copyWithNestedImages(Map<String, String> uploadedUrls) {
+    // Update brand image
+    BrandModel? updatedBrand = brand;
+    if (updatedBrand != null && uploadedUrls.containsKey('brand_image')) {
+      updatedBrand = BrandModel(
+        id: updatedBrand.id,
+        image: uploadedUrls['brand_image']!,
+        name: updatedBrand.name,
+        isFeatured: updatedBrand.isFeatured,
+        productsCount: updatedBrand.productsCount,
+      );
+    }
+
+    // Update variation images
+    List<ProductVariationModel>? updatedVariations = productVariations;
+    if (updatedVariations != null) {
+      updatedVariations = List.generate(updatedVariations.length, (i) {
+        final key = 'variation_${i}_image';
+        if (uploadedUrls.containsKey(key)) {
+          final v = updatedVariations![i];
+          return ProductVariationModel(
+            id: v.id,
+            sku: v.sku,
+            image: uploadedUrls[key]!,
+            description: v.description,
+            price: v.price,
+            salePrice: v.salePrice,
+            stock: v.stock,
+            attributeValues: v.attributeValues,
+          );
+        }
+        return updatedVariations![i];
+      });
+    }
+
+    return ProductEntity(
+      id: id,
+      title: title,
+      stock: stock,
+      price: price,
+      thumbnail: thumbnail,
+      productType: productType,
+      sku: sku,
+      brand: updatedBrand,
+      date: date,
+      images: images,
+      salePrice: salePrice,
+      isFeatured: isFeatured,
+      categoryId: categoryId,
+      description: description,
+      productAttributes: productAttributes,
+      productVariations: updatedVariations,
     );
   }
 }

@@ -10,7 +10,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class BannerDataSource implements BaseBannerDataSource {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
   @override
   Future<List<BannerModel>> getBanners() async {
     try {

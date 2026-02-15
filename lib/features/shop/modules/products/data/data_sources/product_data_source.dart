@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/core/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce_app/core/utils/exceptions/platform_exceptions.dart';
-import 'package:ecommerce_app/features/shop/modules/products/model/product_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
 import 'package:flutter/services.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

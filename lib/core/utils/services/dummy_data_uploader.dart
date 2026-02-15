@@ -7,15 +7,32 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 /// Abstract interface that entities must implement to work with the uploader
+/// Abstract interface that entities must implement to work with the uploader
 abstract class UploadableEntity {
   /// Returns the image URL/path of the entity
   String get imageUrl;
 
+  /// Returns a list of additional image URLs/paths of the entity
+  List<String>? get additionalImages;
+
   /// Returns a unique identifier for the entity (used for file naming)
   String get entityId;
 
+  /// Returns a map of {logicalKey: assetPath} for all nested images
+  /// that need uploading (e.g., brand image, variation images).
+  /// Override this in entities that have images inside sub-objects.
+  Map<String, String> get nestedImagePaths => {};
+
   /// Creates a copy of the entity with an updated image URL
   UploadableEntity copyWithImageUrl(String newImageUrl);
+
+  /// Creates a copy of the entity with updated additional image URLs
+  UploadableEntity copyWithAdditionalImages(List<String> newImages);
+
+  /// Creates a copy of the entity with updated nested image URLs.
+  /// [uploadedUrls] is a map of {logicalKey: uploadedUrl}.
+  UploadableEntity copyWithNestedImages(Map<String, String> uploadedUrls) =>
+      this;
 }
 
 /// Result object returned by the uploader
@@ -87,36 +104,60 @@ class DummyDataUploader<T extends UploadableEntity> {
       final List<T> updatedEntities = [];
 
       for (var entity in entities) {
+        // 1. Upload Main Image
         String imageUrl = entity.imageUrl;
-
-        // If image is a local asset, upload it to storage
         if (imageUrl.startsWith('assets/')) {
-          final byteData = await rootBundle.load(imageUrl);
-          final bytes = byteData.buffer.asUint8List();
+          imageUrl = await _uploadSingleImage(imageUrl, entity.entityId);
+        }
 
-          // Create a temporary file
-          final tempDir = await getTemporaryDirectory();
-          final fileName = '${entity.entityId}.${config.fileExtension}';
-          final file = await File('${tempDir.path}/$fileName').create();
-          await file.writeAsBytes(bytes);
-
-          final uploadResult = await uploadImage(
-            '${config.storageFolderName}/$fileName',
-            file,
-          );
-
-          imageUrl = uploadResult.fold(
-            (failure) => throw Exception(failure.message),
-            (url) => url,
-          );
-
-          // Clean up the temporary file
-          if (await file.exists()) {
-            await file.delete();
+        // 2. Upload Additional Images
+        List<String> updatedAdditionalImages = [];
+        if (entity.additionalImages != null &&
+            entity.additionalImages!.isNotEmpty) {
+          int index = 0;
+          for (var img in entity.additionalImages!) {
+            if (img.startsWith('assets/')) {
+              final uploadedUrl = await _uploadSingleImage(
+                img,
+                '${entity.entityId}_$index',
+              );
+              updatedAdditionalImages.add(uploadedUrl);
+            } else {
+              updatedAdditionalImages.add(img);
+            }
+            index++;
           }
         }
 
-        updatedEntities.add(entity.copyWithImageUrl(imageUrl) as T);
+        // 3. Upload Nested Images (e.g., brand.image, variation images)
+        Map<String, String> uploadedNestedUrls = {};
+        final nestedPaths = entity.nestedImagePaths;
+        for (var entry in nestedPaths.entries) {
+          if (entry.value.isNotEmpty && entry.value.startsWith('assets/')) {
+            final uploadedUrl = await _uploadSingleImage(
+              entry.value,
+              '${entity.entityId}_${entry.key}',
+            );
+            uploadedNestedUrls[entry.key] = uploadedUrl;
+          } else {
+            uploadedNestedUrls[entry.key] = entry.value;
+          }
+        }
+
+        // 4. Update Entity
+        var updatedEntity = entity.copyWithImageUrl(imageUrl);
+        if (updatedAdditionalImages.isNotEmpty) {
+          updatedEntity = updatedEntity.copyWithAdditionalImages(
+            updatedAdditionalImages,
+          );
+        }
+        if (uploadedNestedUrls.isNotEmpty) {
+          updatedEntity = updatedEntity.copyWithNestedImages(
+            uploadedNestedUrls,
+          );
+        }
+
+        updatedEntities.add(updatedEntity as T);
       }
 
       final result = await uploadEntities(updatedEntities);
@@ -130,5 +171,31 @@ class DummyDataUploader<T extends UploadableEntity> {
         'Failed to upload images: ${e.toString()}',
       );
     }
+  }
+
+  Future<String> _uploadSingleImage(String assetPath, String imageName) async {
+    final byteData = await rootBundle.load(assetPath);
+    final bytes = byteData.buffer.asUint8List();
+
+    // Create a temporary file
+    final tempDir = await getTemporaryDirectory();
+    final fileName = '$imageName.${config.fileExtension}';
+    final file = await File('${tempDir.path}/$fileName').create();
+    await file.writeAsBytes(bytes);
+
+    final uploadResult = await uploadImage(
+      '${config.storageFolderName}/$fileName',
+      file,
+    );
+
+    // Clean up the temporary file
+    if (await file.exists()) {
+      await file.delete();
+    }
+
+    return uploadResult.fold(
+      (failure) => throw Exception(failure.message),
+      (url) => url,
+    );
   }
 }

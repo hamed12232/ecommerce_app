@@ -93,8 +93,10 @@ class AppFirebaseException implements Exception {
         return 'The action code is invalid. Please check the code and try again.';
       case 'credential-already-in-use':
         return 'This credential is already associated with a different user account.';
+      case 'permission-denied':
+        return 'Access denied. Please check your Firebase Security Rules.';
       default:
-        return 'An unexpected Firebase error occurred. Please try again.';
+        return 'An unexpected Firebase error occurred. Please try again. Code: $code';
     }
   }
 }

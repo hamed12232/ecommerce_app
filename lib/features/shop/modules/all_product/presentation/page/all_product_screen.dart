@@ -1,9 +1,7 @@
-import 'package:ecommerce_app/core/layout/grid_layout.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/widget/sort_drop_down.dart';
-import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
-import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/popular_products.dart';
 import 'package:flutter/material.dart';
 
 class AllProductScreen extends StatelessWidget {
@@ -22,24 +20,15 @@ class AllProductScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Column(
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(AppSizes.defaultSpace),
               child: SortDropdown(),
             ),
-            const VerticalSpace(height: AppSizes.spaceBtwItems),
-            Padding(
-              padding: const EdgeInsets.all(AppSizes.defaultSpace),
-              child: GridLayout(
-                itemCount: 10,
-
-                itemBuilder: (context, index) {
-                  return ProductCardVertical(product: ProductEntity.empty());
-                },
-              ),
-            ),
+            VerticalSpace(height: AppSizes.spaceBtwItems),
+            PopularProducts(),
           ],
         ),
       ),

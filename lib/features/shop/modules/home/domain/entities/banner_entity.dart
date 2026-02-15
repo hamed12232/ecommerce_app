@@ -26,4 +26,20 @@ class BannerEntity implements UploadableEntity {
       active: active,
     );
   }
+
+  @override
+  List<String>? get additionalImages => null;
+
+  @override
+  UploadableEntity copyWithAdditionalImages(List<String> newImages) {
+    return this;
+  }
+
+  @override
+  Map<String, String> get nestedImagePaths => {};
+
+  @override
+  UploadableEntity copyWithNestedImages(Map<String, String> uploadedUrls) {
+    return this;
+  }
 }

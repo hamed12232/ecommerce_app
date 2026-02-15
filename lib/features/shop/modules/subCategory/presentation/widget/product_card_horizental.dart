@@ -12,7 +12,6 @@ import 'package:ecommerce_app/core/utils/text/product_price_text.dart';
 import 'package:ecommerce_app/core/utils/text/product_title_text.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/sale_percentage.dart';
-import 'package:ecommerce_app/features/shop/modules/products/presentation/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -24,10 +23,10 @@ class ProductCardHorizontal extends StatelessWidget {
     final dark = AppHelperFunctions.isDarkMode(context);
 
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ProductDetails()),
-      ),
+      // onTap: () => Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const ProductDetails()),
+      // ),
       child: Container(
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(

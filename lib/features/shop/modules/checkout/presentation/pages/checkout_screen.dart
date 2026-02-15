@@ -2,7 +2,7 @@ import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
-import 'package:ecommerce_app/core/utils/helper/pricing_calcalutions.dart';
+import 'package:ecommerce_app/core/utils/helper/pricing_calculator.dart';
 import 'package:ecommerce_app/core/utils/success_screen/success_screen.dart';
 import 'package:ecommerce_app/core/widgets/custom_button.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
