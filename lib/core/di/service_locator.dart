@@ -26,6 +26,12 @@ import 'package:ecommerce_app/features/personlization/domain/usecases/update_use
 import 'package:ecommerce_app/features/personlization/domain/usecases/upload_image_usecase.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/data/data_sources/all_product_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/data/repositories/all_product_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/domain/repositories/base_all_product_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/domain/use_cases/get_all_products.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/domain/use_cases/get_products_by_query_use_case.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/presentation/cubit/all_products_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/banner_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_banner_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_category_data_source.dart';
@@ -237,4 +243,26 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerFactory(() => ProductCubit(getIt(), getIt(), getIt()));
+
+  // All Products
+  getIt.registerLazySingleton<BaseAllProductsDataSource>(
+    () => AllProductsDataSource(),
+  );
+  getIt.registerLazySingleton<BaseAllProductRepository>(
+    () => AllProductRepository(dataSource: getIt()),
+  );
+
+  getIt.registerLazySingleton(
+    () => GetProductsByQueryUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton(
+    () => GetAllFeaturedProductsUseCase(repository: getIt()),
+  );
+
+  getIt.registerFactory(
+    () => AllProductsCubit(
+      getProductsByQueryUseCase: getIt(),
+      getAllFeaturedProductsUseCase: getIt(),
+    ),
+  );
 }

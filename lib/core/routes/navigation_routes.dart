@@ -15,6 +15,7 @@ import 'package:ecommerce_app/features/personlization/presentation/pages/profile
 import 'package:ecommerce_app/features/personlization/presentation/pages/re_auth_login_form.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/update_name_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/user_address.dart';
+import 'package:ecommerce_app/features/shop/modules/all_product/presentation/cubit/all_products_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/checkout_screen.dart';
@@ -121,7 +122,10 @@ class NavigationRoutes {
 
       case AllProductScreen.routeName:
         return MaterialPageRoute(
-          builder: (context) => const AllProductScreen(),
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<AllProductsCubit>()..getAllFeaturedProducts(),
+            child: const AllProductScreen(),
+          ),
         );
 
       case ProductDetails.routeName:

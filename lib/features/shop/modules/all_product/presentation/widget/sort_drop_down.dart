@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart'; // Optional for nice icons
 
 class SortDropdown extends StatefulWidget {
-  const SortDropdown({super.key});
+  const SortDropdown({super.key, required this.onChanged});
+
+  final void Function(String?)? onChanged;
 
   @override
   State<SortDropdown> createState() => _SortDropdownState();
@@ -10,13 +12,12 @@ class SortDropdown extends StatefulWidget {
 
 class _SortDropdownState extends State<SortDropdown> {
   String selectedValue = 'Name';
-  final List<String> options = ['Name', 'Price', 'Date', 'Category'];
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
       decoration: const InputDecoration(prefixIcon: Icon(Iconsax.sort)),
-      onChanged: (value) {},
+      onChanged: widget.onChanged,
       items:
           [
                 'Name',

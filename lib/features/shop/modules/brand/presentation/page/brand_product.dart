@@ -29,9 +29,9 @@ class BrandProduct extends StatelessWidget {
               child: FeaturedBrand(isDark: isDark, showBorder: true),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
-            const Padding(
-              padding: EdgeInsets.all(AppSizes.defaultSpace),
-              child: SortDropdown(),
+            Padding(
+              padding: const EdgeInsets.all(AppSizes.defaultSpace),
+              child: SortDropdown(onChanged: (value) {}),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
             Padding(

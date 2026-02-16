@@ -38,190 +38,194 @@ class ProductDetails extends StatelessWidget {
       create: (context) => ProductVariationCubit(product: product),
       child: SafeArea(
         child: Scaffold(
-          body: Column(
-            children: [
-              TCurvedEdgesWidget(
-                child: Container(
-                  color: dark ? AppColors.darkGrey : AppColors.lightContainer,
-                  child:
-                      BlocBuilder<ProductVariationCubit, ProductVariationState>(
-                        buildWhen: (previous, current) =>
-                            previous.selectedVariation !=
-                                current.selectedVariation &&
-                            previous.currentImage != current.currentImage,
-                        builder: (context, state) {
-                          return CircularProductContainerImage(
-                            dark: dark,
-                            thumbnail: product.thumbnail,
-                            images: product.images,
-                            variationImage:
-                                state.currentImage != product.thumbnail
-                                ? state.currentImage
-                                : null,
-                          );
-                        },
-                      ),
-                ),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSizes.defaultSpace,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            RatingWidget(theme: theme),
-                            const VerticalSpace(height: AppSizes.sm),
-
-                            /// -- Price, Title, Stock, SKU, Brand
-                            ProductDescriptionDetails(
-                              theme: theme,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                TCurvedEdgesWidget(
+                  child: Container(
+                    color: dark ? AppColors.darkGrey : AppColors.lightContainer,
+                    child:
+                        BlocBuilder<
+                          ProductVariationCubit,
+                          ProductVariationState
+                        >(
+                          buildWhen: (previous, current) =>
+                              previous.selectedVariation !=
+                                  current.selectedVariation &&
+                              previous.currentImage != current.currentImage,
+                          builder: (context, state) {
+                            return CircularProductContainerImage(
                               dark: dark,
-                              product: product,
-                            ),
-
-                            const VerticalSpace(height: AppSizes.lg),
-
-                            /// -- Attributes & Variation Details (Only for Variable Products)
-                            if (isVariableProduct) ...[
-                              BlocBuilder<
-                                ProductVariationCubit,
-                                ProductVariationState
-                              >(
-                                builder: (context, state) {
-                                  return SelectedVariationContainer(
-                                    theme: theme,
-                                    dark: dark,
-                                    state: state,
-                                  );
-                                },
-                              ),
-                              const VerticalSpace(height: AppSizes.lg),
-
-                              /// -- Color selection
-                              BlocBuilder<
-                                ProductVariationCubit,
-                                ProductVariationState
-                              >(
-                                buildWhen: (previous, current) =>
-                                    previous.selectedColor !=
-                                    current.selectedColor,
-                                builder: (context, state) {
-                                  return ColorsSelectionWidget(
-                                    theme: theme,
-                                    productAttributes:
-                                        product.productAttributes,
-                                    selectedColor: state.selectedColor,
-                                    onSelected: (color) {
-                                      context
-                                          .read<ProductVariationCubit>()
-                                          .selectColor(color);
-                                    },
-                                  );
-                                },
-                              ),
-                              const VerticalSpace(height: AppSizes.lg),
-
-                              /// -- Size selection
-                              BlocBuilder<
-                                ProductVariationCubit,
-                                ProductVariationState
-                              >(
-                                buildWhen: (previous, current) =>
-                                    previous.selectedSize !=
-                                    current.selectedSize,
-                                builder: (context, state) {
-                                  return SizeSelectionWidget(
-                                    theme: theme,
-                                    dark: dark,
-                                    productAttributes:
-                                        product.productAttributes,
-                                    selectedSize: state.selectedSize,
-                                    onSelected: (size) {
-                                      context
-                                          .read<ProductVariationCubit>()
-                                          .selectSize(size);
-                                    },
-                                  );
-                                },
-                              ),
-                              const VerticalSpace(height: AppSizes.lg * 1.5),
-                            ],
-
-                            SizedBox(
-                              width: AppHelperFunctions.screenWidth(context),
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      AppColors.dashboardAppbarBackground,
-                                  side: const BorderSide(
-                                    color: AppColors.dashboardAppbarBackground,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadiusGeometry.circular(
-                                      AppSizes.borderRadiusLg,
-                                    ),
-                                  ),
-                                ),
-                                child: const Text('Checkout'),
-                              ),
-                            ),
-                            const SizedBox(height: AppSizes.spaceBtwSections),
-
-                            /// -- Description
-                            const SectionHeading(
-                              title: 'Description',
-                              showActionButton: false,
-                            ),
-                            const SizedBox(height: AppSizes.spaceBtwItems),
-                            if (product.description != null &&
-                                product.description!.isNotEmpty)
-                              Text(
-                                product.description!,
-                                style: theme.textTheme.bodyMedium,
-                              ),
-                            const SizedBox(height: AppSizes.spaceBtwSections),
-
-                            /// -- Reviews
-                            const Divider(),
-                            const SizedBox(height: AppSizes.spaceBtwItems),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const SectionHeading(
-                                  title: 'Reviews (199)',
-                                  showActionButton: false,
-                                ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Iconsax.arrow_right_3,
-                                    size: 18,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const RatingAndReviews(),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
+                              thumbnail: product.thumbnail,
+                              images: product.images,
+                              variationImage:
+                                  state.currentImage != product.thumbnail
+                                  ? state.currentImage
+                                  : null,
+                            );
+                          },
                         ),
-                      ),
-                    ],
                   ),
                 ),
-              ),
-            ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.defaultSpace,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RatingWidget(theme: theme),
+                          const VerticalSpace(height: AppSizes.sm),
+                
+                          /// -- Price, Title, Stock, SKU, Brand
+                          ProductDescriptionDetails(
+                            theme: theme,
+                            dark: dark,
+                            product: product,
+                          ),
+                
+                          const VerticalSpace(height: AppSizes.lg),
+                
+                          /// -- Attributes & Variation Details (Only for Variable Products)
+                          if (isVariableProduct) ...[
+                            BlocBuilder<
+                              ProductVariationCubit,
+                              ProductVariationState
+                            >(
+                              builder: (context, state) {
+                                return SelectedVariationContainer(
+                                  theme: theme,
+                                  dark: dark,
+                                  state: state,
+                                );
+                              },
+                            ),
+                            const VerticalSpace(height: AppSizes.lg),
+                
+                            /// -- Color selection
+                            BlocBuilder<
+                              ProductVariationCubit,
+                              ProductVariationState
+                            >(
+                              buildWhen: (previous, current) =>
+                                  previous.selectedColor !=
+                                  current.selectedColor,
+                              builder: (context, state) {
+                                return ColorsSelectionWidget(
+                                  theme: theme,
+                                  productAttributes:
+                                      product.productAttributes,
+                                  selectedColor: state.selectedColor,
+                                  onSelected: (color) {
+                                    context
+                                        .read<ProductVariationCubit>()
+                                        .selectColor(color);
+                                  },
+                                );
+                              },
+                            ),
+                            const VerticalSpace(height: AppSizes.lg),
+                
+                            /// -- Size selection
+                            BlocBuilder<
+                              ProductVariationCubit,
+                              ProductVariationState
+                            >(
+                              buildWhen: (previous, current) =>
+                                  previous.selectedSize !=
+                                  current.selectedSize,
+                              builder: (context, state) {
+                                return SizeSelectionWidget(
+                                  theme: theme,
+                                  dark: dark,
+                                  productAttributes:
+                                      product.productAttributes,
+                                  selectedSize: state.selectedSize,
+                                  onSelected: (size) {
+                                    context
+                                        .read<ProductVariationCubit>()
+                                        .selectSize(size);
+                                  },
+                                );
+                              },
+                            ),
+                            const VerticalSpace(height: AppSizes.lg * 1.5),
+                          ],
+                
+                          SizedBox(
+                            width: AppHelperFunctions.screenWidth(context),
+                            child: ElevatedButton(
+                              onPressed: () {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    AppColors.dashboardAppbarBackground,
+                                side: const BorderSide(
+                                  color:
+                                      AppColors.dashboardAppbarBackground,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadiusGeometry.circular(
+                                        AppSizes.borderRadiusLg,
+                                      ),
+                                ),
+                              ),
+                              child: const Text('Checkout'),
+                            ),
+                          ),
+                          const SizedBox(height: AppSizes.spaceBtwSections),
+                
+                          /// -- Description
+                          const SectionHeading(
+                            title: 'Description',
+                            showActionButton: false,
+                          ),
+                          const SizedBox(height: AppSizes.spaceBtwItems),
+                          if (product.description != null &&
+                              product.description!.isNotEmpty)
+                            Text(
+                              product.description!,
+                              style: theme.textTheme.bodyMedium,
+                            ),
+                          const SizedBox(height: AppSizes.spaceBtwSections),
+                
+                          /// -- Reviews
+                          const Divider(),
+                          const SizedBox(height: AppSizes.spaceBtwItems),
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SectionHeading(
+                                title: 'Reviews (199)',
+                                showActionButton: false,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Iconsax.arrow_right_3,
+                                  size: 18,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RatingAndReviews(),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
           bottomNavigationBar: BottomCardWidget(theme: theme, dark: dark),
         ),

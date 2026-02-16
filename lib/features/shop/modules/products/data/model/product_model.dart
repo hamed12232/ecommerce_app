@@ -65,6 +65,34 @@ class ProductModel extends ProductEntity {
     );
   }
 
+  factory ProductModel.fromQuerySnapshot(
+    QueryDocumentSnapshot<Map<String, dynamic>> document,
+  ) {
+    final date = document.data();
+    return ProductModel(
+      id: document.id,
+      title: date['title'] ?? '',
+      stock: date['stock'] ?? 0,
+      price: double.parse((date['price'] ?? 0).toString()),
+      thumbnail: date['thumbnail'] ?? '',
+      productType: date['productType'] ?? '',
+      sku: date['sku'],
+      brand: date['brand'] != null ? BrandModel.fromJson(date['brand']) : null,
+      date: (date['date'] as Timestamp?)?.toDate(),
+      images: date['images'] != null ? List<String>.from(date['images']) : [],
+      salePrice: double.parse((date['salePrice'] ?? 0).toString()),
+      isFeatured: date['isFeatured'] ?? false,
+      categoryId: date['categoryId'],
+      description: date['description'],
+      productAttributes: (date['productAttributes'] as List<dynamic>?)
+          ?.map((e) => ProductAttributeModel.fromJson(e))
+          .toList(),
+      productVariations: (date['productVariations'] as List<dynamic>?)
+          ?.map((e) => ProductVariationModel.fromJson(e))
+          .toList(),
+    );
+  }
+
   /// Map Model to Json oriented document snapshot for Firebase
   Map<String, dynamic> toJson() {
     return {

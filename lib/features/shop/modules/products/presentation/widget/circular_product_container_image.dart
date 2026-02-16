@@ -79,7 +79,7 @@ class _CircularProductContainerImageState
           left: 0,
           child: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Iconsax.arrow_left),
+            icon: const Icon(Iconsax.arrow_left_2),
           ),
         ),
 
@@ -98,9 +98,11 @@ class _CircularProductContainerImageState
         if (allImages.length > 1)
           Positioned(
             top: 300,
-            left: 60,
+            left: 0,
+            right: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+
               children: List.generate(allImages.length, (i) {
                 final selected = i == _selectedImage;
                 return Padding(
