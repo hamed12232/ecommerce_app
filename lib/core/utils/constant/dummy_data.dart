@@ -1,8 +1,8 @@
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/banner_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/category_model.dart';
-import 'package:ecommerce_app/features/shop/modules/products/data/model/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_attribute_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_variation_model.dart';
@@ -80,7 +80,30 @@ class TDummyData {
       country: 'United Kingdom',
     ),
   ];
-  
+
+  static final List<BrandModel> brands = [
+    BrandModel(
+      id: '1',
+      image: AppImages.nikeLogo,
+      name: 'Nike',
+      productsCount: 265,
+      isFeatured: true,
+    ),
+    BrandModel(
+      id: '6',
+      image: AppImages.zaraLogo,
+      name: 'ZARA',
+      productsCount: 10,
+      isFeatured: true,
+    ),
+    BrandModel(
+      id: '2',
+      image: AppImages.appleLogo,
+      name: 'Apple',
+      productsCount: 15,
+      isFeatured: true,
+    ),
+  ];
 
   /// -- List of all Categories
   static final List<CategoryModel> categoriesList = [
@@ -261,7 +284,12 @@ class TDummyData {
       thumbnail: AppImages.productImage69,
       description:
           'This is a Product description for Blue Nike Sleeve less vest. There are more things that can be added but i am just practicing and nothing else.',
-      brand: BrandModel(id: '6', image: AppImages.zaraLogo, name: 'ZARA'),
+      brand: BrandModel(
+        id: '6',
+        image: AppImages.zaraLogo,
+        name: 'ZARA',
+        productsCount: 10,
+      ),
       images: [
         AppImages.productImage68,
         AppImages.productImage69,
@@ -285,7 +313,12 @@ class TDummyData {
       thumbnail: AppImages.productImage64,
       description:
           'This is a Product description for Leather brown Jacket. There are more things that can be added but i am just practicing and nothing else.',
-      brand: BrandModel(id: '6', image: AppImages.zaraLogo, name: 'ZARA'),
+      brand: BrandModel(
+        id: '6',
+        image: AppImages.zaraLogo,
+        name: 'ZARA',
+        productsCount: 10,
+      ),
       images: [
         AppImages.productImage64,
         AppImages.productImage65,

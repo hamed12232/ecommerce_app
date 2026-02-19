@@ -32,6 +32,15 @@ import 'package:ecommerce_app/features/shop/modules/all_product/domain/repositor
 import 'package:ecommerce_app/features/shop/modules/all_product/domain/use_cases/get_all_products.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/domain/use_cases/get_products_by_query_use_case.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/cubit/all_products_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/datasources/base_brand_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/datasources/brand_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/repositories/brand_repository_impl.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/repositories/base_brand_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/get_brand_products_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/get_brands_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brand_image_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brands_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/banner_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_banner_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_category_data_source.dart';
@@ -265,4 +274,19 @@ Future<void> setupServiceLocator() async {
       getAllFeaturedProductsUseCase: getIt(),
     ),
   );
+
+  // Brand
+  getIt.registerLazySingleton<BaseBrandDataSource>(() => BrandDataSource());
+  getIt.registerLazySingleton<BaseBrandRepository>(
+    () => BrandRepositoryImpl(baseBrandDataSource: getIt()),
+  );
+  getIt.registerLazySingleton(() => GetBrandsUseCase(getIt()));
+  getIt.registerLazySingleton(
+    () => GetBrandProductsUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton(() => UploadBrandsUseCase(repository: getIt()));
+  getIt.registerLazySingleton(
+    () => UploadBrandImageUseCase(repository: getIt()),
+  );
+  getIt.registerFactory(() => BrandCubit(getIt(), getIt(), getIt(), getIt()));
 }

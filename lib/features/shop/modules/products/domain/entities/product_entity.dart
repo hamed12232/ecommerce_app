@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/utils/services/dummy_data_uploader.dart';
-import 'package:ecommerce_app/features/shop/modules/products/data/model/brand_model.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_attribute_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_variation_model.dart';
 

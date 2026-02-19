@@ -17,6 +17,10 @@ import 'package:ecommerce_app/features/personlization/presentation/pages/update_
 import 'package:ecommerce_app/features/personlization/presentation/pages/user_address.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/cubit/all_products_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/entities/brand_entity.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/presentation/page/all_brands.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/presentation/page/brand_product.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/checkout_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
@@ -120,10 +124,29 @@ class NavigationRoutes {
       case SubCategory.routeName:
         return MaterialPageRoute(builder: (context) => const SubCategory());
 
+      case AllBrands.routeName:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<BrandCubit>()..fetchBrands(),
+            child: const AllBrands(),
+          ),
+        );
+
+      case BrandProduct.routeName:
+        final brand = settings.arguments as BrandEntity;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) =>
+                getIt<BrandCubit>()..fetchBrandProducts(brand.id),
+            child: BrandProduct(brand: brand),
+          ),
+        );
+
       case AllProductScreen.routeName:
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => getIt<AllProductsCubit>()..getAllFeaturedProducts(),
+            create: (context) =>
+                getIt<AllProductsCubit>()..getAllFeaturedProducts(),
             child: const AllProductScreen(),
           ),
         );
