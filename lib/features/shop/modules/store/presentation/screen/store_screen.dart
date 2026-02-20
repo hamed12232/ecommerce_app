@@ -11,6 +11,7 @@ import 'package:ecommerce_app/core/widgets/custom_text_field.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/presentation/page/all_brands.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/controller/cubit/product_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/brand_feature_bloc_builder.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/category_tab_bar.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/store_app_bar.dart';
@@ -26,8 +27,11 @@ class StoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = AppHelperFunctions.isDarkMode(context);
-    return BlocProvider(
-      create: (context) => getIt<BrandCubit>()..fetchBrands(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<BrandCubit>()..fetchBrands()),
+        BlocProvider(create: (context) => getIt<ProductCubit>()),
+      ],
       child: BlocConsumer<CategoryCubit, CategoryState>(
         buildWhen: (previous, current) =>
             current.status == CategoryStatus.success,

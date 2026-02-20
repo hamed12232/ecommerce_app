@@ -9,7 +9,8 @@ import 'package:ecommerce_app/features/shop/modules/all_product/presentation/pag
 import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/entities/category_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
-import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/controller/cubit/product_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/controller/cubit/product_state.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/brand_show_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,7 @@ class _CategoryTabBarState extends State<CategoryTabBar> {
   void initState() {
     super.initState();
     context.read<BrandCubit>().fetchBrandsForCategory(widget.category.id);
+    context.read<ProductCubit>().fetchProductsForCategory(widget.category.id);
   }
 
   @override
@@ -39,12 +41,10 @@ class _CategoryTabBarState extends State<CategoryTabBar> {
           padding: const EdgeInsets.all(AppSizes.defaultSpace),
           child: Column(
             children: [
-              /// Category Brands
               BlocBuilder<BrandCubit, BrandState>(
                 builder: (context, state) {
                   final categoryBrands =
                       state.categoryBrands[widget.category.id];
-                  /// Loading
                   if (categoryBrands == null) {
                     return const Column(
                       children: [
@@ -85,10 +85,37 @@ class _CategoryTabBarState extends State<CategoryTabBar> {
                 onPressed: () =>
                     Navigator.pushNamed(context, AllProductScreen.routeName),
               ),
-              GridLayout(
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return ProductCardVertical(product: ProductEntity.empty());
+              BlocBuilder<ProductCubit, ProductState>(
+                builder: (context, state) {
+                  final categoryProducts =
+                      state.categoryProducts[widget.category.id];
+
+                  /// Loading
+                  if (categoryProducts == null) {
+                    return const TBoxesShimmer();
+                  }
+
+                  /// No products found
+                  if (categoryProducts.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No Products Found!',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.apply(color: Colors.white),
+                      ),
+                    );
+                  }
+
+                  /// Products grid
+                  return GridLayout(
+                    itemCount: categoryProducts.length,
+                    itemBuilder: (context, index) {
+                      return ProductCardVertical(
+                        product: categoryProducts[index],
+                      );
+                    },
+                  );
                 },
               ),
             ],

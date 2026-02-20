@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/core/layout/grid_layout.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
-import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
@@ -33,13 +32,7 @@ class AllBrands extends StatelessWidget {
                 title: AppTextStrings.brands,
                 showActionButton: false,
               ),
-              // TODO: Remove this button after uploading brand categories once
-              ElevatedButton(
-                onPressed: () => context
-                    .read<BrandCubit>()
-                    .uploadDummyBrandCategories(TDummyData.brandCategories),
-                child: const Text('Upload Brand Categories'),
-              ),
+
               const VerticalSpace(height: AppSizes.spaceBtwItems / 1.5),
               BlocBuilder<BrandCubit, BrandState>(
                 buildWhen: (previous, current) =>

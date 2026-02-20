@@ -5,6 +5,7 @@ import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_mode
 import 'package:ecommerce_app/features/shop/modules/home/data/models/banner_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_attribute_model.dart';
+import 'package:ecommerce_app/features/shop/modules/products/data/model/product_category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_variation_model.dart';
 
@@ -117,6 +118,13 @@ class TDummyData {
     BrandCategoryModel(brandId: '2', categoryId: '3'), // Apple → Electronics
     BrandCategoryModel(brandId: '6', categoryId: '5'), // ZARA → Clothes
     BrandCategoryModel(brandId: '6', categoryId: '1'), // ZARA → Shoes
+  ];
+
+  static final List<ProductCategoryModel> productCategories = [
+    ProductCategoryModel(productId: '001', categoryId: '1'),
+    ProductCategoryModel(productId: '001', categoryId: '4'),
+    ProductCategoryModel(productId: '002', categoryId: '5'),
+    ProductCategoryModel(productId: '003', categoryId: '5'),
   ];
 
   /// -- List of all Categories
