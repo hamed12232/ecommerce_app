@@ -135,9 +135,17 @@ class NavigationRoutes {
       case BrandProduct.routeName:
         final brand = settings.arguments as BrandEntity;
         return MaterialPageRoute(
-          builder: (context) => BlocProvider(
-            create: (context) =>
-                getIt<BrandCubit>()..fetchBrandProducts(brand.id),
+          builder: (context) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) =>
+                    getIt<BrandCubit>()..fetchBrandProducts(brand.id),
+              ),
+              BlocProvider(
+                create: (context) =>
+                    getIt<AllProductsCubit>(),
+              ),
+            ],
             child: BrandProduct(brand: brand),
           ),
         );

@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/banner_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/category_model.dart';
@@ -103,6 +104,19 @@ class TDummyData {
       productsCount: 15,
       isFeatured: true,
     ),
+  ];
+
+  /// -- Brand ↔ Category mappings
+  /// brandId → categoryId
+  /// Nike (1): Shoes (1), Sports (4)
+  /// Apple (2): Electronics (3)
+  /// ZARA (6): Clothes (5), Shoes (1)
+  static final List<BrandCategoryModel> brandCategories = [
+    BrandCategoryModel(brandId: '1', categoryId: '1'), // Nike → Shoes
+    BrandCategoryModel(brandId: '1', categoryId: '4'), // Nike → Sports
+    BrandCategoryModel(brandId: '2', categoryId: '3'), // Apple → Electronics
+    BrandCategoryModel(brandId: '6', categoryId: '5'), // ZARA → Clothes
+    BrandCategoryModel(brandId: '6', categoryId: '1'), // ZARA → Shoes
   ];
 
   /// -- List of all Categories

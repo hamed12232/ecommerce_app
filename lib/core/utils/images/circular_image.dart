@@ -41,7 +41,13 @@ class CircularImage extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
-        child: isNetworkImage
+        child: image.isEmpty && !isNetworkImage
+            ? Icon(
+                Icons.image_not_supported_outlined,
+                size: width * 0.5,
+                color: overlayColor ?? AppColors.darkGrey,
+              )
+            : isNetworkImage
             ? CachedNetworkImage(
                 fit: fit,
                 width: width,

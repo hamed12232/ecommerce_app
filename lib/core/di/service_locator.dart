@@ -37,7 +37,9 @@ import 'package:ecommerce_app/features/shop/modules/brand/data/datasources/brand
 import 'package:ecommerce_app/features/shop/modules/brand/data/repositories/brand_repository_impl.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/repositories/base_brand_repository.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/get_brand_products_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/get_brands_for_category_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/get_brands_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brand_categories_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brand_image_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brands_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
@@ -284,9 +286,17 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton(
     () => GetBrandProductsUseCase(repository: getIt()),
   );
+  getIt.registerLazySingleton(
+    () => GetBrandsForCategoryUseCase(repository: getIt()),
+  );
   getIt.registerLazySingleton(() => UploadBrandsUseCase(repository: getIt()));
   getIt.registerLazySingleton(
     () => UploadBrandImageUseCase(repository: getIt()),
   );
-  getIt.registerFactory(() => BrandCubit(getIt(), getIt(), getIt(), getIt()));
+  getIt.registerLazySingleton(
+    () => UploadBrandCategoriesUseCase(repository: getIt()),
+  );
+  getIt.registerFactory(
+    () => BrandCubit(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()),
+  );
 }

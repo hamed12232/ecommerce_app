@@ -3,6 +3,7 @@ import 'package:ecommerce_app/core/utils/exceptions/exceptions.dart';
 import 'package:ecommerce_app/core/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce_app/core/utils/exceptions/platform_exceptions.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/datasources/base_brand_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/entities/brand_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/repositories/base_brand_repository.dart';
@@ -48,6 +49,22 @@ class BrandRepositoryImpl implements BaseBrandRepository {
   }
 
   @override
+  Future<Either<Exceptions, List<BrandEntity>>> getBrandsForCategory(
+    String categoryId,
+  ) async {
+    try {
+      final brands = await baseBrandDataSource.getBrandsForCategory(categoryId);
+      return Right(brands);
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
+    } catch (e) {
+      return Left(Exceptions(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Exceptions, void>> uploadBrands(
     List<BrandEntity> brands,
   ) async {
@@ -64,6 +81,22 @@ class BrandRepositoryImpl implements BaseBrandRepository {
           )
           .toList();
       await baseBrandDataSource.uploadBrands(brandModels);
+      return const Right(null);
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
+    } catch (e) {
+      return Left(Exceptions(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Exceptions, void>> uploadBrandCategories(
+    List<BrandCategoryModel> brandCategories,
+  ) async {
+    try {
+      await baseBrandDataSource.uploadBrandCategories(brandCategories);
       return const Right(null);
     } on AppFirebaseException catch (e) {
       return Left(Exceptions(e.message));

@@ -2,18 +2,32 @@ import 'package:ecommerce_app/core/layout/grid_layout.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
-import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/text/section_heading.dart';
+import 'package:ecommerce_app/core/widgets/shimmers/boxes_shimmer.dart';
+import 'package:ecommerce_app/core/widgets/shimmers/list_tile_shimmer.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/presentation/page/all_product_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/entities/category_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/product_card_vertical.dart';
 import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/store/presentation/widget/brand_show_case.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CategoryTabBar extends StatelessWidget {
+class CategoryTabBar extends StatefulWidget {
   const CategoryTabBar({super.key, required this.category});
   final CategoryEntity category;
+
+  @override
+  State<CategoryTabBar> createState() => _CategoryTabBarState();
+}
+
+class _CategoryTabBarState extends State<CategoryTabBar> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<BrandCubit>().fetchBrandsForCategory(widget.category.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +39,54 @@ class CategoryTabBar extends StatelessWidget {
           padding: const EdgeInsets.all(AppSizes.defaultSpace),
           child: Column(
             children: [
-              const BrandShowCase(),
+              /// Category Brands
+              BlocBuilder<BrandCubit, BrandState>(
+                builder: (context, state) {
+                  final categoryBrands =
+                      state.categoryBrands[widget.category.id];
+                  /// Loading
+                  if (categoryBrands == null) {
+                    return const Column(
+                      children: [
+                        TListTileShimmer(),
+                        SizedBox(height: AppSizes.spaceBtwItems),
+                        TBoxesShimmer(),
+                      ],
+                    );
+                  }
 
-              const BrandShowCase(),
+                  /// No brands found
+                  if (categoryBrands.isEmpty) {
+                    return Center(
+                      child: Text(
+                        'No Brands Found!',
+                        style: Theme.of(
+                          context,
+                        ).textTheme.bodyMedium!.apply(color: Colors.white),
+                      ),
+                    );
+                  }
+
+                  /// Brands list
+                  return Column(
+                    children: categoryBrands
+                        .map(
+                          (brand) =>
+                              BrandShowCase(brand: brand, images: const []),
+                        )
+                        .toList(),
+                  );
+                },
+              ),
+
               const VerticalSpace(height: AppSizes.spaceBtwInputFields * 2),
               SectionHeading(
                 title: AppTextStrings.storeScreenYouMightLike,
-                onPressed: () => AppHelperFunctions.navigateToScreen(
-                  context,
-                  const AllProductScreen(),
-                ),
+                onPressed: () =>
+                    Navigator.pushNamed(context, AllProductScreen.routeName),
               ),
               GridLayout(
                 itemCount: 4,
-
                 itemBuilder: (context, index) {
                   return ProductCardVertical(product: ProductEntity.empty());
                 },

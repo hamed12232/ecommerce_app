@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/core/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce_app/core/utils/exceptions/platform_exceptions.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/datasources/base_brand_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
 import 'package:flutter/services.dart';
@@ -54,6 +55,56 @@ class BrandDataSource implements BaseBrandDataSource {
       throw AppPlatformException(e.code);
     } catch (e) {
       throw Exception('Something went wrong. Please try again');
+    }
+  }
+
+  /// Get Brands For Category
+  @override
+  Future<List<BrandModel>> getBrandsForCategory(String categoryId) async {
+    try {
+      QuerySnapshot brandCategoryQuery = await firestore
+          .collection('BrandCategory')
+          .where('categoryId', isEqualTo: categoryId)
+          .get();
+      List<String> brandIds = brandCategoryQuery.docs
+          .map((doc) => doc['brandId'] as String)
+          .toList();
+      if (brandIds.isEmpty) return [];
+      final brandsQuery = await firestore
+          .collection('Brands')
+          .where(FieldPath.documentId, whereIn: brandIds)
+          .limit(2)
+          .get();
+      List<BrandModel> brands = brandsQuery.docs
+          .map((doc) => BrandModel.fromJson(doc.data()))
+          .toList();
+
+      return brands;
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on FormatException catch (_) {
+      throw const FormatException();
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw 'Something went wrong while fetching brands for category';
+    }
+  }
+
+  @override
+  Future<void> uploadBrandCategories(
+    List<BrandCategoryModel> brandCategories,
+  ) async {
+    try {
+      for (var brandCategory in brandCategories) {
+        await firestore.collection('BrandCategory').add(brandCategory.toJson());
+      }
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
     }
   }
 
