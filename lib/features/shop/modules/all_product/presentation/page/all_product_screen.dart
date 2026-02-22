@@ -30,41 +30,50 @@ class AllProductScreen extends StatelessWidget {
               padding: const EdgeInsets.all(AppSizes.defaultSpace),
               child: SortDropdown(
                 onChanged: (value) {
-                  if (value != null) {
-                    context.read<AllProductsCubit>().sortProducts(value);
-                  }
+                  if (value == null) return;
+                  context.read<AllProductsCubit>().sortProducts(value);
                 },
               ),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
-            BlocBuilder<AllProductsCubit, AllProductsState>(
-              buildWhen: (previous, current) => current is AllProductsLoaded,
-              builder: (context, state) {
-                if (state is AllProductsLoading) {
-                  return const VerticalProductShimmer();
-                }
-
-                if (state is AllProductsError) {
-                  return Center(child: Text(state.message));
-                }
-
-                if (state is AllProductsLoaded && state.products.isEmpty) {
-                  return Center(
-                    child: Text(
-                      'No Data Found',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  );
-                }
-                if (state is AllProductsLoaded) {
-                  return PopularProducts(products: state.products);
-                }
-                return const SizedBox();
-              },
-            ),
+            const _ProductsContent(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ProductsContent extends StatelessWidget {
+  const _ProductsContent();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AllProductsCubit, AllProductsState>(
+      buildWhen: (previous, current) => current is AllProductsLoaded,
+      builder: (context, state) {
+        if (state is AllProductsLoading) {
+          return const VerticalProductShimmer();
+        }
+
+        if (state is AllProductsError) {
+          return Center(child: Text(state.message));
+        }
+
+        if (state is AllProductsLoaded) {
+          if (state.products.isEmpty) {
+            return Center(
+              child: Text(
+                'No Data Found',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            );
+          }
+          return PopularProducts(products: state.products);
+        }
+
+        return const SizedBox();
+      },
     );
   }
 }

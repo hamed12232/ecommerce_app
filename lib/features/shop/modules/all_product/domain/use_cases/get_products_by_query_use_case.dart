@@ -7,8 +7,9 @@ import 'package:ecommerce_app/features/shop/modules/products/domain/entities/pro
 class GetProductsByQueryUseCase {
   final BaseAllProductRepository repository;
 
-  GetProductsByQueryUseCase({required this.repository});
-  Future<Either<Exceptions, List<ProductEntity>>> call(Query query) async {
-    return await repository.getProductsByQuery(query);
+  const GetProductsByQueryUseCase({required this.repository});
+
+  Future<Either<Exceptions, List<ProductEntity>>> call(Query query) {
+    return repository.getProductsByQuery(query);
   }
 }

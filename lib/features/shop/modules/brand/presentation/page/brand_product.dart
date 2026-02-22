@@ -21,7 +21,7 @@ class BrandProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = AppHelperFunctions.isDarkMode(context);
+    final isDark = AppHelperFunctions.isDarkMode(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -46,7 +46,8 @@ class BrandProduct extends StatelessWidget {
               padding: const EdgeInsets.all(AppSizes.defaultSpace),
               child: SortDropdown(
                 onChanged: (value) {
-                  context.read<AllProductsCubit>().sortProducts(value!);
+                  if (value == null) return;
+                  context.read<AllProductsCubit>().sortProducts(value);
                 },
               ),
             ),

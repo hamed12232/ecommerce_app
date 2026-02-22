@@ -5,7 +5,7 @@ import 'package:ecommerce_app/core/utils/constant/enums.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/helper/pricing_calculator.dart';
-import 'package:ecommerce_app/core/utils/icons/circular_icons.dart';
+import 'package:ecommerce_app/core/utils/icons/favourite_icon.dart';
 import 'package:ecommerce_app/core/utils/images/rounded_images.dart';
 import 'package:ecommerce_app/core/utils/text/brand_title_text_with_verified_icon.dart';
 import 'package:ecommerce_app/core/utils/text/product_price_text.dart';
@@ -30,7 +30,11 @@ class ProductCardVertical extends StatelessWidget {
     final dark = AppHelperFunctions.isDarkMode(context);
 
     return InkWell(
-      onTap: () => Navigator.pushNamed(context, ProductDetails.routeName, arguments: product),
+      onTap: () => Navigator.pushNamed(
+        context,
+        ProductDetails.routeName,
+        arguments: product,
+      ),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -60,14 +64,10 @@ class ProductCardVertical extends StatelessWidget {
                       top: 12,
                       child: SalePercentage(percentage: salePercentage),
                     ),
-                  const Positioned(
+                  Positioned(
                     top: 0,
                     right: 0,
-                    child: CircularIcon(
-                      icon: Iconsax.heart5,
-                      size: AppSizes.iconMd,
-                      color: AppColors.red,
-                    ),
+                    child: FavouriteIcon(productId: product.id),
                   ),
                   const VerticalSpace(height: AppSizes.spaceBtwItems / 2),
                 ],

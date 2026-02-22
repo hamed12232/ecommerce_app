@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
-import 'package:ecommerce_app/core/utils/icons/circular_icons.dart';
+import 'package:ecommerce_app/core/utils/icons/favourite_icon.dart';
 import 'package:ecommerce_app/core/utils/images/rounded_images.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
@@ -13,10 +13,12 @@ class CircularProductContainerImage extends StatefulWidget {
     super.key,
     required this.dark,
     required this.thumbnail,
+    required this.productId,
     this.images,
     this.variationImage,
   });
 
+  final String productId;
   final bool dark;
   final String thumbnail;
   final List<String>? images;
@@ -84,14 +86,10 @@ class _CircularProductContainerImageState
         ),
 
         /// -- Favourite icon
-        const Positioned(
+        Positioned(
           right: 5,
           top: 8,
-          child: CircularIcon(
-            icon: Iconsax.heart5,
-            size: AppSizes.iconMd,
-            color: AppColors.red,
-          ),
+          child: FavouriteIcon(productId: widget.productId),
         ),
 
         /// -- Image gallery thumbnails (only show if more than one image)

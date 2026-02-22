@@ -14,6 +14,7 @@ abstract class BaseProductDataSource {
     String categoryId, {
     int limit = -1,
   });
+  Future<List<ProductModel>> getProductsByIds(List<String> productIds);
   Future<void> uploadProductCategories(
     List<ProductCategoryModel> productCategories,
   );
@@ -69,6 +70,27 @@ class ProductDataSource implements BaseProductDataSource {
                 .where(FieldPath.documentId, whereIn: productIds)
                 .limit(limit)
                 .get();
+
+      return productsQuery.docs
+          .map((doc) => ProductModel.fromJson(doc))
+          .toList();
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<List<ProductModel>> getProductsByIds(List<String> productIds) async {
+    try {
+      if (productIds.isEmpty) return [];
+      final productsQuery = await _firestore
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: productIds)
+          .get();
 
       return productsQuery.docs
           .map((doc) => ProductModel.fromJson(doc))

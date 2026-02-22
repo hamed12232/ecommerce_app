@@ -6,8 +6,9 @@ import 'package:ecommerce_app/features/shop/modules/products/domain/entities/pro
 class GetAllFeaturedProductsUseCase {
   final BaseAllProductRepository repository;
 
-  GetAllFeaturedProductsUseCase({required this.repository});
-  Future<Either<Exceptions, List<ProductEntity>>> call() async {
-    return await repository.getAllFeaturedProducts();
+  const GetAllFeaturedProductsUseCase({required this.repository});
+
+  Future<Either<Exceptions, List<ProductEntity>>> call() {
+    return repository.getAllFeaturedProducts();
   }
 }

@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:ecommerce_app/core/utils/exceptions/exceptions.dart';
 import 'package:ecommerce_app/core/utils/helper/network_manager.dart';
 import 'package:ecommerce_app/core/utils/services/dummy_data_uploader.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_category_model.dart';
@@ -59,69 +61,41 @@ class BrandCubit extends Cubit<BrandState> {
   Future<void> uploadDummyBrandCategories(
     List<BrandCategoryModel> brandCategories,
   ) async {
-    emit(state.copyWith(status: BrandStatus.loading));
-    final result = await uploadBrandCategoriesUseCase.call(brandCategories);
-    result.fold(
-      (failure) => emit(
-        state.copyWith(status: BrandStatus.error, error: failure.message),
-      ),
-      (_) => emit(state.copyWith(status: BrandStatus.success)),
+    await _executeWithLoading(
+      operation: () => uploadBrandCategoriesUseCase.call(brandCategories),
+      onSuccess: (_) => emit(state.copyWith(status: BrandStatus.success)),
     );
   }
 
   Future<void> fetchBrands() async {
-    final isInternetConnected = await NetworkManager.instance.isConnected();
-    if (!isInternetConnected) {
-      emit(
-        state.copyWith(
-          status: BrandStatus.error,
-          error: 'No Internet Connection',
-        ),
-      );
-      return;
-    }
+    if (!await _ensureInternetConnection()) return;
 
-    emit(state.copyWith(status: BrandStatus.loading));
-
-    final result = await getBrandsUseCase.call();
-
-    result.fold(
-      (failure) => emit(
-        state.copyWith(status: BrandStatus.error, error: failure.message),
-      ),
-      (brands) => emit(
-        state.copyWith(
-          status: BrandStatus.success,
-          brands: brands,
-          featuredBrands: brands.where((brand) => brand.isFeatured!).toList(),
-        ),
-      ),
+    await _executeWithLoading(
+      operation: () => getBrandsUseCase.call(),
+      onSuccess: (brands) {
+        emit(
+          state.copyWith(
+            status: BrandStatus.success,
+            brands: brands,
+            featuredBrands: brands
+                .where((brand) => brand.isFeatured ?? false)
+                .toList(),
+          ),
+        );
+      },
     );
   }
 
   Future<void> fetchBrandProducts(String brandId) async {
-    final isInternetConnected = await NetworkManager.instance.isConnected();
-    if (!isInternetConnected) {
-      emit(
-        state.copyWith(
-          status: BrandStatus.error,
-          error: 'No Internet Connection',
-        ),
-      );
-      return;
-    }
+    if (!await _ensureInternetConnection()) return;
 
-    emit(state.copyWith(status: BrandStatus.loading));
-
-    final result = await getBrandProductsUseCase.call(brandId);
-
-    result.fold(
-      (failure) => emit(
-        state.copyWith(status: BrandStatus.error, error: failure.message),
-      ),
-      (products) => emit(
-        state.copyWith(status: BrandStatus.success, brandProducts: products),
-      ),
+    await _executeWithLoading(
+      operation: () => getBrandProductsUseCase.call(brandId),
+      onSuccess: (products) {
+        emit(
+          state.copyWith(status: BrandStatus.success, brandProducts: products),
+        );
+      },
     );
   }
 
@@ -147,6 +121,34 @@ class BrandCubit extends Cubit<BrandState> {
           ),
         );
       },
+    );
+  }
+
+  Future<bool> _ensureInternetConnection() async {
+    final isInternetConnected = await NetworkManager.instance.isConnected();
+    if (!isInternetConnected) {
+      emit(
+        state.copyWith(
+          status: BrandStatus.error,
+          error: 'No Internet Connection',
+        ),
+      );
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> _executeWithLoading<T>({
+    required Future<Either<Exceptions, T>> Function() operation,
+    required void Function(T data) onSuccess,
+  }) async {
+    emit(state.copyWith(status: BrandStatus.loading));
+    final result = await operation();
+    result.fold(
+      (failure) => emit(
+        state.copyWith(status: BrandStatus.error, error: failure.message),
+      ),
+      onSuccess,
     );
   }
 }

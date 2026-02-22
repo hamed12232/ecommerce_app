@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/app.dart';
 import 'package:ecommerce_app/core/di/service_locator.dart';
 import 'package:ecommerce_app/core/utils/helper/network_manager.dart';
+import 'package:ecommerce_app/core/utils/local_storage/local_storage.dart';
 import 'package:ecommerce_app/core/utils/services/shared_pref.dart';
 import 'package:ecommerce_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +18,7 @@ void main() async {
   );
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await SharedPrefServices.init();
+  await TLocalStorage.init('Favourites');
   await setupServiceLocator();
   runApp(const App());
 }

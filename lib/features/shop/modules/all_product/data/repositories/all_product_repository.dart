@@ -10,28 +10,26 @@ import 'package:ecommerce_app/features/shop/modules/products/domain/entities/pro
 class AllProductRepository implements BaseAllProductRepository {
   final BaseAllProductsDataSource dataSource;
 
-  AllProductRepository({required this.dataSource});
+  const AllProductRepository({required this.dataSource});
 
   @override
   Future<Either<Exceptions, List<ProductEntity>>> getProductsByQuery(
     Query query,
   ) async {
-    try {
-      final products = await dataSource.getProductsByQuery(query);
-      return Right(products);
-    } on AppFirebaseException catch (e) {
-      return Left(Exceptions(e.message));
-    } on AppPlatformException catch (e) {
-      return Left(Exceptions(e.message));
-    } catch (e) {
-      return Left(Exceptions(e.toString()));
-    }
+    return _handleDataSourceCall(() => dataSource.getProductsByQuery(query));
   }
 
   @override
-  Future<Either<Exceptions, List<ProductEntity>>> getAllFeaturedProducts() async {
+  Future<Either<Exceptions, List<ProductEntity>>>
+  getAllFeaturedProducts() async {
+    return _handleDataSourceCall(() => dataSource.getAllFeaturedProducts());
+  }
+
+  Future<Either<Exceptions, List<ProductEntity>>> _handleDataSourceCall(
+    Future<List<ProductEntity>> Function() call,
+  ) async {
     try {
-      final products = await dataSource.getAllFeaturedProducts();
+      final products = await call();
       return Right(products);
     } on AppFirebaseException catch (e) {
       return Left(Exceptions(e.message));

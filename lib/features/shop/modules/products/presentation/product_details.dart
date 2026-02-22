@@ -57,6 +57,7 @@ class ProductDetails extends StatelessWidget {
                             return CircularProductContainerImage(
                               dark: dark,
                               thumbnail: product.thumbnail,
+                              productId: product.id,
                               images: product.images,
                               variationImage:
                                   state.currentImage != product.thumbnail
@@ -79,16 +80,16 @@ class ProductDetails extends StatelessWidget {
                         children: [
                           RatingWidget(theme: theme),
                           const VerticalSpace(height: AppSizes.sm),
-                
+
                           /// -- Price, Title, Stock, SKU, Brand
                           ProductDescriptionDetails(
                             theme: theme,
                             dark: dark,
                             product: product,
                           ),
-                
+
                           const VerticalSpace(height: AppSizes.lg),
-                
+
                           /// -- Attributes & Variation Details (Only for Variable Products)
                           if (isVariableProduct) ...[
                             BlocBuilder<
@@ -104,7 +105,7 @@ class ProductDetails extends StatelessWidget {
                               },
                             ),
                             const VerticalSpace(height: AppSizes.lg),
-                
+
                             /// -- Color selection
                             BlocBuilder<
                               ProductVariationCubit,
@@ -116,8 +117,7 @@ class ProductDetails extends StatelessWidget {
                               builder: (context, state) {
                                 return ColorsSelectionWidget(
                                   theme: theme,
-                                  productAttributes:
-                                      product.productAttributes,
+                                  productAttributes: product.productAttributes,
                                   selectedColor: state.selectedColor,
                                   onSelected: (color) {
                                     context
@@ -128,21 +128,19 @@ class ProductDetails extends StatelessWidget {
                               },
                             ),
                             const VerticalSpace(height: AppSizes.lg),
-                
+
                             /// -- Size selection
                             BlocBuilder<
                               ProductVariationCubit,
                               ProductVariationState
                             >(
                               buildWhen: (previous, current) =>
-                                  previous.selectedSize !=
-                                  current.selectedSize,
+                                  previous.selectedSize != current.selectedSize,
                               builder: (context, state) {
                                 return SizeSelectionWidget(
                                   theme: theme,
                                   dark: dark,
-                                  productAttributes:
-                                      product.productAttributes,
+                                  productAttributes: product.productAttributes,
                                   selectedSize: state.selectedSize,
                                   onSelected: (size) {
                                     context
@@ -154,7 +152,7 @@ class ProductDetails extends StatelessWidget {
                             ),
                             const VerticalSpace(height: AppSizes.lg * 1.5),
                           ],
-                
+
                           SizedBox(
                             width: AppHelperFunctions.screenWidth(context),
                             child: ElevatedButton(
@@ -163,21 +161,19 @@ class ProductDetails extends StatelessWidget {
                                 backgroundColor:
                                     AppColors.dashboardAppbarBackground,
                                 side: const BorderSide(
-                                  color:
-                                      AppColors.dashboardAppbarBackground,
+                                  color: AppColors.dashboardAppbarBackground,
                                 ),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadiusGeometry.circular(
-                                        AppSizes.borderRadiusLg,
-                                      ),
+                                  borderRadius: BorderRadiusGeometry.circular(
+                                    AppSizes.borderRadiusLg,
+                                  ),
                                 ),
                               ),
                               child: const Text('Checkout'),
                             ),
                           ),
                           const SizedBox(height: AppSizes.spaceBtwSections),
-                
+
                           /// -- Description
                           const SectionHeading(
                             title: 'Description',
@@ -191,13 +187,12 @@ class ProductDetails extends StatelessWidget {
                               style: theme.textTheme.bodyMedium,
                             ),
                           const SizedBox(height: AppSizes.spaceBtwSections),
-                
+
                           /// -- Reviews
                           const Divider(),
                           const SizedBox(height: AppSizes.spaceBtwItems),
                           Row(
-                            mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SectionHeading(
                                 title: 'Reviews (199)',

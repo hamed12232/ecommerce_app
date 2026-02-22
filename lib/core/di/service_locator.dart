@@ -43,6 +43,12 @@ import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brand_image_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brands_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/favourites/data/datasources/favourite_local_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/favourites/data/datasources/favourite_remote_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/favourites/data/repositories/favourite_repository_impl.dart';
+import 'package:ecommerce_app/features/shop/modules/favourites/domain/repositories/favourite_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/favourites/domain/usecases/favourite_usecases.dart';
+import 'package:ecommerce_app/features/shop/modules/favourites/presentation/controller/cubit/favourite_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/banner_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_banner_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/datasources/base_category_data_source.dart';
@@ -308,5 +314,34 @@ Future<void> setupServiceLocator() async {
   );
   getIt.registerFactory(
     () => BrandCubit(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()),
+  );
+
+  // Favourites
+  getIt.registerLazySingleton<BaseFavouriteLocalDataSource>(
+    () => FavouriteLocalDataSource(),
+  );
+  getIt.registerLazySingleton<BaseFavouriteRemoteDataSource>(
+    () => FavouriteRemoteDataSource(),
+  );
+  getIt.registerLazySingleton<FavouriteRepository>(
+    () => FavouriteRepositoryImpl(
+      localDataSource: getIt(),
+      remoteDataSource: getIt(),
+      productDataSource: getIt(),
+    ),
+  );
+  getIt.registerLazySingleton(
+    () => ToggleFavouriteUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton(() => IsFavouriteUseCase(repository: getIt()));
+  getIt.registerLazySingleton(
+    () => GetFavouriteProductsUseCase(repository: getIt()),
+  );
+  getIt.registerFactory(
+    () => FavouriteCubit(
+      toggleFavouriteUseCase: getIt(),
+      isFavouriteUseCase: getIt(),
+      getFavouriteProductsUseCase: getIt(),
+    ),
   );
 }

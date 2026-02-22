@@ -5,7 +5,7 @@ import 'package:ecommerce_app/core/utils/constant/enums.dart';
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
-import 'package:ecommerce_app/core/utils/icons/circular_icons.dart';
+import 'package:ecommerce_app/core/utils/icons/favourite_icon.dart';
 import 'package:ecommerce_app/core/utils/images/rounded_images.dart';
 import 'package:ecommerce_app/core/utils/text/brand_title_text_with_verified_icon.dart';
 import 'package:ecommerce_app/core/utils/text/product_price_text.dart';
@@ -53,11 +53,7 @@ class ProductCardHorizontal extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: CircularIcon(
-                      icon: Iconsax.heart5,
-                      size: AppSizes.iconMd,
-                      color: AppColors.red,
-                    ),
+                    child: FavouriteIcon(productId: 'dummy_id'),
                   ),
                 ],
               ),
