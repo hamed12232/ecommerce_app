@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/features/auth/data/datasources/auth_data_source.dart';
 import 'package:ecommerce_app/features/auth/data/datasources/base_auth_data_source.dart';
 import 'package:ecommerce_app/features/auth/data/repositories/auth_repository.dart';
@@ -14,16 +15,24 @@ import 'package:ecommerce_app/features/auth/modules/features/forget_password/pre
 import 'package:ecommerce_app/features/auth/modules/features/login/presentation/controller/cubit/login_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation/controller/cubit/sign_up_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/controller/cubit/verify_email_cubit.dart';
+import 'package:ecommerce_app/features/personlization/data/datasources/address_data_source.dart';
+import 'package:ecommerce_app/features/personlization/data/datasources/base_address_data_source.dart';
 import 'package:ecommerce_app/features/personlization/data/datasources/base_user_data_source.dart';
 import 'package:ecommerce_app/features/personlization/data/datasources/user_data_source.dart';
+import 'package:ecommerce_app/features/personlization/data/repositories/address_repository.dart';
 import 'package:ecommerce_app/features/personlization/data/repositories/user_repository.dart';
+import 'package:ecommerce_app/features/personlization/domain/repositories/base_address_repository.dart';
 import 'package:ecommerce_app/features/personlization/domain/repositories/base_user_repository.dart';
+import 'package:ecommerce_app/features/personlization/domain/usecases/add_address_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/fetch_user_details_usecase.dart';
+import 'package:ecommerce_app/features/personlization/domain/usecases/get_user_addresses_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/remove_user_record_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/save_user_record_usecase.dart';
+import 'package:ecommerce_app/features/personlization/domain/usecases/set_primary_address_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/update_single_field_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/update_user_details_usecase.dart';
 import 'package:ecommerce_app/features/personlization/domain/usecases/upload_image_usecase.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/address_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/all_product/data/data_sources/all_product_data_source.dart';
@@ -194,7 +203,8 @@ Future<void> setupServiceLocator() async {
   );
 
   getIt.registerLazySingleton<GetSubCategory>(
-    () => GetSubCategory(baseCategoryRepository: getIt<BaseCategoryRepository>()),
+    () =>
+        GetSubCategory(baseCategoryRepository: getIt<BaseCategoryRepository>()),
   );
 
   // ========== Blocs/Cubits ==========
@@ -348,6 +358,27 @@ Future<void> setupServiceLocator() async {
       toggleFavouriteUseCase: getIt(),
       isFavouriteUseCase: getIt(),
       getFavouriteProductsUseCase: getIt(),
+    ),
+  );
+  //Addressess
+  getIt.registerLazySingleton<BaseAddressDataSource>(
+    () => AddressDataSource(FirebaseFirestore.instance),
+  );
+  getIt.registerLazySingleton<BaseAddressRepository>(
+    () => AddressRepository(dataSource: getIt()),
+  );
+  getIt.registerLazySingleton(
+    () => GetUserAddressesUseCase(repository: getIt()),
+  );
+  getIt.registerLazySingleton(() => AddAddressUseCase(repository: getIt()));
+  getIt.registerLazySingleton(
+    () => SetPrimaryAddressUseCase(repository: getIt()),
+  );
+  getIt.registerFactory(
+    () => AddressCubit(
+      addAddressUseCase: getIt(),
+      getUserAddressesUseCase: getIt(),
+      setPrimaryAddressUseCase: getIt(),
     ),
   );
 }

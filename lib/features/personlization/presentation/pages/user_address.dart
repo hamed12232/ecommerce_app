@@ -1,21 +1,19 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
-import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
+import 'package:ecommerce_app/core/utils/popups/loaders.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/address_cubit.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/address_state.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/add_new_address.dart';
 import 'package:ecommerce_app/features/personlization/presentation/widget/single_address_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
-class UserAddress extends StatefulWidget {
+class UserAddress extends StatelessWidget {
   const UserAddress({super.key});
 
   static const String routeName = '/user_address';
 
-  @override
-  State<UserAddress> createState() => _UserAddressState();
-}
-
-class _UserAddressState extends State<UserAddress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,21 +26,47 @@ class _UserAddressState extends State<UserAddress> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
-        child: ListView.builder(
-          itemCount: 2,
-          itemBuilder: (context, index) =>
-              SingleAddress(address: TDummyData.addresses[index]),
+        child: BlocConsumer<AddressCubit, AddressState>(
+          listener: (context, state) {
+            if (state.status == AddressStatus.error) {
+              AppLoaders.errorSnackBar(title: state.error!, context: context);
+            }
+          },
+          builder: (context, state) {
+            if (state.status == AddressStatus.loading ||
+                state.status == AddressStatus.initial) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state.addresses.isEmpty) {
+              return Center(
+                child: Text(
+                  'No addresses found',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              );
+            }
+            return ListView.builder(
+              itemCount: state.addresses.length,
+              itemBuilder: (context, index) {
+                final address = state.addresses[index];
+                return SingleAddress(
+                  address: address,
+                  onTap: () =>
+                      context.read<AddressCubit>().selectAddress(address),
+                );
+              },
+            );
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
         child: const Icon(Iconsax.add, color: AppColors.white),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(
-              builder: (context) => const AddNewAddressScreen(),
-            ),
+            AddNewAddressScreen.routeName,
+            arguments: context.read<AddressCubit>(),
           );
         },
       ),

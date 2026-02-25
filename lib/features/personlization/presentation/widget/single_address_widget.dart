@@ -6,36 +6,26 @@ import 'package:ecommerce_app/features/personlization/data/models/address_model.
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-class SingleAddress extends StatefulWidget {
-  const SingleAddress({super.key, required this.address});
+class SingleAddress extends StatelessWidget {
+  const SingleAddress({super.key, required this.address, this.onTap});
 
   final AddressModel address;
-
-  @override
-  State<SingleAddress> createState() => _SingleAddressState();
-}
-
-class _SingleAddressState extends State<SingleAddress> {
-  bool isSelected = false;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
 
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          isSelected = !isSelected;
-        });
-      },
+      onTap: onTap,
       child: RoundedContainer(
         showBorder: true,
         padding: const EdgeInsets.all(AppSizes.md),
         width: double.infinity,
-        backgroundColor: isSelected
+        backgroundColor: address.selectedAddress
             ? AppColors.dashboardAppbarBackground.withValues(alpha: 0.5)
             : Colors.transparent,
-        borderColor: isSelected
+        borderColor: address.selectedAddress
             ? Colors.transparent
             : dark
             ? AppColors.darkerGrey
@@ -47,8 +37,8 @@ class _SingleAddressState extends State<SingleAddress> {
               right: 5,
               top: 0,
               child: Icon(
-                isSelected ? Iconsax.tick_circle5 : null,
-                color: isSelected
+                address.selectedAddress ? Iconsax.tick_circle5 : null,
+                color: address.selectedAddress
                     ? dark
                           ? AppColors.lightBackground
                           : AppColors.dark
@@ -59,19 +49,19 @@ class _SingleAddressState extends State<SingleAddress> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.address.name,
+                  address.name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: AppSizes.sm / 2),
                 Text(
-                  widget.address.phoneNumber,
+                  address.phoneNumber,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: AppSizes.sm / 2),
-                Text(widget.address.street.toString(), softWrap: true),
+                Text(address.street.toString(), softWrap: true),
               ],
             ),
           ],

@@ -10,6 +10,8 @@ import 'package:ecommerce_app/features/auth/modules/features/signUp/presentation
 import 'package:ecommerce_app/features/auth/modules/features/success/presentation/pages/success_screen.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/controller/cubit/verify_email_cubit.dart';
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
+import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/address_cubit.dart';
+import 'package:ecommerce_app/features/personlization/presentation/pages/add_new_address.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_info_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/profile_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/pages/re_auth_login_form.dart';
@@ -184,7 +186,21 @@ class NavigationRoutes {
         return MaterialPageRoute(builder: (context) => const MyOrdersScreen());
 
       case UserAddress.routeName:
-        return MaterialPageRoute(builder: (context) => const UserAddress());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<AddressCubit>()..loadUserAddresses(),
+            child: const UserAddress(),
+          ),
+        );
+
+      case AddNewAddressScreen.routeName:
+        final addressCubit = settings.arguments as AddressCubit;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: addressCubit,
+            child: const AddNewAddressScreen(),
+          ),
+        );
 
       case ReAuthLoginForm.routeName:
         return MaterialPageRoute(builder: (context) => const ReAuthLoginForm());
