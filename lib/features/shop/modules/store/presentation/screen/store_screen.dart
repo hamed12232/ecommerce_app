@@ -86,6 +86,11 @@ class StoreScreen extends StatelessWidget {
                                 context,
                                 AllBrands.routeName,
                               ),
+                              // context
+                              //     .read<ProductCubit>()
+                              //     .uploadDummyProductCategories(
+                              //       TDummyData.productCategories,
+                              //     ),
                             ),
                             const VerticalSpace(
                               height: AppSizes.spaceBtwItems / 1.5,

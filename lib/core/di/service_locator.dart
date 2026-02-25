@@ -59,6 +59,7 @@ import 'package:ecommerce_app/features/shop/modules/home/domain/repositories/bas
 import 'package:ecommerce_app/features/shop/modules/home/domain/repositories/base_category_repository.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_banners_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_categories_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_sub_category.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_banner_image_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_banners_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_categories_usecase.dart';
@@ -192,6 +193,10 @@ Future<void> setupServiceLocator() async {
     () => UploadBannerImageUseCase(repository: getIt<BaseBannerRepository>()),
   );
 
+  getIt.registerLazySingleton<GetSubCategory>(
+    () => GetSubCategory(baseCategoryRepository: getIt<BaseCategoryRepository>()),
+  );
+
   // ========== Blocs/Cubits ==========
   getIt.registerFactory<SignUpCubit>(
     () => SignUpCubit(getIt<SignUpUseCase>(), getIt<SaveUserRecordUseCase>()),
@@ -236,6 +241,7 @@ Future<void> setupServiceLocator() async {
       getIt<GetCategoriesUseCase>(),
       getIt<UploadCategoriesUseCase>(),
       getIt<UploadCategoryImageUseCase>(),
+      getIt<GetSubCategory>(),
     ),
   );
 

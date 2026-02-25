@@ -27,6 +27,22 @@ class CategoryRepositoryImpl implements BaseCategoryRepository {
   }
 
   @override
+  Future<Either<Exceptions, List<CategoryEntity>>> getSubCategories(
+    String categoryId,
+  ) async {
+    try {
+      final categories = await baseCategoryDataSource.getSubCategories(categoryId);
+      return Right(categories);
+    } on AppFirebaseException catch (e) {
+      return Left(Exceptions(e.message));
+    } on AppPlatformException catch (e) {
+      return Left(Exceptions(e.message));
+    } catch (e) {
+      return Left(Exceptions(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Exceptions, void>> uploadCategories(
     List<CategoryEntity> categories,
   ) async {

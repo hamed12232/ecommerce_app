@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
+import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/image_text/image_text_vertical.dart';
@@ -40,14 +41,14 @@ class HeaderCategories extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// -- Heading
-            const SectionHeading(
+            SectionHeading(
               title: AppTextStrings.popularCategories,
               textColor: Colors.white,
-              // showActionButton: true,
-              // buttonTitle: 'Upload',
-              // onPressed: () => context.read<CategoryCubit>().uploadDummyData(
-              //   TDummyData.categoriesList,
-              // ),
+              showActionButton: true,
+              buttonTitle: 'Upload',
+              onPressed: () => context.read<CategoryCubit>().uploadDummyData(
+                TDummyData.categoriesList,
+              ),
             ),
             const VerticalSpace(height: AppSizes.spaceBtwItems),
 
@@ -63,9 +64,12 @@ class HeaderCategories extends StatelessWidget {
                   return VerticalImageAndText(
                     image: category.image,
                     title: category.name,
-
                     onTap: () {
-                      Navigator.pushNamed(context, SubCategory.routeName);
+                      Navigator.pushNamed(
+                        context,
+                        SubCategory.routeName,
+                        arguments: category,
+                      );
                     },
                   );
                 },

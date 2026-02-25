@@ -23,6 +23,8 @@ import 'package:ecommerce_app/features/shop/modules/brand/presentation/page/all_
 import 'package:ecommerce_app/features/shop/modules/brand/presentation/page/brand_product.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/checkout_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/entities/category_entity.dart';
+import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/order/presentation/page/my_order_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
@@ -122,7 +124,14 @@ class NavigationRoutes {
         return MaterialPageRoute(builder: (context) => const CheckoutScreen());
 
       case SubCategory.routeName:
-        return MaterialPageRoute(builder: (context) => const SubCategory());
+        final category = settings.arguments as CategoryEntity;
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) =>
+                getIt<CategoryCubit>()..fetchSubCategories(category.id),
+            child: SubCategory(subCategory: category),
+          ),
+        );
 
       case AllBrands.routeName:
         return MaterialPageRoute(
@@ -141,10 +150,7 @@ class NavigationRoutes {
                 create: (context) =>
                     getIt<BrandCubit>()..fetchBrandProducts(brand.id),
               ),
-              BlocProvider(
-                create: (context) =>
-                    getIt<AllProductsCubit>(),
-              ),
+              BlocProvider(create: (context) => getIt<AllProductsCubit>()),
             ],
             child: BrandProduct(brand: brand),
           ),

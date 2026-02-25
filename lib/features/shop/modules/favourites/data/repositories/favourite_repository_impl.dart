@@ -22,12 +22,21 @@ class FavouriteRepositoryImpl implements FavouriteRepository {
     if (isFavourite(productId)) {
       await localDataSource.removeFavourite(productId);
       if (user != null) {
-        await remoteDataSource.removeFavourite(user.uid, productId);
+        try {
+          await remoteDataSource.removeFavourite(user.uid, productId);
+        } catch (_) {
+          // Sync failure (e.g. offline) - local is already updated,
+          // background sync will handle it later.
+        }
       }
     } else {
       await localDataSource.saveFavourite(productId);
       if (user != null) {
-        await remoteDataSource.saveFavourite(user.uid, productId);
+        try {
+          await remoteDataSource.saveFavourite(user.uid, productId);
+        } catch (_) {
+          // Sync failure (e.g. offline) - local is already updated.
+        }
       }
     }
   }

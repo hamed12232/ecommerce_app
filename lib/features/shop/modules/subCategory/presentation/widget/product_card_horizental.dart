@@ -1,10 +1,8 @@
-// ... imports ...
-
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/enums.dart';
-import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
+import 'package:ecommerce_app/core/utils/helper/pricing_calculator.dart';
 import 'package:ecommerce_app/core/utils/icons/favourite_icon.dart';
 import 'package:ecommerce_app/core/utils/images/rounded_images.dart';
 import 'package:ecommerce_app/core/utils/text/brand_title_text_with_verified_icon.dart';
@@ -12,21 +10,34 @@ import 'package:ecommerce_app/core/utils/text/product_price_text.dart';
 import 'package:ecommerce_app/core/utils/text/product_title_text.dart';
 import 'package:ecommerce_app/core/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/widgets/sale_percentage.dart';
+import 'package:ecommerce_app/features/shop/modules/products/domain/entities/product_entity.dart';
+import 'package:ecommerce_app/features/shop/modules/products/presentation/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ProductCardHorizontal extends StatelessWidget {
-  const ProductCardHorizontal({super.key});
+  const ProductCardHorizontal({super.key, required this.product});
+
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
 
+    // Calculate sale percentage
+    String? salePercentage = PricingCalculator.calculateSalePercentage(
+      product.price,
+      product.salePrice,
+    );
+
     return InkWell(
-      // onTap: () => Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => const ProductDetails()),
-      // ),
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          ProductDetails.routeName,
+          arguments: product,
+        );
+      },
       child: Container(
         padding: const EdgeInsets.all(1),
         decoration: BoxDecoration(
@@ -39,21 +50,26 @@ class ProductCardHorizontal extends StatelessWidget {
             RoundedContainer(
               padding: const EdgeInsets.all(AppSizes.sm),
               backgroundColor: dark ? AppColors.dark : AppColors.grey10,
-              child: const Stack(
+              child: Stack(
                 children: [
                   SizedBox(
                     width: 120,
-
+                    height: 120,
                     child: RoundedImage(
-                      imageUrl: AppImages.productImage1,
+                      imageUrl: product.thumbnail,
                       applyImageRadius: true,
+                      isNetworkImage: true,
                     ),
                   ),
-                  Positioned(top: 12, child: SalePercentage(percentage: '25%')),
+                  if (salePercentage != null)
+                    Positioned(
+                      top: 12,
+                      child: SalePercentage(percentage: salePercentage),
+                    ),
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: FavouriteIcon(productId: 'dummy_id'),
+                    child: FavouriteIcon(productId: product.id),
                   ),
                 ],
               ),
@@ -63,47 +79,48 @@ class ProductCardHorizontal extends StatelessWidget {
             SizedBox(
               width: 160,
               child: Padding(
-                // Add padding to the details column
                 padding: const EdgeInsets.only(
                   top: AppSizes.sm,
                   left: AppSizes.sm,
-
-                  //bottom: AppSizes.sm,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-
                   children: [
                     /// Top Details (Title, Brand)
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ProductTitleText(
-                          title: "product name",
-                          smallSize: true,
-                        ),
-                        SizedBox(height: AppSizes.spaceBtwItems / 2),
-                        BrandTitleWithVerifiedIcon(
-                          title: "NIKE",
-                          brandTextSize: TextSizes.small,
-                          textColor: AppColors.darkGrey,
-                        ),
+                        ProductTitleText(title: product.title, smallSize: true),
+                        const SizedBox(height: AppSizes.spaceBtwItems / 2),
+                        if (product.brand != null)
+                          BrandTitleWithVerifiedIcon(
+                            title: product.brand!.name,
+                            brandTextSize: TextSizes.small,
+                            textColor: AppColors.darkGrey,
+                          ),
                       ],
                     ),
 
-                    const Spacer(), // for error render add height to list vieww
+                    const Spacer(),
+
                     /// Bottom Row (Price, Add Button)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: AppSizes.sm),
-                          child: ProductPriceText(price: "120.00"),
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: AppSizes.sm),
+                            child: ProductPriceText(
+                              price: PricingCalculator.getProductPrice(product),
+                            ),
+                          ),
                         ),
 
                         /// Add to cart
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            // TODO: Add to cart logic
+                          },
                           child: AnimatedContainer(
                             curve: Curves.easeInOutCubicEmphasized,
                             decoration: const BoxDecoration(

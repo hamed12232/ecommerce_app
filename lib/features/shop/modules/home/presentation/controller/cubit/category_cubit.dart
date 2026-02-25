@@ -2,6 +2,7 @@ import 'package:ecommerce_app/core/utils/helper/network_manager.dart';
 import 'package:ecommerce_app/core/utils/services/dummy_data_uploader.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/entities/category_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_categories_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/get_sub_category.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_categories_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_category_image_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   final GetCategoriesUseCase getCategoriesUseCase;
   final UploadCategoriesUseCase uploadCategoriesUseCase;
   final UploadCategoryImageUseCase uploadCategoryImageUseCase;
+  final GetSubCategory getSubCategory;
 
   late final DummyDataUploader<CategoryEntity> _dummyDataUploader;
 
@@ -19,6 +21,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     this.getCategoriesUseCase,
     this.uploadCategoriesUseCase,
     this.uploadCategoryImageUseCase,
+    this.getSubCategory,
   ) : super(const CategoryState()) {
     _dummyDataUploader = DummyDataUploader<CategoryEntity>(
       uploadImage: (path, file) => uploadCategoryImageUseCase.call(path, file),
@@ -74,6 +77,35 @@ class CategoryCubit extends Cubit<CategoryState> {
                 (category) => category.isFeatured && category.parentId.isEmpty,
               )
               .toList(),
+        ),
+      ),
+    );
+  }
+
+  Future<void> fetchSubCategories(String categoryId) async {
+    final isInternetConnected = await NetworkManager.instance.isConnected();
+    if (!isInternetConnected) {
+      emit(
+        state.copyWith(
+          status: CategoryStatus.error,
+          error: 'No Internet Connection',
+        ),
+      );
+      return;
+    }
+
+    emit(state.copyWith(status: CategoryStatus.loading));
+
+    final result = await getSubCategory.call(categoryId);
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(status: CategoryStatus.error, error: failure.message),
+      ),
+      (subCategories) => emit(
+        state.copyWith(
+          status: CategoryStatus.success,
+          subCategories: subCategories,
         ),
       ),
     );

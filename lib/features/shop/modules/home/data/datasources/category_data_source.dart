@@ -28,6 +28,25 @@ class CategoryDataSource implements BaseCategoryDataSource {
   }
 
   @override
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
+    try {
+      final categories = await firestore
+          .collection('categories')
+          .where('ParentId', isEqualTo: categoryId)
+          .get();
+      return categories.docs
+          .map((doc) => CategoryModel.fromJson(doc.data()))
+          .toList();
+    } on FirebaseException catch (e) {
+      throw AppFirebaseException(e.code);
+    } on PlatformException catch (e) {
+      throw AppPlatformException(e.code);
+    } catch (e) {
+      throw Exception('Unexpected error: ${e.toString()}');
+    }
+  }
+
+  @override
   Future<void> uploadCategories(List<CategoryModel> categories) async {
     try {
       for (var category in categories) {

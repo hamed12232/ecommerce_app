@@ -33,16 +33,21 @@ class FavouriteCubit extends Cubit<FavouriteState> {
 
   Future<void> toggleFavourite(String productId) async {
     final currentIds = List<String>.from(state.favouriteIds);
-
-    await toggleFavouriteUseCase(productId);
-
     if (currentIds.contains(productId)) {
       currentIds.remove(productId);
     } else {
       currentIds.add(productId);
     }
-
     emit(FavouriteUpdated(currentIds));
+
+    // Persist changes (this now handles offline internally)
+    try {
+      await toggleFavouriteUseCase(productId);
+    } catch (_) {
+      // If something critically failed (not just offline),
+      // you might want to revert the UI state here.
+      // For now, the repository handles remote failures, so this is safe.
+    }
   }
 
   bool isFavourite(String productId) {

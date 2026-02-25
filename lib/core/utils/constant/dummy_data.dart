@@ -107,28 +107,9 @@ class TDummyData {
     ),
   ];
 
-  /// -- Brand ↔ Category mappings
-  /// brandId → categoryId
-  /// Nike (1): Shoes (1), Sports (4)
-  /// Apple (2): Electronics (3)
-  /// ZARA (6): Clothes (5), Shoes (1)
-  static final List<BrandCategoryModel> brandCategories = [
-    BrandCategoryModel(brandId: '1', categoryId: '1'), // Nike → Shoes
-    BrandCategoryModel(brandId: '1', categoryId: '4'), // Nike → Sports
-    BrandCategoryModel(brandId: '2', categoryId: '3'), // Apple → Electronics
-    BrandCategoryModel(brandId: '6', categoryId: '5'), // ZARA → Clothes
-    BrandCategoryModel(brandId: '6', categoryId: '1'), // ZARA → Shoes
-  ];
-
-  static final List<ProductCategoryModel> productCategories = [
-    ProductCategoryModel(productId: '001', categoryId: '1'),
-    ProductCategoryModel(productId: '001', categoryId: '4'),
-    ProductCategoryModel(productId: '002', categoryId: '5'),
-    ProductCategoryModel(productId: '003', categoryId: '5'),
-  ];
-
-  /// -- List of all Categories
+  /// -- List of all Categories (parents: parentId empty) + Subcategories (parentId = parent category id)
   static final List<CategoryModel> categoriesList = [
+    // --- Parent categories (parentId: '')
     CategoryModel(
       id: '1',
       name: 'Shoes',
@@ -192,6 +173,84 @@ class TDummyData {
       parentId: '',
       isFeatured: true,
     ),
+    // --- Subcategories (parentId = parent category id)
+    CategoryModel(
+      id: '10',
+      name: 'Running Shoes',
+      image: AppImages.shoeIcon,
+      parentId: '1',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '11',
+      name: 'Casual Shoes',
+      image: AppImages.shoeIcon,
+      parentId: '1',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '12',
+      name: 'Phones',
+      image: AppImages.electronicsIcon,
+      parentId: '3',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '13',
+      name: 'T-Shirts',
+      image: AppImages.clothIcon,
+      parentId: '5',
+      isFeatured: true,
+    ),
+    CategoryModel(
+      id: '14',
+      name: 'Jackets',
+      image: AppImages.clothIcon,
+      parentId: '5',
+      isFeatured: true,
+    ),
+  ];
+
+  /// -- Brand ↔ Category mappings (brandId → categoryId)
+  /// Nike (1): Shoes, Sports, Running, Casual
+  /// Apple (2): Electronics, Phones
+  /// ZARA (6): Clothes, Shoes, T-Shirts, Jackets
+  static final List<BrandCategoryModel> brandCategories = [
+    BrandCategoryModel(brandId: '1', categoryId: '1'),  // Nike → Shoes
+    BrandCategoryModel(brandId: '1', categoryId: '4'),   // Nike → Sports
+    BrandCategoryModel(brandId: '1', categoryId: '10'), // Nike → Running Shoes
+    BrandCategoryModel(brandId: '1', categoryId: '11'), // Nike → Casual Shoes
+    BrandCategoryModel(brandId: '2', categoryId: '3'),   // Apple → Electronics
+    BrandCategoryModel(brandId: '2', categoryId: '12'), // Apple → Phones
+    BrandCategoryModel(brandId: '6', categoryId: '5'),  // ZARA → Clothes
+    BrandCategoryModel(brandId: '6', categoryId: '1'),   // ZARA → Shoes
+    BrandCategoryModel(brandId: '6', categoryId: '13'), // ZARA → T-Shirts
+    BrandCategoryModel(brandId: '6', categoryId: '14'), // ZARA → Jackets
+  ];
+
+  /// -- Product ↔ Category mappings (productId → categoryId)
+  static final List<ProductCategoryModel> productCategories = [
+    ProductCategoryModel(productId: '001', categoryId: '1'),
+    ProductCategoryModel(productId: '001', categoryId: '4'),
+    ProductCategoryModel(productId: '001', categoryId: '10'),
+    ProductCategoryModel(productId: '002', categoryId: '5'),
+    ProductCategoryModel(productId: '002', categoryId: '13'),
+    ProductCategoryModel(productId: '003', categoryId: '5'),
+    ProductCategoryModel(productId: '003', categoryId: '14'),
+    ProductCategoryModel(productId: '004', categoryId: '1'),
+    ProductCategoryModel(productId: '004', categoryId: '10'),
+    ProductCategoryModel(productId: '005', categoryId: '3'),
+    ProductCategoryModel(productId: '005', categoryId: '12'),
+    ProductCategoryModel(productId: '006', categoryId: '4'),
+    ProductCategoryModel(productId: '006', categoryId: '1'),
+    ProductCategoryModel(productId: '007', categoryId: '5'),
+    ProductCategoryModel(productId: '007', categoryId: '13'),
+    ProductCategoryModel(productId: '008', categoryId: '1'),
+    ProductCategoryModel(productId: '008', categoryId: '11'),
+    ProductCategoryModel(productId: '009', categoryId: '3'),
+    ProductCategoryModel(productId: '009', categoryId: '12'),
+    ProductCategoryModel(productId: '010', categoryId: '5'),
+    ProductCategoryModel(productId: '010', categoryId: '14'),
   ];
 
   static final List<BannerModel> banners = [
@@ -215,16 +274,17 @@ class TDummyData {
     ),
   ];
 
-  /// -- List of all Products
+  /// -- List of all Products (10+ with images)
   static final List<ProductModel> products = [
     ProductModel(
+
       id: '001',
       title: 'Green Nike sports shoe',
       stock: 15,
       price: 135,
       isFeatured: true,
       thumbnail: AppImages.productImage1,
-      description: 'Green Nike sports shoe',
+      description: 'Green Nike sports shoe.',
       brand: BrandModel(
         id: '1',
         image: AppImages.nikeLogo,
@@ -239,7 +299,7 @@ class TDummyData {
         AppImages.productImage9,
       ],
       salePrice: 30,
-      sku: 'ABR4568',
+      sku: 'NKE-001',
       categoryId: '1',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Green', 'Black', 'Red']),
@@ -305,12 +365,13 @@ class TDummyData {
       isFeatured: true,
       thumbnail: AppImages.productImage69,
       description:
-          'This is a Product description for Blue Nike Sleeve less vest. There are more things that can be added but i am just practicing and nothing else.',
+          'Comfortable blue T-shirt for all ages. Perfect for casual wear.',
       brand: BrandModel(
         id: '6',
         image: AppImages.zaraLogo,
         name: 'ZARA',
         productsCount: 10,
+        isFeatured: true,
       ),
       images: [
         AppImages.productImage68,
@@ -318,8 +379,8 @@ class TDummyData {
         AppImages.productImage5,
       ],
       salePrice: 30,
-      sku: 'ABR4568',
-      categoryId: '16',
+      sku: 'ZAR-002',
+      categoryId: '5',
       productAttributes: [
         ProductAttributeModel(name: 'Size', values: ['EU34', 'EU32']),
         ProductAttributeModel(name: 'Color', values: ['Green', 'Red', 'Blue']),
@@ -330,16 +391,17 @@ class TDummyData {
       id: '003',
       title: 'Leather brown Jacket',
       stock: 15,
-      price: 38000,
-      isFeatured: false,
+      price: 380,
+      isFeatured: true,
       thumbnail: AppImages.productImage64,
       description:
-          'This is a Product description for Leather brown Jacket. There are more things that can be added but i am just practicing and nothing else.',
+          'Premium leather brown jacket. Classic style for any occasion.',
       brand: BrandModel(
         id: '6',
         image: AppImages.zaraLogo,
         name: 'ZARA',
         productsCount: 10,
+        isFeatured: true,
       ),
       images: [
         AppImages.productImage64,
@@ -347,17 +409,214 @@ class TDummyData {
         AppImages.productImage66,
         AppImages.productImage67,
       ],
-      salePrice: 30,
-      sku: 'ABR4568',
-      categoryId: '16',
+      salePrice: 320,
+      sku: 'ZAR-003',
+      categoryId: '5',
       productAttributes: [
         ProductAttributeModel(name: 'Size', values: ['EU34', 'EU32']),
-        ProductAttributeModel(name: 'Color', values: ['Green', 'Red', 'Blue']),
+        ProductAttributeModel(name: 'Color', values: ['Brown', 'Black']),
       ],
       productType: 'ProductType.single',
     ),
-
-    ///Products after banner
+    ProductModel(
+      id: '004',
+      title: 'Nike Air Max Running Shoe',
+      stock: 25,
+      price: 149,
+      isFeatured: true,
+      thumbnail: AppImages.productImage21,
+      description: 'Lightweight Nike Air Max for running and daily wear.',
+      brand: BrandModel(
+        id: '1',
+        image: AppImages.nikeLogo,
+        name: 'Nike',
+        productsCount: 265,
+        isFeatured: true,
+      ),
+      images: [
+        AppImages.productImage21,
+        AppImages.productImage1,
+        AppImages.productImage23,
+      ],
+      salePrice: 129,
+      sku: 'NKE-004',
+      categoryId: '1',
+      productAttributes: [
+        ProductAttributeModel(name: 'Color', values: ['Red', 'Black', 'White']),
+        ProductAttributeModel(name: 'Size', values: ['EU 40', 'EU 42', 'EU 44']),
+      ],
+      productType: 'ProductType.single',
+    ),
+    ProductModel(
+      id: '005',
+      title: 'Smartphone Pro',
+      stock: 50,
+      price: 899,
+      isFeatured: true,
+      thumbnail: AppImages.productImage11,
+      description: 'Latest smartphone with premium display and camera.',
+      brand: BrandModel(
+        id: '2',
+        image: AppImages.appleLogo,
+        name: 'Apple',
+        productsCount: 15,
+        isFeatured: true,
+      ),
+      images: [
+        AppImages.productImage11,
+        AppImages.productImage12,
+        AppImages.productImage13,
+      ],
+      salePrice: 849,
+      sku: 'APL-005',
+      categoryId: '3',
+      productAttributes: [
+        ProductAttributeModel(name: 'Color', values: ['Black', 'Silver']),
+        ProductAttributeModel(name: 'Storage', values: ['128GB', '256GB']),
+      ],
+      productType: 'ProductType.single',
+    ),
+    ProductModel(
+      id: '006',
+      title: 'Nike Basketball Shoe Green Black',
+      stock: 20,
+      price: 120,
+      isFeatured: true,
+      thumbnail: AppImages.productImage22,
+      description: 'Durable basketball shoes for court performance.',
+      brand: BrandModel(
+        id: '1',
+        image: AppImages.nikeLogo,
+        name: 'Nike',
+        productsCount: 265,
+        isFeatured: true,
+      ),
+      images: [
+        AppImages.productImage22,
+        AppImages.productImage21,
+        AppImages.productImage23,
+      ],
+      salePrice: 99,
+      sku: 'NKE-006',
+      categoryId: '4',
+      productAttributes: [
+        ProductAttributeModel(name: 'Size', values: ['EU 41', 'EU 42', 'EU 43']),
+      ],
+      productType: 'ProductType.single',
+    ),
+    ProductModel(
+      id: '007',
+      title: 'Red Collar T-Shirt',
+      stock: 30,
+      price: 29,
+      isFeatured: false,
+      thumbnail: AppImages.productImage60,
+      description: 'Casual red collar T-shirt. Soft cotton blend.',
+      brand: BrandModel(
+        id: '6',
+        image: AppImages.zaraLogo,
+        name: 'ZARA',
+        productsCount: 10,
+        isFeatured: true,
+      ),
+      images: [
+        AppImages.productImage60,
+        AppImages.productImage61,
+        AppImages.productImage62,
+      ],
+      sku: 'ZAR-007',
+      categoryId: '5',
+      productAttributes: [
+        ProductAttributeModel(name: 'Color', values: ['Red', 'Yellow', 'Green']),
+        ProductAttributeModel(name: 'Size', values: ['S', 'M', 'L']),
+      ],
+      productType: 'ProductType.single',
+    ),
+    ProductModel(
+      id: '008',
+      title: 'Nike Air Jordan White Red',
+      stock: 18,
+      price: 185,
+      isFeatured: true,
+      thumbnail: AppImages.productImage10,
+      description: 'Classic Nike Air Jordan in white and red.',
+      brand: BrandModel(
+        id: '1',
+        image: AppImages.nikeLogo,
+        name: 'Nike',
+        productsCount: 265,
+        isFeatured: true,
+      ),
+      images: [
+        AppImages.productImage10,
+        AppImages.productImage9,
+        AppImages.productImage19,
+      ],
+      salePrice: 165,
+      sku: 'NKE-008',
+      categoryId: '1',
+      productAttributes: [
+        ProductAttributeModel(name: 'Size', values: ['EU 39', 'EU 40', 'EU 41']),
+      ],
+      productType: 'ProductType.single',
+    ),
+    ProductModel(
+      id: '009',
+      title: 'Smartphone with Back Cover',
+      stock: 40,
+      price: 749,
+      isFeatured: true,
+      thumbnail: AppImages.productImage12,
+      description: 'Sleek smartphone with premium build.',
+      brand: BrandModel(
+        id: '2',
+        image: AppImages.appleLogo,
+        name: 'Apple',
+        productsCount: 15,
+        isFeatured: true,
+      ),
+      images: [
+        AppImages.productImage12,
+        AppImages.productImage11,
+        AppImages.productImage13,
+      ],
+      salePrice: 699,
+      sku: 'APL-009',
+      categoryId: '3',
+      productAttributes: [
+        ProductAttributeModel(name: 'Color', values: ['Black', 'Blue']),
+      ],
+      productType: 'ProductType.single',
+    ),
+    ProductModel(
+      id: '010',
+      title: 'Leather Jacket Black',
+      stock: 12,
+      price: 420,
+      isFeatured: true,
+      thumbnail: AppImages.productImage65,
+      description: 'Black leather jacket. Timeless style.',
+      brand: BrandModel(
+        id: '6',
+        image: AppImages.zaraLogo,
+        name: 'ZARA',
+        productsCount: 10,
+        isFeatured: true,
+      ),
+      images: [
+        AppImages.productImage65,
+        AppImages.productImage64,
+        AppImages.productImage66,
+        AppImages.productImage67,
+      ],
+      salePrice: 380,
+      sku: 'ZAR-010',
+      categoryId: '5',
+      productAttributes: [
+        ProductAttributeModel(name: 'Size', values: ['S', 'M', 'L', 'XL']),
+      ],
+      productType: 'ProductType.single',
+    ),
   ];
 
   /// -- Sorting Filters for search

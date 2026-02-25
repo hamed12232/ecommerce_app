@@ -4,6 +4,9 @@ import 'package:ecommerce_app/features/shop/modules/home/domain/entities/categor
 
 abstract class BaseCategoryRepository {
   Future<Either<Exceptions, List<CategoryEntity>>> getCategories();
+  Future<Either<Exceptions, List<CategoryEntity>>> getSubCategories(
+    String categoryId,
+  );
   Future<Either<Exceptions, void>> uploadCategories(
     List<CategoryEntity> categories,
   );
