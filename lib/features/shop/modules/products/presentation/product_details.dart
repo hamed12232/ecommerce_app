@@ -151,30 +151,7 @@ class ProductDetails extends StatelessWidget {
                               },
                             ),
                             const VerticalSpace(height: AppSizes.lg * 1.5),
-                          ],
-
-                          SizedBox(
-                            width: AppHelperFunctions.screenWidth(context),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    AppColors.dashboardAppbarBackground,
-                                side: const BorderSide(
-                                  color: AppColors.dashboardAppbarBackground,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusGeometry.circular(
-                                    AppSizes.borderRadiusLg,
-                                  ),
-                                ),
-                              ),
-                              child: const Text('Checkout'),
-                            ),
-                          ),
-                          const SizedBox(height: AppSizes.spaceBtwSections),
-
-                          /// -- Description
+                          ],                  
                           const SectionHeading(
                             title: 'Description',
                             showActionButton: false,
@@ -222,7 +199,11 @@ class ProductDetails extends StatelessWidget {
               ],
             ),
           ),
-          bottomNavigationBar: BottomCardWidget(theme: theme, dark: dark),
+          bottomNavigationBar: BottomCardWidget(
+            theme: theme,
+            dark: dark,
+            product: product,
+          ),
         ),
       ),
     );

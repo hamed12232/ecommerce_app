@@ -10,6 +10,7 @@ import 'package:ecommerce_app/features/auth/modules/features/verify_email/presen
 import 'package:ecommerce_app/features/auth/modules/features/verify_email/presentation/pages/verify_email_screen.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/settings_cubit.dart';
 import 'package:ecommerce_app/features/personlization/presentation/controller/cubit/user_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/presentation/controller/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/favourites/presentation/controller/cubit/favourite_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/banner_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
@@ -34,6 +35,7 @@ class App extends StatelessWidget {
         ),
         BlocProvider(create: (context) => getIt<BannerCubit>()),
         BlocProvider(create: (context) => getIt<FavouriteCubit>()),
+        BlocProvider(create: (context) => getIt<CartCubit>()),
       ],
       child: MaterialApp(
         themeMode: ThemeMode.system,

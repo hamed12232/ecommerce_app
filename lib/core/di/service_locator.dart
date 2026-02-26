@@ -52,6 +52,13 @@ import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brand_image_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/domain/usecases/upload_brands_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/presentation/controller/cubit/brand_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/data/datasources/cart_local_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/data/repositories/cart_repository_impl.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/domain/repositories/base_cart_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/domain/usecases/clear_cart_use_case.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/domain/usecases/get_cart_items_use_case.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/domain/usecases/save_cart_items_use_case.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/presentation/controller/cubit/cart_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/favourites/data/datasources/favourite_local_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/favourites/data/datasources/favourite_remote_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/favourites/data/repositories/favourite_repository_impl.dart';
@@ -207,6 +214,23 @@ Future<void> setupServiceLocator() async {
         GetSubCategory(baseCategoryRepository: getIt<BaseCategoryRepository>()),
   );
 
+  // ========== Cart ==========
+  getIt.registerLazySingleton<BaseCartLocalDataSource>(
+    () => CartLocalDataSource(),
+  );
+  getIt.registerLazySingleton<BaseCartRepository>(
+    () => CartRepositoryImpl(getIt<BaseCartLocalDataSource>()),
+  );
+  getIt.registerLazySingleton<GetCartItemsUseCase>(
+    () => GetCartItemsUseCase(getIt<BaseCartRepository>()),
+  );
+  getIt.registerLazySingleton<SaveCartItemsUseCase>(
+    () => SaveCartItemsUseCase(getIt<BaseCartRepository>()),
+  );
+  getIt.registerLazySingleton<ClearCartUseCase>(
+    () => ClearCartUseCase(getIt<BaseCartRepository>()),
+  );
+
   // ========== Blocs/Cubits ==========
   getIt.registerFactory<SignUpCubit>(
     () => SignUpCubit(getIt<SignUpUseCase>(), getIt<SaveUserRecordUseCase>()),
@@ -230,6 +254,14 @@ Future<void> setupServiceLocator() async {
 
   getIt.registerFactory<ForgetPasswordCubit>(
     () => ForgetPasswordCubit(getIt<SendPasswordResetEmailUseCase>()),
+  );
+
+  getIt.registerFactory<CartCubit>(
+    () => CartCubit(
+      getIt<GetCartItemsUseCase>(),
+      getIt<SaveCartItemsUseCase>(),
+      getIt<ClearCartUseCase>(),
+    ),
   );
 
   getIt.registerFactory<UserCubit>(

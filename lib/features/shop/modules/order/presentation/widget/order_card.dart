@@ -25,17 +25,13 @@ class OrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // --- التغييرات هنا ---
     final theme = Theme.of(context);
     final isDarkMode = AppHelperFunctions.isDarkMode(context);
-    // --- نهاية التغييرات ---
 
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        // --- التغيير هنا ---
         color: isDarkMode ? AppColors.dark : AppColors.grey10,
-        // --- نهاية التغيير ---
         borderRadius: BorderRadius.circular(16.0),
         boxShadow: [
           BoxShadow(
@@ -49,7 +45,6 @@ class OrderCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Top Row: Status, Date, and Arrow
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -70,43 +65,29 @@ class OrderCard extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        // --- التغيير هنا ---
-                        // استبدلنا اللون الثابت بلون الثيم الأساسي للنصوص
                         color: theme.colorScheme.onSurface,
-                        // --- نهاية التغيير ---
                       ),
                     ),
                   ],
                 ),
               ),
-              // Right arrow icon
               Icon(
                 Iconsax.arrow_right_3,
                 size: 20,
-                // --- التغيير هنا ---
-                // استبدلنا اللون الثابت بلون الثيم للحدود والأيقونات الثانوية
                 color: theme.colorScheme.outline,
-                // --- نهاية التغيير ---
               ),
             ],
           ),
           const SizedBox(height: 20),
-
-          // Bottom Row: Order # and Shipping Date
           Row(
-            // Use spaceBetween to push them to opposite ends
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Order Number Column
               InfoColumn(
-                // Location/pin icon
                 icon: Iconsax.location,
                 label: 'Order',
                 value: orderNumber,
               ),
-              // Shipping Date Column
               InfoColumn(
-                // Calendar icon
                 icon: Iconsax.calendar,
                 label: 'Shipping Date',
                 value: shippingDate,

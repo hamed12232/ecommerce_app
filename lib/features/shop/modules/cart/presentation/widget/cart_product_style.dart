@@ -4,9 +4,8 @@ import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:ecommerce_app/core/utils/images/rounded_images.dart';
 import 'package:ecommerce_app/core/utils/text/brand_title_text_with_verified_icon.dart';
 import 'package:ecommerce_app/core/utils/text/product_title_text.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/data/models/cart_item_model.dart';
 import 'package:flutter/material.dart';
-
-import '../models/cart_item_model.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem({super.key, required this.item});
@@ -23,6 +22,7 @@ class CartItem extends StatelessWidget {
           width: 60,
           height: 60,
           imageUrl: item.image ?? '',
+          isNetworkImage: true,
           padding: const EdgeInsets.all(AppSizes.sm),
           backgroundColor: dark ? AppColors.darkerGrey : AppColors.white,
         ),

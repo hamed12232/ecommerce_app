@@ -1,12 +1,15 @@
 import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/presentation/controller/cubit/cart_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/presentation/controller/cubit/cart_state.dart';
 import 'package:ecommerce_app/features/shop/modules/cart/presentation/pages/cart_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CartMenuIcon extends StatelessWidget {
-  const CartMenuIcon({super.key,this.colorIcon = AppColors.white});
-final Color colorIcon ;
+  const CartMenuIcon({super.key, this.colorIcon = AppColors.white});
+  final Color colorIcon;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -14,28 +17,33 @@ final Color colorIcon ;
         // IconButton for navigating to the CartScreen
         IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const CartScreen()));
+            Navigator.pushNamed(context, CartScreen.routeName);
           },
-          icon:  Icon(Iconsax.shopping_bag, color: colorIcon),
+          icon: Icon(Iconsax.shopping_bag, color: colorIcon),
         ),
         Positioned(
           right: 0,
-          child: Container(
-            width: AppSizes.fontSizeLg,
-            height: AppSizes.fontSizeLg,
-            decoration: BoxDecoration(
-              color: AppColors.black,
-              borderRadius: BorderRadius.circular(100),
-            ),
-            child: Center(
-              child: Text(
-                "2",
-                style: Theme.of(context).textTheme.labelLarge!.apply(
-                  color: AppColors.white,
-                  fontSizeFactor: 0.8,
+          child: BlocBuilder<CartCubit, CartState>(
+            builder: (context, state) {
+              if (state.totalItems == 0) return const SizedBox.shrink();
+              return Container(
+                width: AppSizes.fontSizeLg,
+                height: AppSizes.fontSizeLg,
+                decoration: BoxDecoration(
+                  color: AppColors.black,
+                  borderRadius: BorderRadius.circular(100),
                 ),
-              ),
-            ),
+                child: Center(
+                  child: Text(
+                    state.totalItems.toString(),
+                    style: Theme.of(context).textTheme.labelLarge!.apply(
+                      color: AppColors.white,
+                      fontSizeFactor: 0.8,
+                    ),
+                  ),
+                ),
+              );
+            },
           ),
         ),
       ],

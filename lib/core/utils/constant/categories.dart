@@ -1,5 +1,5 @@
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
-import 'package:ecommerce_app/features/shop/modules/cart/presentation/models/cart_item_model.dart';
+import 'package:ecommerce_app/features/shop/modules/cart/data/models/cart_item_model.dart';
 import 'package:flutter/material.dart';
 
 Map<String, dynamic> categories = {

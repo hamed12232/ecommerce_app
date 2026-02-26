@@ -25,14 +25,11 @@ class SuccessScreenLottie extends StatelessWidget {
           padding: SpacingStyle.paddingWithAppBarHeight * 2,
           child: Column(
             children: [
-              /// Image
               Lottie.asset(
                 image,
                 width: MediaQuery.of(context).size.width * 0.6,
               ),
               const SizedBox(height: AppSizes.spaceBtwSections),
-
-              /// Title & SubTitle
               Text(
                 title,
                 style: Theme.of(context).textTheme.headlineMedium,
@@ -46,12 +43,10 @@ class SuccessScreenLottie extends StatelessWidget {
               ),
               const SizedBox(height: AppSizes.spaceBtwSections),
 
-              /// Buttons
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: onPressed,
-
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
                     side: const BorderSide(color: AppColors.primary),

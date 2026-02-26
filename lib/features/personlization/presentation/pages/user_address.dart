@@ -23,6 +23,13 @@ class UserAddress extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         centerTitle: false,
+        leading: IconButton(
+          // Back arrow
+          icon: const Icon(Iconsax.arrow_left_2),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(AppSizes.defaultSpace),
