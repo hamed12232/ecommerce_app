@@ -7,22 +7,24 @@ class TListTileShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Row(
-          children: [
-            ShimmerEffect(width: 50, height: 50, radius: 50),
-            SizedBox(width: AppSizes.spaceBtwItems),
-            Column(
-              children: [
-                ShimmerEffect(width: 100, height: 15),
-                SizedBox(height: AppSizes.spaceBtwItems / 2),
-                ShimmerEffect(width: 80, height: 12),
-              ],
-            ),
-          ],
-        ),
-      ],
+    return const ShimmerWrapper(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              ShimmerEffect(width: 50, height: 50, radius: 50),
+              SizedBox(width: AppSizes.spaceBtwItems),
+              Column(
+                children: [
+                  ShimmerEffect(width: 100, height: 15),
+                  SizedBox(height: AppSizes.spaceBtwItems / 2),
+                  ShimmerEffect(width: 80, height: 12),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

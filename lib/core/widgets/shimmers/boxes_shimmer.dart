@@ -7,18 +7,20 @@ class TBoxesShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
-        Row(
-          children: [
-            Expanded(child: ShimmerEffect(width: 150, height: 110)),
-            SizedBox(width: AppSizes.spaceBtwItems),
-            Expanded(child: ShimmerEffect(width: 150, height: 110)),
-            SizedBox(width: AppSizes.spaceBtwItems),
-            Expanded(child: ShimmerEffect(width: 150, height: 110)),
-          ],
-        ),
-      ],
+    return const ShimmerWrapper(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(child: ShimmerEffect(width: 150, height: 110)),
+              SizedBox(width: AppSizes.spaceBtwItems),
+              Expanded(child: ShimmerEffect(width: 150, height: 110)),
+              SizedBox(width: AppSizes.spaceBtwItems),
+              Expanded(child: ShimmerEffect(width: 150, height: 110)),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

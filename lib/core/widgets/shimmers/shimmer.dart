@@ -3,7 +3,26 @@ import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
+/// A single Shimmer animation wrapper.
+/// Wrap an entire group of [ShimmerEffect] placeholders with ONE of these
+/// so that only one AnimationController drives the animation.
+class ShimmerWrapper extends StatelessWidget {
+  const ShimmerWrapper({super.key, required this.child});
+  final Widget child;
 
+  @override
+  Widget build(BuildContext context) {
+    final dark = AppHelperFunctions.isDarkMode(context);
+    return Shimmer.fromColors(
+      baseColor: dark ? Colors.grey[850]! : Colors.grey[300]!,
+      highlightColor: dark ? Colors.grey[700]! : Colors.grey[100]!,
+      child: child,
+    );
+  }
+}
+
+/// A plain placeholder box — NO [Shimmer.fromColors] inside.
+/// Must be placed inside a [ShimmerWrapper] to animate.
 class ShimmerEffect extends StatelessWidget {
   const ShimmerEffect({
     super.key,
@@ -19,16 +38,12 @@ class ShimmerEffect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = AppHelperFunctions.isDarkMode(context);
-    return Shimmer.fromColors(
-      baseColor: dark ? Colors.grey[850]! : Colors.grey[300]!,
-      highlightColor: dark ? Colors.grey[700]! : Colors.grey[100]!,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          color: color ?? (dark ? AppColors.darkerGrey : AppColors.white),
-          borderRadius: BorderRadius.circular(radius),
-        ),
+    return Container(
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: color ?? (dark ? AppColors.darkerGrey : AppColors.white),
+        borderRadius: BorderRadius.circular(radius),
       ),
     );
   }

@@ -1,13 +1,19 @@
+import 'dart:ui';
+
+import 'package:ecommerce_app/core/utils/constant/colors.dart';
 import 'package:ecommerce_app/core/utils/constant/image_strings.dart';
 import 'package:ecommerce_app/features/personlization/data/models/address_model.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/brand/data/models/brand_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/banner_model.dart';
 import 'package:ecommerce_app/features/shop/modules/home/data/models/category_model.dart';
+import 'package:ecommerce_app/features/shop/modules/order/data/models/order_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_attribute_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_category_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_variation_model.dart';
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class TDummyData {
   /// -- User
@@ -629,6 +635,35 @@ class TDummyData {
     SortFilterModel(id: '6', name: 'Most Suitable'),
   ];
 }
+  IconData getStatusIcon(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.pending:
+        return Iconsax.clock;
+      case OrderStatus.processing:
+        return Iconsax.shopping_bag;
+      case OrderStatus.shipped:
+        return Iconsax.truck;
+      case OrderStatus.delivered:
+        return Iconsax.tick_circle;
+      case OrderStatus.cancelled:
+        return Iconsax.close_circle;
+    }
+  }
+
+  Color getStatusColor(OrderStatus status) {
+    switch (status) {
+      case OrderStatus.pending:
+        return Colors.orange;
+      case OrderStatus.processing:
+        return const Color.fromARGB(255, 28, 34, 62);
+      case OrderStatus.shipped:
+        return AppColors.primary;
+      case OrderStatus.delivered:
+        return Colors.green;
+      case OrderStatus.cancelled:
+        return Colors.red;
+    }
+  }
 
 class SortFilterModel {
   String id;

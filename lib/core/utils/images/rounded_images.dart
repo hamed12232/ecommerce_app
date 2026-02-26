@@ -54,10 +54,12 @@ class RoundedImage extends StatelessWidget {
                   height: height,
                   imageUrl: imageUrl,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      ShimmerEffect(
-                        width: width ?? double.infinity,
-                        height: height ?? double.infinity,
-                        radius: applyImageRadius ? borderRadius : 0,
+                      ShimmerWrapper(
+                        child: ShimmerEffect(
+                          width: width ?? double.infinity,
+                          height: height ?? double.infinity,
+                          radius: applyImageRadius ? borderRadius : 0,
+                        ),
                       ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 )

@@ -10,27 +10,29 @@ class BrandShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridLayout(
-      mainAxisExtent: 80,
-      itemCount: itemCount,
-      itemBuilder: (_, __) => const Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          /// Image
-          ShimmerEffect(width: 56, height: 56, radius: 56),
-          SizedBox(width: AppSizes.spaceBtwItems / 2),
+    return ShimmerWrapper(
+      child: GridLayout(
+        mainAxisExtent: 80,
+        itemCount: itemCount,
+        itemBuilder: (_, __) => const Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            /// Image
+            ShimmerEffect(width: 56, height: 56, radius: 56),
+            SizedBox(width: AppSizes.spaceBtwItems / 2),
 
-          /// Text
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ShimmerEffect(width: 80, height: 12),
-              SizedBox(height: AppSizes.spaceBtwItems / 2),
-              ShimmerEffect(width: 50, height: 8),
-            ],
-          ),
-        ],
+            /// Text
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ShimmerEffect(width: 80, height: 12),
+                SizedBox(height: AppSizes.spaceBtwItems / 2),
+                ShimmerEffect(width: 50, height: 8),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

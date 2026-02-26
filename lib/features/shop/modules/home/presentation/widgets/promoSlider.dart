@@ -34,10 +34,12 @@ class _PromosliderState extends State<PromoSlider> {
         if (state.status == BannerStatus.loading) {
           return const Padding(
             padding: EdgeInsets.all(AppSizes.defaultSpace),
-            child: ShimmerEffect(
-              width: double.infinity,
-              height: 158,
-              radius: AppSizes.md,
+            child: ShimmerWrapper(
+              child: ShimmerEffect(
+                width: double.infinity,
+                height: 158,
+                radius: AppSizes.md,
+              ),
             ),
           );
         }
@@ -83,7 +85,8 @@ class _PromosliderState extends State<PromoSlider> {
                   items: banners
                       .map(
                         (banner) => RoundedImage(
-                          onPressed: () => Navigator.pushNamed(context, banner.targetScreen),
+                          onPressed: () =>
+                              Navigator.pushNamed(context, banner.targetScreen),
                           imageUrl: banner.imageUrl,
                           isNetworkImage: true,
                         ),

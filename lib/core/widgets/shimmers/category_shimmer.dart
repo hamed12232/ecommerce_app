@@ -9,27 +9,29 @@ class CategoryShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80,
-      child: ListView.separated(
-        shrinkWrap: true,
-        itemCount: itemCount,
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (_, __) =>
-            const SizedBox(width: AppSizes.spaceBtwItems),
-        itemBuilder: (_, __) {
-          return const Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// Image
-              ShimmerEffect(width: 55, height: 55, radius: 55),
-              SizedBox(height: AppSizes.spaceBtwItems / 2),
+    return ShimmerWrapper(
+      child: SizedBox(
+        height: 80,
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: itemCount,
+          scrollDirection: Axis.horizontal,
+          separatorBuilder: (_, __) =>
+              const SizedBox(width: AppSizes.spaceBtwItems),
+          itemBuilder: (_, __) {
+            return const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// Image
+                ShimmerEffect(width: 55, height: 55, radius: 55),
+                SizedBox(height: AppSizes.spaceBtwItems / 2),
 
-              /// Text
-              ShimmerEffect(width: 55, height: 8),
-            ],
-          );
-        },
+                /// Text
+                ShimmerEffect(width: 55, height: 8),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

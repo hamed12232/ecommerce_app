@@ -10,22 +10,24 @@ class VerticalProductShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridLayout(
-      itemCount: itemCount,
-      itemBuilder: (_, __) => const SizedBox(
-        width: 180,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// Image
-            ShimmerEffect(width: 180, height: 180),
-            SizedBox(height: AppSizes.spaceBtwItems),
+    return ShimmerWrapper(
+      child: GridLayout(
+        itemCount: itemCount,
+        itemBuilder: (_, __) => const SizedBox(
+          width: 180,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              /// Image
+              ShimmerEffect(width: 180, height: 180),
+              SizedBox(height: AppSizes.spaceBtwItems),
 
-            /// Text
-            ShimmerEffect(width: 160, height: 15),
-            SizedBox(height: AppSizes.spaceBtwItems / 2),
-            ShimmerEffect(width: 110, height: 15),
-          ],
+              /// Text
+              ShimmerEffect(width: 160, height: 15),
+              SizedBox(height: AppSizes.spaceBtwItems / 2),
+              ShimmerEffect(width: 110, height: 15),
+            ],
+          ),
         ),
       ),
     );

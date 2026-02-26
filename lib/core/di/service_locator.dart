@@ -82,6 +82,13 @@ import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_
 import 'package:ecommerce_app/features/shop/modules/home/domain/usecases/upload_category_image_usecase.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/banner_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/order/data/datasources/base_order_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/order/data/datasources/order_data_source.dart';
+import 'package:ecommerce_app/features/shop/modules/order/data/repositories/order_repository_impl.dart';
+import 'package:ecommerce_app/features/shop/modules/order/domain/repositories/base_order_repository.dart';
+import 'package:ecommerce_app/features/shop/modules/order/domain/usecases/fetch_user_orders_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/order/domain/usecases/save_order_usecase.dart';
+import 'package:ecommerce_app/features/shop/modules/order/presentation/controller/cubit/order_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/data_sources/product_data_source.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/repositories/product_repo_impl.dart';
 import 'package:ecommerce_app/features/shop/modules/products/domain/repositories/product_repo.dart';
@@ -412,5 +419,21 @@ Future<void> setupServiceLocator() async {
       getUserAddressesUseCase: getIt(),
       setPrimaryAddressUseCase: getIt(),
     ),
+  );
+
+  // ========== Orders ==========
+  getIt.registerLazySingleton<BaseOrderDataSource>(
+    () => OrderDataSource(FirebaseFirestore.instance),
+  );
+  getIt.registerLazySingleton<BaseOrderRepository>(
+    () => OrderRepositoryImpl(dataSource: getIt()),
+  );
+  getIt.registerLazySingleton(() => SaveOrderUseCase(repository: getIt()));
+  getIt.registerLazySingleton(
+    () => FetchUserOrdersUseCase(repository: getIt()),
+  );
+  getIt.registerFactory(
+    () =>
+        OrderCubit(saveOrderUseCase: getIt(), fetchUserOrdersUseCase: getIt()),
   );
 }

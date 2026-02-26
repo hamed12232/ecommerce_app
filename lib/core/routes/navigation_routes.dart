@@ -28,6 +28,7 @@ import 'package:ecommerce_app/features/shop/modules/checkout/presentation/pages/
 import 'package:ecommerce_app/features/shop/modules/home/domain/entities/category_entity.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/controller/cubit/category_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/home/presentation/pages/home_screen.dart';
+import 'package:ecommerce_app/features/shop/modules/order/presentation/controller/cubit/order_cubit.dart';
 import 'package:ecommerce_app/features/shop/modules/order/presentation/page/my_order_screen.dart';
 import 'package:ecommerce_app/features/shop/modules/products/data/model/product_model.dart';
 import 'package:ecommerce_app/features/shop/modules/products/presentation/product_details.dart';
@@ -183,7 +184,12 @@ class NavigationRoutes {
         );
 
       case MyOrdersScreen.routeName:
-        return MaterialPageRoute(builder: (context) => const MyOrdersScreen());
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => getIt<OrderCubit>()..fetchUserOrders(),
+            child: const MyOrdersScreen(),
+          ),
+        );
 
       case UserAddress.routeName:
         return MaterialPageRoute(

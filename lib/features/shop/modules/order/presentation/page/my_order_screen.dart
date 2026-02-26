@@ -1,53 +1,71 @@
-import 'package:ecommerce_app/core/utils/constant/colors.dart';
+import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
+import 'package:ecommerce_app/core/utils/constant/sizes.dart';
+import 'package:ecommerce_app/core/utils/popups/loaders.dart';
+import 'package:ecommerce_app/features/shop/modules/order/presentation/controller/cubit/order_cubit.dart';
+import 'package:ecommerce_app/features/shop/modules/order/presentation/controller/cubit/order_state.dart';
 import 'package:ecommerce_app/features/shop/modules/order/presentation/widget/order_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MyOrdersScreen extends StatelessWidget {
   const MyOrdersScreen({super.key});
 
   static const String routeName = '/my_orders';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle:false,
+        centerTitle: false,
         leading: IconButton(
-          // Back arrow
           icon: const Icon(Iconsax.arrow_left_2),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+          onPressed: () => Navigator.pop(context),
         ),
-        title:  Text('My Orders',style: Theme.of(  context).textTheme.headlineMedium,
+        title: Text(
+          'My Orders',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
       ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: const [
-          // First Card
-          OrderCard(
-            status: 'Processing',
-            orderDate: '01 Sep 2023',
-            orderNumber: 'CWT0012',
-            shippingDate: '09 Sep 2023',
-            // Icon for "Processing" (looks like a shopping bag/lock)
-            statusIcon: Iconsax.shopping_bag,
-            statusColor: Color.fromARGB(255, 28, 34, 62), // Purple/Blue color
-          ),
-          SizedBox(height: 16), // Spacing between cards
-          // Second Card
-          OrderCard(
-            status: 'Shipment on the way',
-            orderDate: '02 Oct 2023',
-            orderNumber: 'CWT0025',
-            shippingDate: '06 Oct 2023',
-            // Icon for "Shipment"
-            statusIcon: Iconsax.truck,
-            statusColor: AppColors.primary, // Purple/Blue color
-          ),
-        ],
+      body: BlocConsumer<OrderCubit, OrderState>(
+        listener: (context, state) {
+          if (state.listStatus == OrderListStatus.error) {
+            AppLoaders.errorSnackBar(
+              title: state.error ?? 'Failed to load orders',
+              context: context,
+            );
+          }
+        },
+        builder: (context, state) {
+          if (state.listStatus == OrderListStatus.loading ||
+              state.listStatus == OrderListStatus.initial) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (state.orders.isEmpty) {
+            return Center(
+              child: Text(
+                'No orders yet',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            );
+          }
+          return ListView.separated(
+            padding: const EdgeInsets.all(AppSizes.defaultSpace),
+            itemCount: state.orders.length,
+            separatorBuilder: (_, __) =>
+                const SizedBox(height: AppSizes.spaceBtwItems),
+            itemBuilder: (context, index) {
+              final order = state.orders[index];
+              return OrderCard(
+                status: order.orderStatusText,
+                orderDate: order.formattedOrderDate,
+                orderNumber: order.id,
+                shippingDate: order.formattedDeliveryDate,
+                statusIcon: getStatusIcon(order.status),
+                statusColor: getStatusColor(order.status),
+              );
+            },
+          );
+        },
       ),
     );
   }
