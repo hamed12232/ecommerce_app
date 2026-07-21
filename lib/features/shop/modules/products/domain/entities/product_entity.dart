@@ -9,7 +9,7 @@ class ProductEntity implements UploadableEntity {
   String? sku;
   double price;
   String title;
-  DateTime? date;
+  String? date;
   double? salePrice;
   String thumbnail;
   bool? isFeatured;

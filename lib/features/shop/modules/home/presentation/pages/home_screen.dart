@@ -1,6 +1,7 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/core/di/service_locator.dart';
 import 'package:ecommerce_app/core/style/spacing/vertical_space.dart';
-import 'package:ecommerce_app/core/utils/constant/dummy_data.dart';
 import 'package:ecommerce_app/core/utils/constant/sizes.dart';
 import 'package:ecommerce_app/core/utils/constant/text_strings.dart';
 import 'package:ecommerce_app/core/utils/helper/helper_functions.dart';
@@ -78,55 +79,49 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               const VerticalSpace(height: AppSizes.spaceBtwItems),
-              Padding(
-                padding: const EdgeInsets.all(AppSizes.defaultSpace),
-                child: Column(
-                  children: [
-                    Builder(
-                      builder: (context) {
-                        return TextButton(
-                          onPressed: () {
-                            context.read<ProductCubit>().uploadDummyData(
-                              TDummyData.products,
-                            );
-                          },
-                          child: const Text('Upload Dummy Data'),
-                        );
-                      },
-                    ),
-                    BlocBuilder<ProductCubit, ProductState>(
-                      builder: (context, state) {
-                        if (state.status == ProductStatus.loading) {
-                          return const VerticalProductShimmer();
-                        }
-
-                        if (state.status == ProductStatus.error) {
-                          return Center(child: Text(state.error));
-                        }
-
-                        if (state.status == ProductStatus.success &&
-                            state.featuredProducts.isEmpty) {
-                          return Center(
-                            child: Text(
-                              'No Data Found',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          );
-                        }
-                        if (state.status == ProductStatus.success) {
-                          return PopularProducts(
-                            products: state.featuredProducts,
-                          );
-                        }
-                        return const SizedBox();
-                      },
-                    ),
-                  ],
-                ),
-              ),
+              const PopularProductBlocBuilder(),
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class PopularProductBlocBuilder extends StatelessWidget {
+  const PopularProductBlocBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(AppSizes.defaultSpace),
+      child: Column(
+        children: [
+          BlocBuilder<ProductCubit, ProductState>(
+            builder: (context, state) {
+              if (state.status == ProductStatus.loading) {
+                return const VerticalProductShimmer();
+              }
+              if (state.status == ProductStatus.error) {
+                log(state.error);
+                return Center(child: Text(state.error));
+              }
+              if (state.status == ProductStatus.success &&
+                  state.featuredProducts.isEmpty) {
+                return Center(
+                  child: Text(
+                    'No Data Found',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                );
+              }
+              if (state.status == ProductStatus.success) {
+                return PopularProducts(products: state.featuredProducts);
+              }
+              return const SizedBox();
+            },
+          ),
+        ],
       ),
     );
   }

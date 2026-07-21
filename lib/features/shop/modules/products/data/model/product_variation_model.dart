@@ -35,15 +35,29 @@ class ProductVariationModel {
   factory ProductVariationModel.fromJson(Map<String, dynamic> document) {
     if (document.isEmpty) return ProductVariationModel.empty();
     return ProductVariationModel(
-      id: document['id'],
-      sku: document['sku'],
-      image: document['image'],
+      id: document['id'] ?? '',
+      sku: document['sku'] ?? '',
+      image: document['image'] ?? '',
       description: document['description'],
-      price: document['price'],
-      salePrice: document['salePrice'],
-      stock: document['stock'],
-      attributeValues: Map<String, String>.from(document['attributeValues']),
+      price: _toDouble(document['price']),
+      salePrice: document['salePrice'] != null
+          ? _toDouble(document['salePrice'])
+          : null,
+      stock: _toInt(document['stock']),
+      attributeValues: document['attributeValues'] != null
+          ? Map<String, String>.from(document['attributeValues'])
+          : {},
     );
+  }
+
+  static double _toDouble(dynamic value) {
+    if (value is num) return value.toDouble();
+    return double.tryParse(value?.toString() ?? '') ?? 0.0;
+  }
+
+  static int _toInt(dynamic value) {
+    if (value is num) return value.toInt();
+    return int.tryParse(value?.toString() ?? '') ?? 0;
   }
 
   /// Map Model to Json oriented document snapshot for Firebase
